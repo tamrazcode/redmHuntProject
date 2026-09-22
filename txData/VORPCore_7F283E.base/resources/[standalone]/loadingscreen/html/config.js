@@ -1,0 +1,85 @@
+/*=================================================================*\
+/* By: 			|	Nevera Development  							|
+/*=================================================================*/
+
+
+var staff_team = [
+
+	{
+		"name": "Owner name",
+		"image": "https://files.catbox.moe/j3ojc2.png",
+		"rank": "Owner"
+	},
+	{
+		"name": "Admin name",
+		"image": "https://files.catbox.moe/j3ojc2.png",
+		"rank": "Admin"
+	}
+
+]
+
+
+// Staff Settings
+const showStaffTeam = false
+const showPlayersList = false
+
+// thehunt
+// red / orange / blue / green / pink / purple
+const theme = "thehunt"
+
+// ==== WINTER UPDATE !! ==== \\
+const enableWinterUpdate = false
+// ==== WINTER UPDATE !! ==== \\
+
+
+// Text settings
+const name = "<strong>HUNT</strong>"
+const underName = "HARD<b>RP</b>"
+const desc = "The Corruption — Постапокалиптический мир выживания и охоты"
+
+
+// Social media
+const discord = "https://discord.com/invite/JjNYMnDKMf"  // If = "" then icon will not show up on screen
+const instagram = ""	// https://example.com
+const youtube = "" 		// https://example.com
+const twitter = "" 		// https://example.com
+const tiktok = ""  		// https://example.com
+const facebook = ""		// https://example.com
+const twitch = "" 		// https://example.com
+const github = "https://github.com/vorpcore" 		// https://example.com
+
+
+
+// Player List
+const serverCode = "******" //Your server CODE from fivem. (cfx.re/join/abcdef) this ABCDEF is your code, paste it in serverCode. 
+const playerProfileImage = "https://files.catbox.moe/j3ojc2.png"
+
+
+// Video Settings
+const videoBlur = 0
+var videoOpacity = 0.3
+
+
+// Example link: https://www.youtube.com/watch?v=abcdefgh
+const youtubeVideo = ""
+const showYoutubeVideo = false
+
+// Local Video
+const enableLocalVideo = false
+
+// Local audio
+const localAudio = false
+
+
+
+// HELP //
+
+//-- YOUTBE
+//-- LOCAL AUDIO
+// if localAudio is true, then loading will load "audio.mp3" file and play it except youtube audio.
+// if localAudio is false, then loading will load youtube audio.
+
+//-- LOCAL VIDEO
+// if enableLocalVideo is true, then loading will load "video.webm" file and play it except youtube video.
+// If localVideo is enabled, showYoutubeVideo is automatically disabled.
+// You can only import a video from either YouTube or local. Local video taking priority.

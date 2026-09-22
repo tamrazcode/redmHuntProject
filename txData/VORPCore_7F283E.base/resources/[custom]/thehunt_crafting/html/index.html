@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUNT Crafting</title>
+  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="craftingApp" class="crafting-app" style="display: none;">
+    <div id="craftingWindow" class="crafting-window">
+
+      <!-- Шапка окна (Drag Handle) -->
+      <div id="craftingHeader" class="crafting-header">
+        <div class="header-left">
+          <h2 id="craftingTitle">Полевое создание</h2>
+        </div>
+        <button id="btnCloseCrafting" class="btn-close" title="Закрыть (Esc / J)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Тело окна -->
+      <div class="crafting-body">
+
+        <!-- Левая панель: Аккордеон категорий -->
+        <aside class="crafting-sidebar">
+          <div id="categoriesAccordion" class="categories-accordion">
+            <!-- Динамические категории и список предметов -->
+          </div>
+        </aside>
+
+        <!-- Правая панель: Страница рецепта и очередь -->
+        <main class="crafting-main">
+
+          <!-- Пустое состояние (если рецепт не выбран) -->
+          <div id="emptyState" class="empty-state">
+            <div class="empty-icon-wrap">
+              <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            <h3>Выберите предмет для создания</h3>
+            <p>В левом меню выберите категорию и необходимый рецепт</p>
+          </div>
+
+          <!-- Детали выбранного рецепта -->
+          <div id="recipeDetails" class="recipe-details" style="display: none;">
+
+            <!-- 1. Картинка предмета сверху без плашки и обводки -->
+            <div id="recipePreviewBox" class="recipe-preview-full">
+              <div class="preview-icon-wrapper-large" id="recipePreviewIcon"></div>
+            </div>
+
+            <!-- 2. Название и описание предмета под картинкой -->
+            <div class="recipe-header-block">
+              <h3 id="recipeName">Бинт</h3>
+              <p id="recipeDesc" class="recipe-description">Плотная чистая повязка из ткани. Постепенно перевязывает
+                раны и восстанавливает здоровье.</p>
+            </div>
+
+            <!-- 3. Блок требуемых ресурсов -->
+            <div class="ingredients-section">
+              <div class="section-title-row">
+                <span class="section-label">Необходимые ресурсы:</span>
+              </div>
+              <div id="ingredientsList" class="ingredients-list">
+                <!-- Динамические строки ингредиентов с полосой прокрутки при необходимости -->
+              </div>
+            </div>
+
+            <!-- Опциональное требование рецепта -->
+            <div id="recipeRequirementRow" class="recipe-requirement-row" style="display: none;">
+              <div class="req-book-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+              <div class="req-book-info">
+                <span>Требуется рецепт:</span>
+                <strong id="recipeRequirementName">Чертеж костра</strong>
+              </div>
+              <span id="recipeRequirementStatus" class="req-status-tag">В наличии</span>
+            </div>
+
+            <!-- Опциональное требование инструмента -->
+            <div id="recipeToolRow" class="recipe-requirement-row" style="display: none;">
+              <div class="req-book-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+              </div>
+              <div class="req-book-info">
+                <span>Требуется инструмент:</span>
+                <strong id="recipeToolName">Молоток</strong>
+              </div>
+              <span id="recipeToolStatus" class="req-status-tag">В наличии</span>
+            </div>
+
+            <!-- 4. Панель управления и запуска создания -->
+            <div class="craft-action-bar">
+              <div class="stepper-wrap">
+                <button id="btnStepDec" class="btn-step" title="Уменьшить количество">-</button>
+                <div class="step-input-wrap">
+                  <input type="number" id="stepInput" value="1" min="1" max="99" />
+                  <span class="step-unit">шт.</span>
+                </div>
+                <button id="btnStepInc" class="btn-step" title="Увеличить количество">+</button>
+              </div>
+
+              <!-- Индикатор времени крафта рядом с кнопкой Создать -->
+              <div class="craft-time-badge" id="craftTimeBadge" title="Время изготовления">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span id="recipeCraftTime">10 сек</span>
+              </div>
+
+              <button id="btnCraft" class="btn-craft is-disabled">
+                <span class="btn-craft-text">Создать</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Нижняя панель очереди создания (Crafting Queue) -->
+          <div class="crafting-queue-panel" id="craftingQueuePanel">
+            <div id="queueSlotsContainer" class="queue-slots-container">
+              <!-- Динамические активные слоты очереди -->
+            </div>
+          </div>
+
+        </main>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js?v=6"></script>
+</body>
+
+</html>

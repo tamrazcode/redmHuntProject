@@ -1,0 +1,469 @@
+﻿{
+  "defaultlang": "Es",
+  "KeyToStart": "0xD9D0E1C0",
+  "KeyToPick": "0xC7B5340A",
+
+  "PostOffices": [
+    {
+      "Name": "Oficina de Valentine",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ -174.41, 633.3, 114.09, 2.0 ],
+      "NPCOffice": [ -175.44, 631.87, 113.09, 322.36 ],
+      "VehicleSpawn": [ -195.84, 639.74, 113.22, 328.75 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La casa de doña singular",
+          "Pos": [ -262.92, 762.13, 118.15 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina del sheriff",
+          "Pos": [ -277.82, 806.02, 119.38 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El banco",
+          "Pos": [ -304.94, 775.13, 118.7 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El establo",
+          "Pos": [ -366.58, 788.99, 116.17 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda de ropa",
+          "Pos": [ -328.76, 773.77, 117.44 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ -324.1, 801.55, 117.88 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina del doctor",
+          "Pos": [ -286.25, 804.75, 119.39 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El saloon",
+          "Pos": [ -311.58, 805.84, 118.98 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Saint Denis",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ 2749.67, -1399.63, 46.19, 2.0 ],
+      "NPCOffice": [ 2748.83, -1398.31, 45.18, 207.64 ],
+      "VehicleSpawn": [ 2748.8, -1406.3, 46.1, 120.21 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La tienda de armas",
+          "Pos": [ 2719.1, -1285.09, 49.63 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La barbería",
+          "Pos": [ 2656.91, -1179.12, 53.28 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda de ropa",
+          "Pos": [ 2551.37, -1169.51, 53.68 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El establo",
+          "Pos": [ 2509.31, -1460.54, 46.32 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ 2827.11, -1316.9, 46.76 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina del doctor",
+          "Pos": [ 2719.31, -1229.38, 50.37 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El carnicero",
+          "Pos": [ 2832.36, -1227.74, 47.66 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El saloon",
+          "Pos": [ 2632.93, -1225.34, 53.38 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Strawberry",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ -1765.2, -384.01, 157.74, 2.0 ],
+      "NPCOffice": [ -1763.48, -385.18, 156.75, 54.99 ],
+      "VehicleSpawn": [ -1752.8, -407.96, 155.38, 341.0 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La cárcel",
+          "Pos": [ -1812.74, -353.72, 164.65 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Doña singular's house",
+          "Pos": [ -1837.45, -418.93, 161.66 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La casa del cazador",
+          "Pos": [ -1772.29, -431.75, 155.23 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El establo",
+          "Pos": [ -1818.74, -563.32, 156.06 ],
+          "Money": [ 3.5, 7.5 ],
+          "Xp": 60
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ -1794.93, -384.95, 159.37 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+
+        {
+          "Name": "La oficina del doctor",
+          "Pos": [ -1806.21, -431.72, 158.83 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El carnicero",
+          "Pos": [ -1750.24, -392.45, 156.31 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El Centro de Bienvenida",
+          "Pos": [ -1812.6, -372.02, 162.9 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Annesburg",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ 2931.16, 1283.15, 43.66, 2.0 ],
+      "NPCOffice": [ 2933.17, 1282.53, 43.66, 69.94 ],
+      "VehicleSpawn": [ 2926.18, 1290.76, 43.56, 343.7 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La oficina del sheriff",
+          "Pos": [ 2907.97, 1310.0, 44.02 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Casa del trabajador",
+          "Pos": [ 2902.39, 1377.69, 53.55 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina",
+          "Pos": [ 2921.91, 1377.79, 55.24 ],
+          "Money": [ 3.0, 6.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El muelle",
+          "Pos": [ 3020.16, 1352.33, 41.74 ],
+          "Money": [ 3.5, 7.5 ],
+          "Xp": 60
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ 2931.63, 1365.69, 44.2 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Entrada a la mina",
+          "Pos": [ 2745.83, 1411.81, 97.83 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda de armas",
+          "Pos": [ 2943.39, 1318.64, 43.83 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Tienda de herrería",
+          "Pos": [ 2877.71, 1366.91, 61.96 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Armadillo",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ -3729.01, -2603.13, -13.92, 2.0 ],
+      "NPCOffice": [ -3729.10, -2601.12, -12.94, 177.52 ],
+      "VehicleSpawn": [ -3721.3, -2617.73, -14.39, 274.50 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La casa de doña singular",
+          "Pos": [ -3621.53, -2612.85, -14.6 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina del sheriff",
+          "Pos": [ -3622.66, -2600.87, -14.35 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El Banco",
+          "Pos": [ -3662.62, -2623.25, -14.56 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El cementerio",
+          "Pos": [ -3309.67, -2854.24, -7.08 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La Iglesia",
+          "Pos": [ -3610.45, -2643.2, -11.65 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ -3689.43, -2629.58, -14.39 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Tienda de herrería",
+          "Pos": [ -3683.82, -2564.53, -14.55 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El salón",
+          "Pos": [ -3707.57, -2592.56, -14.3 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Blackwater",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ -875.4, -1328.96, 42.96, 2.0 ],
+      "NPCOffice": [ -875.15, -1326.81, 42.97, 180.06 ],
+      "VehicleSpawn": [ -875.53, -1346.85, 42.3, 268.43 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "El muelle",
+          "Pos": [ -682.89, -1242.92, 42.12 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La barberia",
+          "Pos": [ -812.29, -1369.0, 42.76 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda de ropa",
+          "Pos": [ -767.2, -1291.89, 42.85 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El establo",
+          "Pos": [ -871.06, -1369.59, 42.54 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ -788.07, -1325.96, 42.9 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La Iglesia",
+          "Pos": [ -974.55, -1179.43, 57.39 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La casa de doña singular",
+          "Pos": [ -965.58, -1253.02, 53.0 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El campamento",
+          "Pos": [ -935.16, -1395.31, 49.66 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Casa del trabajador",
+          "Pos": [ -908.39, -1345.17, 44.57 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La bonita casa",
+          "Pos": [ -878.21, -1643.13, 68.17 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La casa de 2 pisos",
+          "Pos": [ -812.52, -1502.17, 62.51 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El Banco",
+          "Pos": [ -816.81, -1278.16, 42.66 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El salón",
+          "Pos": [ -818.32, -1314.77, 42.68 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    },
+    {
+      "Name": "Oficina de Rhodes",
+      "BlipIcon": 1861010125,
+      "EnterOffice": [ 1225.1, -1293.63, 75.91, 2.0 ],
+      "NPCOffice": [ 1226.84, -1295.18, 75.91, 45.33 ],
+      "VehicleSpawn": [ 1215.48, -1282.48, 75.62, 311.42 ],
+      "NPCModel": "A_M_M_MIDDLESDTOWNFOLK_01",
+      "JobZones": [
+        {
+          "Name": "La casa de doña singular",
+          "Pos": [ 1424.05, -1138.77, 75.04 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Casa del trabajador",
+          "Pos": [ 1297.15, -1144.67, 81.21 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La Iglesia",
+          "Pos": [ 1290.64, -1232.24, 81.58 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La oficina del sheriff",
+          "Pos": [ 1360.48, -1298.34, 76.77 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El Banco",
+          "Pos": [ 1291.99, -1297.14, 76.07 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La bonita casa",
+          "Pos": [ 1431.55, -1371.26, 80.76 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda de armas",
+          "Pos": [ 1328.11, -1325.86, 76.94 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "La tienda general",
+          "Pos": [ 1324.77, -1291.74, 76.02 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Oficina del doctor",
+          "Pos": [ 1369.34, -1310.74, 76.97 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "El campamento",
+          "Pos": [ 1510.53, -1479.32, 71.16 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Gray Molino de lana",
+          "Pos": [ 1429.27, -1277.89, 77.07 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        },
+        {
+          "Name": "Casa de salón",
+          "Pos": [ 1338.18, -1378.81, 79.5 ],
+          "Money": [ 2.0, 5.0 ],
+          "Xp": 50
+        }
+      ]
+    }
+  ]
+}

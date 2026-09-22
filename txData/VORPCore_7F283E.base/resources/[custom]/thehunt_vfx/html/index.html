@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HUNT VFX Studio</title><link rel="stylesheet" href="style.css"></head>
+<body><main id="studio" hidden>
+<header><div><small>HUNT / ADMIN TOOLS</small><h1>VFX Studio <span>04</span></h1></div><button id="close" title="Закрыть">✕</button></header>
+<nav><button data-tab="library" class="selected">Каталог</button><button data-tab="world">Мир и сцены</button><button data-tab="presets">Пресеты</button><button data-tab="api">API</button></nav>
+<div class="body"><section class="browser">
+<div id="library" class="tab">
+<input id="search" placeholder="Поиск: fire, smoke, magic, название словаря…">
+<select id="theme"><option value="">Все темы</option><option value="fire">Огонь и пламя</option><option value="smoke">Дым, туман и пар</option><option value="insects">Мухи и насекомые</option><option value="nature">Листва и растительность</option><option value="sparks">Искры и электричество</option><option value="dust">Пыль и обломки</option><option value="magic">Кольца, призрачные и необычные эффекты</option><option value="water">Вода и брызги</option></select>
+<button id="resetParams">Базовые параметры: масштаб 1, непрозрачность 1</button>
+<details><summary>Быстрый подбор: огонь, дым, мухи, листва</summary><div id="starterEffects"></div><small>Подбор из каталога RDR3, а не отметка проверки на сервере. Выберите поверхность и запустите тест.</small></details>
+<div class="row"><select id="kind"><option value="">Все типы</option><option value="loop">Циклические PTFX</option><option value="burst">Разовые PTFX</option><option value="light">Свет</option><option value="postfx">Экранные FX</option><option value="timecycle">Timecycle (отключены)</option></select><select id="reviewFilter"><option value="">Все проверки</option><option value="visible">Виден в игре</option><option value="invisible">Не виден</option><option value="untested">Не проверен</option><option value="favorite">Избранные</option></select></div>
+<p id="count"></p><div id="catalog" class="list"></div>
+<div class="row"><button id="prev">←</button><span id="page"></span><button id="next">→</button></div>
+</div>
+<div id="world" class="tab" hidden><p>Эффекты вашего измерения. Сохранённые сцены переживают рестарт.</p><button id="refresh">Обновить</button><button id="clear" class="danger">Остановить временные</button><div id="worldList" class="list"></div></div>
+<div id="presets" class="tab" hidden><p>Сохранённые параметры эффекта. Точка и цель выбираются при запуске.</p><div id="presetList" class="list"></div></div>
+<div id="composition" class="tab" hidden><p>Слои запускаются относительно общей точки. Параметры выбранного слоя редактируются справа.</p><label>Длительность композиции<input id="compositionDuration" type="number" value="10" min="0.1" max="600" step=".1"></label><button id="addLayer">Добавить выбранный эффект слоем</button><div id="layers"></div><button id="testComposition">Тест композиции (до 30 сек.)</button><button id="saveComposition">Сохранить композицию под именем справа</button><button id="compositionCode">Код композиции</button><textarea id="compositionOutput" readonly></textarea></div>
+<div id="api" class="tab" hidden><p>Готовый вызов для выбранного эффекта. Серверный API вызывайте из ресурса магии после проверки права на применение.</p><select id="apiSide"><option value="client">Локальный client API</option><option value="server">Синхронный server API</option></select><textarea id="code" readonly spellcheck="false"></textarea><button id="selectCode">Выделить код</button><p>Время — секунды. ID уникален для каждого запуска. Урон, расход ресурсов и кулдаун задаёт ваша магия.</p></div>
+</section>
+<aside><small id="effectKind">ВЫБЕРИТЕ ЭФФЕКТ</small><h2 id="effectName">Библиотека RDR3</h2><p id="effectDict">Полные списки femga. Наличие имени не гарантирует видимость вне игрового контекста.</p>
+<button id="favorite">☆ В избранное</button>
+<label>Размещение<select id="placement"><option value="coords">В точке мира</option><option value="self">На себе</option><option value="target">На игроке</option></select></label>
+<label id="targetWrap" hidden>ID игрока<select id="target"></select></label>
+<label>Привязка к скелету<details id="bonePicker"><summary id="boneSummary">Центр объекта</summary><div id="boneMenu"><label><input type="checkbox" value="SKEL_R_Hand"> Правая рука</label><label><input type="checkbox" value="SKEL_L_Hand"> Левая рука</label><label><input type="checkbox" value="SKEL_R_Foot"> Правая нога</label><label><input type="checkbox" value="SKEL_L_Foot"> Левая нога</label><label><input type="checkbox" value="SKEL_Head"> Голова</label><label><input type="checkbox" value="SKEL_Spine3"> Грудь</label></div></details><small>Отметьте одну или несколько костей. Можно выбрать обе руки и обе ноги одновременно.</small></label>
+<div class="row"><button id="here">Моя точка</button><button id="aim">Указать в мире</button></div>
+<div class="triple"><label>X<input id="x" type="number" step=".1" value="0"></label><label>Y<input id="y" type="number" step=".1" value="0"></label><label>Z<input id="z" type="number" step=".1" value="0"></label></div>
+<details><summary>Смещение и вращение</summary><div class="triple"><label>Δ X<input id="ox" type="number" step=".1" value="0"></label><label>Δ Y<input id="oy" type="number" step=".1" value="0"></label><label>Δ Z<input id="oz" type="number" step=".1" value="0"></label></div><div class="triple"><label>RX<input id="rx" type="number" value="0"></label><label>RY<input id="ry" type="number" value="0"></label><label>RZ<input id="rz" type="number" value="0"></label></div></details>
+<div class="row"><label>Масштаб<input id="scale" type="number" value="1" min=".01" max="10" step=".1"></label><label>Непрозрачность<input id="alpha" type="number" value="1" min="0" max="1" step=".1"></label><label>Секунды<input id="lifetime" type="number" value="5" min="0" max="600"></label></div>
+<label class="inline"><input id="tint" type="checkbox"> Изменить цвет <input id="color" type="color" value="#64b4ff"></label>
+<div id="lightFields" hidden class="row"><label>Радиус<input id="range" type="number" value="8" min=".1" max="40"></label><label>Яркость<input id="intensity" type="number" value="3" min="0" max="30"></label></div>
+<div id="burstFields" hidden class="row"><label>Повторов<input id="repeatCount" type="number" value="1" min="1" max="12"></label><label>Интервал, мс<input id="repeatInterval" type="number" value="500" min="150"></label></div>
+<div class="row"><button id="preview" class="primary">Тест локально</button><button id="stopPreview">Стоп тест</button></div><button id="spawn" class="wide">Запустить для игроков</button>
+<button id="updateWorld" class="wide" disabled>Применить к выбранному эффекту мира</button>
+<small>Тест ограничен 30 сек. Разовые частицы исчезают сами. Цвет поддерживают не все эффекты.</small>
+<div class="row"><button id="visible">Виден ✓</button><button id="invisible">Не виден</button></div>
+<label>Название пресета / сцены<input id="name" maxlength="80" placeholder="Например: пламя на ладони"></label><button id="savePreset">Сохранить пресет</button>
+</aside></div><footer><span id="status">Готово</span><small>Esc — закрыть · СКМ — осмотр</small></footer>
+</main><div id="placementHint" hidden>ЛКМ — выбрать поверхность · ПКМ / Esc — отмена</div><link rel="stylesheet" href="workspace.css?v=5"><link rel="stylesheet" href="bones.css?v=1"><link rel="stylesheet" href="workflow.css?v=1"><link rel="stylesheet" href="advanced.css?v=1"><script src="app.js?v=8"></script><script src="workspace.js?v=5"></script><script src="workflow.js?v=1"></script><script src="advanced.js?v=1"></script></body></html>

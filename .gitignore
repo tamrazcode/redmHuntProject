@@ -1,0 +1,36 @@
+# Local Codex/session notes and temporary working data
+/.codex/
+/.tmp/
+/scratch/
+/backups/
+/.agents/references/femga_rdr3_discoveries/
+
+# FiveM/RedM runtime artifacts and generated cache
+/artifacts/
+/txData/VORPCore_7F283E.base/cache/
+/txData/VORPCore_7F283E.base/db/
+/txData/VORPCore_7F283E.base/.replxx_history
+/txData/default/
+/txData/admins.json
+
+# Local server credentials and machine-specific configuration
+/txData/VORPCore_7F283E.base/server.cfg
+/txData/VORPCore_7F283E.base/server.cfg.bkp
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.pfx
+**/*.p12
+
+# Logs, dumps, and editor/OS noise
+**/*.log
+**/*.dmp
+**/logs/
+**/.DS_Store
+**/Thumbs.db
+
+# Dependency/build output
+**/node_modules/
+**/.yarn/cache/
+**/coverage/

@@ -1,0 +1,14 @@
+html, body { background: transparent !important; margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+* { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; user-select: none; }
+[hidden] { display: none !important; }
+#editor, #gizmo { position: absolute; inset: 0; width: 100%; height: 100%; }
+#gizmo { overflow: visible; }
+.toolbar { position: absolute; top: 32px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(12,12,15,.94); border: 1px solid rgba(255,255,255,.09); border-radius: 7px; color: white; white-space: nowrap; }
+#title { font-weight: 700; margin-right: 12px; }
+button { color: #8f94a0; background: #101014; border: 1px solid rgba(255,255,255,.09); border-radius: 4px; padding: 8px 12px; cursor: pointer; }
+button:hover, button.active { color: white; border-color: rgba(255,255,255,.22); background: #1f1f26; }
+#save { color: #22c55e; } #cancel { color: #ef4444; }
+footer { position: absolute; bottom: 142px; width: 100%; display: flex; justify-content: center; gap: 20px; color: #fff; font-size: 13px; text-shadow: 0 1px 3px #000; pointer-events: none; }
+kbd { display: inline-block; padding: 4px 7px; margin-right: 5px; color: #fff; font-weight: 700; background: rgba(16,16,20,.92); border: 1px solid rgba(255,255,255,.22); border-radius: 4px; }
+#readout { position: absolute; top: 96px; width: 100%; text-align: center; color: white; font-size: 13px; text-shadow: 0 1px 3px black; pointer-events: none; }
+.handle { cursor: grab; } .handle:hover { stroke-width: 5; } .hit { cursor: grab; }

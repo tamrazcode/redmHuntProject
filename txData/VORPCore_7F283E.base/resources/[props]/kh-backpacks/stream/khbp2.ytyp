@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CMapTypes>
+  <extensions />
+  <archetypes>
+    <Item type="CBaseArchetypeDef">
+      <guid value="0"/>
+      <lodDist value="300"/>
+      <flags value="537001984" />
+      <loadFlags value="537001984" />
+      <specialAttribute value="0" />
+      <bbMin x="-0.22756982" y="-0.11718176" z="-0.27673066" />
+      <bbMax x="0.22291966" y="0.20464465" z="0.2791422" />
+      <bsCentre x="-0.0023250803" y="0.043731444" z="0.0012057722" />
+      <bsRadius value="0.39227146" />
+      <hdTextureDist value="30.0"/>
+      <name>khbp2</name>
+      <textureDictionary>khbp2</textureDictionary>
+      <physicsDictionary/>
+      <clipDictionary />
+      <drawableDictionary />
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>khbp2</assetName>
+      <extensions />
+      <redm_loves_you_a68fd88a5afa0b22 />
+    </Item>
+  </archetypes>
+  <name>khbp2</name>
+  <dependencies />
+  <compositeEntityTypes itemType="CCompositeEntityType" />
+</CMapTypes>

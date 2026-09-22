@@ -1,0 +1,10 @@
+fieldset#boneChoices{border:1px solid #ffffff17;border-radius:7px;padding:6px 9px;margin:10px 0;color:#8f94a0}
+#boneChoices legend{font-size:11px;padding:0 4px;color:#8f94a0}
+.bone-choice{display:grid;grid-template-columns:18px 1fr;align-items:center;margin:4px 0}
+.bone-choice input{width:auto}
+#bonePicker{border:1px solid #ffffff24;border-radius:5px;background:#101014;padding:8px}
+#bonePicker summary{margin:0;color:#fff;cursor:pointer;list-style:none}
+#bonePicker summary::-webkit-details-marker{display:none}
+#boneMenu{display:grid;gap:3px;margin-top:8px;border-top:1px solid #ffffff17;padding-top:6px}
+#boneMenu label{display:flex;flex-direction:row;align-items:center;gap:8px;margin:0;padding:5px;color:#fff}
+#boneMenu input{width:auto}

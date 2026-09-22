@@ -1,0 +1,103 @@
+Config = {}
+
+Config.DefaultBird = "a_c_eagle_01"
+Config.GodModeWhenBird = true
+
+Config.Commands = {
+    bird = "bird",
+    birdslist = "birdslist",
+}
+
+Config.CommandSuggestions = {
+    bird = {
+        help = "Transform into a bird or back to human",
+        params = { { name = "model", help = "Bird model (e.g. a_c_eagle_01)" } },
+    },
+    birdslist = {
+        help = "Open bird selection menu",
+        params = {},
+    },
+}
+
+local I = "img/animals/"
+Config.BirdNames = {
+  a_c_bluejay_01 = { name = "Blue Jay", icon = I .. "animal_bluejay.png" },
+  a_c_californiacondor_01 = { name = "California Condor", icon = I .. "animal_californiancondor.png" },
+  a_c_cardinal_01 = { name = "Cardinal", icon = I .. "animal_cardinal.png" },
+  a_c_carolinaparakeet_01 = { name = "Carolina Parakeet", icon = I .. "animal_carolinaparakeet.png" },
+  a_c_cedarwaxwing_01 = { name = "Cedar Waxwing", icon = I .. "animal_cedarwaxwing.png" },
+  a_c_chicken_01 = { name = "Chicken", icon = I .. "animal_chicken_leghorn.png" },
+  a_c_cormorant_01 = { name = "Cormorant", icon = I .. "animal_cormorant.png" },
+  a_c_cranewhooping_01 = { name = "Whooping Crane", icon = I .. "animal_cranewhooping_whooping.png" },
+  a_c_crow_01 = { name = "Crow", icon = I .. "animal_crow.png" },
+  a_c_duck_01 = { name = "Duck", icon = I .. "animal_duck_mallard.png" },
+  a_c_eagle_01 = { name = "Eagle", icon = I .. "animal_eagle.png" },
+  a_c_egret_01 = { name = "Egret", icon = I .. "animal_egret_snowy.png" },
+  a_c_goosecanada_01 = { name = "Canada Goose", icon = I .. "animal_goosecanada.png" },
+  a_c_hawk_01 = { name = "Hawk", icon = I .. "animal_hawk_ferruginous.png" },
+  a_c_heron_01 = { name = "Heron", icon = I .. "animal_heron_greatblue.png" },
+  a_c_loon_01 = { name = "Loon", icon = I .. "animal_loon_pacific.png" },
+  a_c_oriole_01 = { name = "Oriole", icon = I .. "animal_oriole_baltimore.png" },
+  a_c_owl_01 = { name = "Owl", icon = I .. "animal_owl_coastal.png" },
+  a_c_parrot_01 = { name = "Parrot", icon = I .. "animal_parrot_scarlet.png" },
+  a_c_pelican_01 = { name = "Pelican", icon = I .. "animal_pelican_brown.png" },
+  a_c_pheasant_01 = { name = "Pheasant", icon = I .. "animal_pheasant_ringneck.png" },
+  a_c_pigeon = { name = "Pigeon", icon = I .. "animal_pigeon.png" },
+  a_c_prairiechicken_01 = { name = "Prairie Chicken", icon = I .. "animal_prairie_chicken.png" },
+  a_c_quail_01 = { name = "Quail", icon = I .. "animal_quail.png" },
+  a_c_raven_01 = { name = "Raven", icon = I .. "animal_raven.png" },
+  a_c_redfootedbooby_01 = { name = "Red-footed Booby", icon = I .. "animal_redfootedbooby.png" },
+  a_c_robin_01 = { name = "Robin", icon = I .. "animal_robin.png" },
+  a_c_rooster_01 = { name = "Rooster", icon = I .. "animal_rooster.png" },
+  a_c_roseatespoonbill_01 = { name = "Roseate Spoonbill", icon = I .. "animal_roseatespoonbill.png" },
+  a_c_seagull_01 = { name = "Seagull", icon = I .. "animal_seagull.png" },
+  a_c_songbird_01 = { name = "Songbird", icon = I .. "animal_songbird.png" },
+  a_c_sparrow_01 = { name = "Sparrow", icon = I .. "animal_sparrow.png" },
+  a_c_turkey_01 = { name = "Turkey", icon = I .. "animal_turkey_eastern.png" },
+  a_c_turkey_02 = { name = "Turkey (Alt)", icon = I .. "animal_turkey_riogrande.png" },
+  a_c_turkeywild_01 = { name = "Wild Turkey", icon = I .. "animal_turkey_riogrande.png" },
+  a_c_vulture_01 = { name = "Vulture", icon = I .. "animal_vulture_western.png" },
+  a_c_woodpecker_01 = { name = "Woodpecker", icon = I .. "animal_woodpecker_pileated.png" },
+  a_c_woodpecker_02 = { name = "Woodpecker (Alt)", icon = I .. "animal_woodpecker_redbellied.png" },
+}
+
+Config.BirdModels = {
+  "a_c_bluejay_01",
+  "a_c_californiacondor_01",
+  "a_c_cardinal_01",
+  "a_c_carolinaparakeet_01",
+  "a_c_cedarwaxwing_01",
+  "a_c_chicken_01",
+  "a_c_cormorant_01",
+  "a_c_cranewhooping_01",
+  "a_c_crow_01",
+  "a_c_duck_01",
+  "a_c_eagle_01",
+  "a_c_egret_01",
+  "a_c_goosecanada_01",
+  "a_c_hawk_01",
+  "a_c_heron_01",
+  "a_c_loon_01",
+  "a_c_oriole_01",
+  "a_c_owl_01",
+  "a_c_parrot_01",
+  "a_c_pelican_01",
+  "a_c_pheasant_01",
+  "a_c_pigeon",
+  "a_c_prairiechicken_01",
+  "a_c_quail_01",
+  "a_c_raven_01",
+  "a_c_redfootedbooby_01",
+  "a_c_robin_01",
+  "a_c_rooster_01",
+  "a_c_roseatespoonbill_01",
+  "a_c_seagull_01",
+  "a_c_songbird_01",
+  "a_c_sparrow_01",
+  "a_c_turkey_01",
+  "a_c_turkey_02",
+  "a_c_turkeywild_01",
+  "a_c_vulture_01",
+  "a_c_woodpecker_01",
+  "a_c_woodpecker_02",
+}

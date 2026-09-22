@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>hh_zombies</title>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+    <div id="hud" class="hud hidden">
+        <aside class="card">
+            <div class="dots" id="steps">
+                <span data-step="1"></span>
+                <span data-step="2"></span>
+                <span data-step="3"></span>
+            </div>
+            <h1 id="hudTitle">Центр</h1>
+            <p class="hint" id="hudLead">ЛКМ — точка</p>
+            <div class="stat hidden" id="hudStat"><b id="hudRadius">0</b> м</div>
+        </aside>
+        <div class="reticle" aria-hidden="true"></div>
+    </div>
+
+    <div id="picker" class="picker hidden">
+        <aside class="panel">
+            <h1>Новая зона</h1>
+
+            <input id="zoneName" type="text" maxlength="80" placeholder="Название">
+            <input id="zoneCount" type="number" min="1" max="200" step="1" placeholder="кол-во зомби">
+
+            <div class="add-row">
+                <input id="customHash" type="text" placeholder="хеш модели">
+                <button type="button" id="addHashBtn">+</button>
+            </div>
+
+            <input id="search" type="text" placeholder="поиск">
+
+            <div id="recommended" class="list"></div>
+            <div id="catalog" class="list catalog"></div>
+
+            <div class="meta">
+                <span><b id="pickRadius">0</b> м</span>
+                <span><b id="pickCount">0</b></span>
+            </div>
+
+            <footer class="actions">
+                <button type="button" id="cancelBtn" class="ghost">Отмена</button>
+                <button type="button" id="saveBtn" class="gold">Сохранить</button>
+            </footer>
+        </aside>
+        <strong id="previewName" class="preview-name"></strong>
+    </div>
+
+    <div id="manager" class="picker hidden">
+        <aside class="panel manager-panel">
+            <h1>Зоны</h1>
+            <p class="hint">Созданные зоны. Удаление сразу из базы.</p>
+            <div id="zoneList" class="list catalog"></div>
+            <footer class="actions">
+                <button type="button" id="managerClose" class="ghost">Закрыть</button>
+            </footer>
+        </aside>
+    </div>
+
+    <script>
+        window.addEventListener("message", function (event) {
+            var data = event.data || {};
+            var hud = document.getElementById("hud");
+            var picker = document.getElementById("picker");
+            var manager = document.getElementById("manager");
+            if (!hud || !picker || !manager) {
+                return;
+            }
+            if (data.action === "hud") {
+                picker.classList.add("hidden");
+                manager.classList.add("hidden");
+                hud.classList.remove("hidden");
+            } else if (data.action === "picker") {
+                hud.classList.add("hidden");
+                manager.classList.add("hidden");
+                picker.classList.remove("hidden");
+            } else if (data.action === "manager") {
+                hud.classList.add("hidden");
+                picker.classList.add("hidden");
+                manager.classList.remove("hidden");
+            } else if (data.action === "hide") {
+                hud.classList.add("hidden");
+                picker.classList.add("hidden");
+                manager.classList.add("hidden");
+            } else if (data.action === "hideManager") {
+                manager.classList.add("hidden");
+            }
+        });
+    </script>
+    <script src="editor.js"></script>
+    <script src="audio.js"></script>
+</body>
+</html>

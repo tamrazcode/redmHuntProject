@@ -1,0 +1,8 @@
+.visual-timeline{height:30px;background:repeating-linear-gradient(90deg,#1f1f26 0,#1f1f26 1px,transparent 1px,transparent 10%),#0c0c0f;position:relative;margin:12px 0;border:1px solid #ffffff24;overflow:hidden;border-radius:4px}
+.timeline-clip{position:absolute;height:100%;background:rgba(56,189,248,.4);border:1px solid #38bdf8;cursor:grab;touch-action:none;min-width:8px}.resize-clip{position:absolute;right:0;top:0;bottom:0;width:9px;background:#38bdf8;cursor:ew-resize;touch-action:none}
+.param-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.check-label{display:flex!important;flex-direction:row!important;align-items:center;gap:8px}.check-label input{width:16px!important;flex:0 0 16px}
+.key-row{display:grid;grid-template-columns:minmax(60px,1fr) auto auto;align-items:center;gap:5px;border-bottom:1px solid #ffffff17}.key-row button{font-size:11px;padding:7px}#keyList{max-height:300px;overflow:auto}
+#effectNote{width:100%;min-height:90px;resize:vertical}#sceneManager .entry{margin:10px 0}#sceneManager strong{display:block;margin-bottom:8px}#sceneManager button,#sceneManager select{margin:3px;max-width:100%}
+#diagnostics .entry{margin:6px 0;font-size:12px}#diagnostics .entry button{display:block;margin-top:6px}#transportPanel>label{max-width:230px}#transportPanel>label:has(#transportCursor){max-width:none}#transportCursor{padding:0;accent-color:#38bdf8;width:100%}
+#groupPanel>button,#generatorPanel>button{margin-top:10px}#keyEditor>label{display:inline-flex;width:48%;padding-right:8px}#keyEditor>button{margin:6px 4px 0 0}
+@media(max-width:1000px){.param-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.key-row{grid-template-columns:minmax(45px,1fr) auto}.key-row button:last-child{grid-column:2}}

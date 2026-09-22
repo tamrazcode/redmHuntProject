@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUNT — Персонажи</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/selection.css">
+  <link rel="stylesheet" href="css/creator.css">
+</head>
+<body>
+
+  <!-- =================================================================
+       1. ЭКРАН ВЫБОРА ПЕРСОНАЖА (Selection Screen)
+       ================================================================= -->
+  <div id="selectionScreen" class="screen-container hidden">
+    <!-- Левая панель выбора персонажа -->
+    <div class="selection-dock">
+      
+      <!-- Шапка -->
+      <div class="selection-dock-header">
+        <h1 class="dock-title">Персонажи</h1>
+        <p class="dock-subtitle">Выберите персонажа для путешествия</p>
+        <div class="slot-capacity" id="slotCapacity"></div>
+      </div>
+
+      <!-- Список слотов с вертикальным скроллом -->
+      <div class="selection-slots-list" id="slotsGrid">
+        <!-- Заполняется динамически -->
+      </div>
+
+      <!-- Панель действий выбранного слота -->
+      <div class="selection-dock-footer" id="selectionFooter">
+        <!-- Кнопки Войти в мир / Удалить -->
+      </div>
+    </div>
+
+    <!-- Модальное окно подтверждения удаления -->
+    <div id="deleteModal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-icon-danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/></svg>
+          </div>
+          <h2 class="modal-title">Удаление персонажа</h2>
+        </div>
+        <div class="modal-body">
+          <p class="modal-warning">Вы собираетесь удалить персонажа:</p>
+          <div class="delete-target-info">
+            <span id="deleteCharName" class="target-name">Иван Иванов</span>
+          </div>
+          <p class="modal-instruction">Для подтверждения введите имя персонажа:</p>
+          <input type="text" id="deleteConfirmInput" class="hunt-input" placeholder="Введите имя и фамилию" autocomplete="off" spellcheck="false">
+          <p id="deleteErrorText" class="input-error hidden">Имя не совпадает</p>
+        </div>
+        <div class="modal-actions">
+          <button id="btnCancelDelete" class="btn-secondary">Отмена</button>
+          <button id="btnConfirmDelete" class="btn-danger">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================
+       2. ЭКРАН СОЗДАНИЯ ПЕРСОНАЖА (Creator Screen)
+       ================================================================= -->
+  <div id="creatorScreen" class="screen-container hidden">
+    
+    <!-- 1. Вертикальный стек круглых кнопок слева (Sims / G-Menu style) -->
+    <div class="creator-sims-dock">
+      <!-- Отдельная красная круглая кнопка Назад в меню -->
+      <div class="sims-circle-btn btn-dock-back" id="btnDockBack" title="Назад">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span class="sims-btn-label">Назад</span>
+      </div>
+
+      <div class="sims-circle-btn active" data-tab="body" title="Тело">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2.4"/><path d="M8.5 21l1-7-2.2-3.6 2.5-2.2h4.4l2.5 2.2-2.2 3.6 1 7M9.8 8.2 12 13l2.2-4.8M8 14h8"/></svg>
+        <span class="sims-btn-label">Тело</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="heritage" title="Лицо">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r=".7" fill="currentColor"/><circle cx="15" cy="10" r=".7" fill="currentColor"/><path d="M8.5 15c1 1.1 2.1 1.6 3.5 1.6s2.5-.5 3.5-1.6"/></svg>
+        <span class="sims-btn-label">Лицо</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="hair" title="Волосы">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3 0 2-3 5-3 5s-3-3-3-5c0-1.66 1.34-3 3-3z"/></svg>
+        <span class="sims-btn-label">Волосы</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="morphs" title="Черты">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 00-10 10c0 5.52 4.48 10 10 10s10-4.48 10-10A10 10 0 0012 2zM8 10h.01M16 10h.01M12 14c-1.5 0-2.5 1-2.5 1s1 1 2.5 1 2.5-1 2.5-1-1-1-2.5-1z"/></svg>
+        <span class="sims-btn-label">Черты</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="overlays" title="Кожа">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 3h7l2 4-2.3 3V21H8.8V10L6.5 7l2-4Z"/><path d="M8.5 7h7M9 14h6"/></svg>
+        <span class="sims-btn-label">Кожа</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="clothing" title="Одежда">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.38 3.46L16 2 12 5.5 8 2 3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10a2 2 0 002 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>
+        <span class="sims-btn-label">Одежда</span>
+      </div>
+      <div class="sims-circle-btn" data-tab="info" title="Инфо">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 4.2 4.2L19 6.5"/></svg>
+        <span class="sims-btn-label">Инфо</span>
+      </div>
+    </div>
+
+    <!-- 2. Выезжающая панель настроек справа от круглых кнопок -->
+    <div class="creator-panel">
+      
+      <!-- Шапка панели -->
+      <div class="panel-header">
+        <div class="header-title-box">
+          <h2 class="panel-title" id="creatorPanelTitle">Телосложение и рост</h2>
+        </div>
+        <div class="gender-switch-container">
+          <button id="btnGenderMale" class="gender-btn active" data-gender="Male">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="14" r="5"/><path d="M19 5l-5.4 5.4M19 5h-5M19 5v5"/></svg>
+            Мужчина
+          </button>
+          <button id="btnGenderFemale" class="gender-btn" data-gender="Female">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 18h6"/></svg>
+            Женщина
+          </button>
+        </div>
+      </div>
+
+      <!-- Содержимое вкладки -->
+      <div class="creator-tab-body" id="creatorTabContent">
+        <!-- Заполняется динамически -->
+      </div>
+    </div>
+
+    <!-- 3. Верхняя панель камеры справа -->
+    <div class="camera-toolbar">
+      <div class="camera-badge">Камера</div>
+      <div class="camera-presets-row">
+        <button class="btn-cam-preset active" data-preset="full">Отдалить</button>
+        <button class="btn-cam-preset" data-preset="head">Голова</button>
+        <button class="btn-cam-preset" data-preset="torso">Торс</button>
+        <button class="btn-cam-preset" data-preset="feet">Стопы</button>
+      </div>
+      <div class="camera-hints-box">
+        <div class="cam-hint-line"><span>W / S</span> Высота камеры</div>
+        <div class="cam-hint-line"><span>A / D</span> Поворот персонажа</div>
+        <div class="cam-hint-line"><span>ЛКМ + мышь</span> Поворот камеры</div>
+        <div class="cam-hint-line"><span>Колёсико</span> Приблизить / отдалить</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Контейнер уведомлений -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Скрипты -->
+  <script src="js/controls.js"></script>
+  <script src="js/creator.js"></script>
+  <script src="js/selection.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

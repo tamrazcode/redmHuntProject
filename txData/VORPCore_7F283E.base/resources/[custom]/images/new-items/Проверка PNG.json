@@ -1,0 +1,746 @@
+[
+  {
+    "Name": "Большой мешок",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 45.53,
+    "Partial": 54.45,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Бурдюк с водой",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 51.5,
+    "Partial": 48.5,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Бурдюк",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 54.37,
+    "Partial": 45.63,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Варёная кукуруза",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 57.1,
+    "Partial": 42.87,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Варёное яйцо",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 49.51,
+    "Partial": 50.47,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Верёвка",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.81,
+    "Partial": 48.19,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Гвозди",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 40.92,
+    "Partial": 59.06,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Глаз ворона",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 57.45,
+    "Partial": 42.55,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Древесный уголь",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 49.51,
+    "Partial": 50.47,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Животный жир",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 43.08,
+    "Partial": 56.87,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Замок",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 54.12,
+    "Partial": 45.83,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Запечённый картофель",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 55.48,
+    "Partial": 44.49,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Змеиный яд",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 49.76,
+    "Partial": 50.21,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Золотая руда",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 48.5,
+    "Partial": 51.45,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Золотой слиток",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 50.79,
+    "Partial": 49.21,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Зуб аллигатора",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 69.01,
+    "Partial": 30.99,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Зуб волка",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 73.17,
+    "Partial": 26.78,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Каменная соль",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 42.0,
+    "Partial": 57.95,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Карамельное яблоко",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 69.87,
+    "Partial": 30.08,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Карта",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 44.49,
+    "Partial": 55.48,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Картофель",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 55.18,
+    "Partial": 44.75,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Каштановый моховик",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 61.27,
+    "Partial": 38.68,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Кирка",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 84.22,
+    "Partial": 15.78,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Коготь волка",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 73.67,
+    "Partial": 26.25,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Коготь ворона",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 77.3,
+    "Partial": 22.63,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Кожа",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 41.62,
+    "Partial": 58.38,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Колба",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 58.0,
+    "Partial": 41.75,
+    "Opaque": 0.25
+  },
+  {
+    "Name": "Консервированная клубника",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 42.91,
+    "Partial": 57.09,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Консервированная рыба",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 39.36,
+    "Partial": 60.57,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Консервированная фасоль",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 44.29,
+    "Partial": 55.68,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Консервированное мясо",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 35.2,
+    "Partial": 64.73,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Консервированные моллюски",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 43.86,
+    "Partial": 56.14,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Консервированные персики",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 45.6,
+    "Partial": 54.4,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Консервированные томаты",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 46.49,
+    "Partial": 53.41,
+    "Opaque": 0.1
+  },
+  {
+    "Name": "Консервированный ананас",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 46.01,
+    "Partial": 53.99,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Кора",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 54.26,
+    "Partial": 45.74,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Косметический набор",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 32.69,
+    "Partial": 67.31,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Кость животного",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 70.54,
+    "Partial": 29.44,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Кофе",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.81,
+    "Partial": 48.16,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Кружка",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 45.65,
+    "Partial": 54.3,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Кукуруза",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 55.36,
+    "Partial": 44.62,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Кукурузная мука",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 48.61,
+    "Partial": 51.39,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Кукурузный хлеб",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 42.45,
+    "Partial": 57.5,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Лимон",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 50.89,
+    "Partial": 49.11,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Лисичка",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 60.6,
+    "Partial": 39.38,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Лопата",
+    "Width": 2055,
+    "Height": 765,
+    "Transparent": 74.81,
+    "Partial": 25.14,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Масло",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 41.42,
+    "Partial": 58.55,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Мёд",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 33.98,
+    "Partial": 66.02,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Мешок",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 45.75,
+    "Partial": 54.25,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Мешочек",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 48.6,
+    "Partial": 51.37,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Молоток",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 76.48,
+    "Partial": 23.52,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Морковь",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 77.8,
+    "Partial": 22.17,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Мухомор",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 56.23,
+    "Partial": 43.77,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Наживка из кукурузы",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 42.13,
+    "Partial": 57.85,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Нитки с иглой",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 58.18,
+    "Partial": 41.8,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Охотничий нож",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 76.7,
+    "Partial": 23.25,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Перо",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 67.65,
+    "Partial": 32.35,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Песчаник",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 46.11,
+    "Partial": 53.87,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Пила",
+    "Width": 2172,
+    "Height": 724,
+    "Transparent": 64.62,
+    "Partial": 35.33,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Плод опунции",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 47.34,
+    "Partial": 52.63,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Помидор",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 44.6,
+    "Partial": 55.35,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Порох",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.46,
+    "Partial": 48.46,
+    "Opaque": 0.07
+  },
+  {
+    "Name": "Пузырёк",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 65.21,
+    "Partial": 34.77,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Пчелиный воск",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 45.73,
+    "Partial": 54.27,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Пшеничная мука",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 41.45,
+    "Partial": 58.5,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Пшеничный хлеб",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 45.77,
+    "Partial": 54.21,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Репчатый лук",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 56.03,
+    "Partial": 43.97,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Рог",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 65.62,
+    "Partial": 34.26,
+    "Opaque": 0.12
+  },
+  {
+    "Name": "Сахар",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 50.47,
+    "Partial": 49.43,
+    "Opaque": 0.1
+  },
+  {
+    "Name": "Селитра",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 52.06,
+    "Partial": 47.84,
+    "Opaque": 0.1
+  },
+  {
+    "Name": "Сельдерей",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 59.6,
+    "Partial": 40.4,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Серебряная руда",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 50.54,
+    "Partial": 49.43,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Серебряный слиток",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.04,
+    "Partial": 48.89,
+    "Opaque": 0.07
+  },
+  {
+    "Name": "Серная руда",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 43.61,
+    "Partial": 56.36,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Серный порошок",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 47.04,
+    "Partial": 52.93,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Смола",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 55.56,
+    "Partial": 44.37,
+    "Opaque": 0.08
+  },
+  {
+    "Name": "Сок кактуса",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 49.54,
+    "Partial": 50.41,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Соль",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 48.59,
+    "Partial": 51.41,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Спирт",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.54,
+    "Partial": 48.41,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Спички",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 54.87,
+    "Partial": 45.13,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Сумеречник",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 62.47,
+    "Partial": 37.53,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Топор",
+    "Width": 2172,
+    "Height": 724,
+    "Transparent": 68.78,
+    "Partial": 31.14,
+    "Opaque": 0.07
+  },
+  {
+    "Name": "Точильный камень",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 53.71,
+    "Partial": 46.22,
+    "Opaque": 0.07
+  },
+  {
+    "Name": "Факел",
+    "Width": 2172,
+    "Height": 724,
+    "Transparent": 73.67,
+    "Partial": 26.28,
+    "Opaque": 0.05
+  },
+  {
+    "Name": "Фляга с жидкостью",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 50.12,
+    "Partial": 49.88,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Фляга",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 36.99,
+    "Partial": 63.01,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Чай",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 47.39,
+    "Partial": 52.61,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Чешуя рептилии",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 56.11,
+    "Partial": 43.86,
+    "Opaque": 0.03
+  },
+  {
+    "Name": "Швейный набор",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 33.14,
+    "Partial": 66.86,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Шерсть",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 38.4,
+    "Partial": 61.6,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Шкура",
+    "Width": 1536,
+    "Height": 1024,
+    "Transparent": 47.93,
+    "Partial": 52.07,
+    "Opaque": 0.0
+  },
+  {
+    "Name": "Яичница",
+    "Width": 1774,
+    "Height": 887,
+    "Transparent": 51.01,
+    "Partial": 48.96,
+    "Opaque": 0.02
+  },
+  {
+    "Name": "Яйцо",
+    "Width": 1254,
+    "Height": 1254,
+    "Transparent": 55.71,
+    "Partial": 44.24,
+    "Opaque": 0.05
+  }
+]

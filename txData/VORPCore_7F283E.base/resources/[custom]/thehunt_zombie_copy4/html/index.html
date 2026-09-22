@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="style.css"><title>HUNT · Мёртвые</title></head>
+<body hidden style="background:transparent!important"><main id="app" hidden>
+<header><div><small>HUNT / МИР И ОКРУЖЕНИЕ</small><h1>Мёртвые</h1></div><span id="status"></span><button id="close" aria-label="Закрыть">✕</button></header>
+<nav><button id="new">＋ Новая зона</button><button id="refresh">Обновить</button><button id="pause">Остановить</button><button id="info">Информация</button><button id="debug">Debug</button></nav>
+<div class="layout"><aside><input id="search" placeholder="Поиск зоны…" aria-label="Поиск зоны"><div id="zones"></div><section class="immunity"><h3>Агрессия к игроку</h3><input id="target" type="number" min="1" placeholder="ID (пусто — вы)"><button id="immunity">Переключить агрессию</button><small id="immuneState"></small></section></aside>
+<article><div id="empty">Создайте зону или выберите существующую.</div><form id="form" hidden>
+<div class="section-title"><h2 id="zoneTitle"></h2><button type="button" id="position">Позиция персонажа</button><button type="button" id="gizmo">Gizmo зоны</button></div>
+<div id="fields"></div><details open><summary>Разрешённые модели <small>Пустой выбор — набор профиля</small></summary><div id="models"></div></details>
+<footer><button class="primary" type="submit">Сохранить зону</button><button type="button" id="teleport">Телепорт</button><button type="button" id="spawn">Тестовый спавн</button><button type="button" id="clear">Очистить зону</button><button class="danger" type="button" id="delete">Удалить</button></footer>
+</form></article></div><div id="message" role="status"></div>
+<div id="confirm" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmText"><h2 id="confirmText"></h2><p>Подтвердите действие в выбранной зоне.</p><div><button id="cancelConfirm">Отмена</button><button class="danger" id="acceptConfirm">Подтвердить</button></div></div></div>
+</main><script src="app.js"></script></body></html>

@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head>
+<body><main id="editor" hidden>
+  <svg id="gizmo" xmlns="http://www.w3.org/2000/svg"></svg>
+  <section class="toolbar"><span id="title">Расположение</span>
+    <button id="move" class="active">Перемещение</button><button id="rotate">Вращение</button>
+    <button id="scale" hidden>Размер</button><button id="reset">Сбросить</button><button id="save">Сохранить</button><button id="cancel">Отмена</button>
+  </section>
+  <div id="readout"></div>
+  <footer><span><kbd>ЛКМ</kbd> <span id="dragHint">Тянуть ось / кольцо</span></span><span><kbd>ПКМ</kbd> Осмотреть</span><span><kbd>Shift</kbd> Точно</span><span id="modeHint"><kbd>Tab</kbd> Режим</span><span><kbd>Enter</kbd> Сохранить</span><span><kbd>Esc</kbd> Отмена</span></footer>
+</main><script src="app.js"></script></body></html>

@@ -1,0 +1,401 @@
+/* =================================================================
+   HUNT: Hard RP — Character Selection Screen CSS
+   Obsidian Black / Pure White / Steel Gray Palette
+   ================================================================= */
+
+/* Левая панель выбора персонажа */
+.selection-dock {
+  position: absolute;
+  left: 32px;
+  top: 28px;
+  bottom: 28px;
+  width: 380px;
+  max-height: calc(100vh - 56px);
+  background: #0f1118;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.selection-dock::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid var(--border-inner);
+  pointer-events: none;
+}
+
+/* Шапка левой панели */
+.selection-dock-header {
+  flex-shrink: 0;
+  padding: 18px 20px 14px 20px;
+  background: var(--bg-header);
+  border-bottom: 1.5px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dock-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin: 2px 0 0 0;
+}
+
+.dock-subtitle {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.slot-capacity {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 3px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Список слотов персонажей с вертикальным скроллом */
+.selection-slots-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+.selection-slots-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.selection-slots-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+}
+
+/* Карточка слота персонажа */
+.slot-card {
+  flex: 0 0 auto;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-main);
+  cursor: pointer;
+}
+
+.slot-card::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid var(--border-inner);
+  pointer-events: none;
+}
+
+.slot-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1.5px);
+}
+
+.slot-card.active {
+  border-color: #ffffff;
+  background: rgba(28, 31, 40, 0.95);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+.slot-card.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3.5px;
+  background: #ffffff;
+}
+
+/* Верхняя строка карточки: Слот и профессия */
+.slot-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slot-number-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.slot-job-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.slot-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+/* Сетка параметров персонажа */
+.slot-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--text-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 11.5px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Пустой слот для создания */
+.slot-card.empty-slot {
+  border: 1.5px dashed var(--border-strong);
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+}
+
+.slot-card.empty-slot:hover {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: #22c55e;
+  border-style: solid;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.16);
+}
+
+.empty-plus-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.empty-plus-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.empty-slot-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.slot-card.empty-slot:hover .empty-slot-text {
+  color: #bbf7d0;
+}
+
+/* Нижняя панель действий выбора */
+.selection-dock-footer {
+  flex-shrink: 0;
+  padding: 14px 16px;
+  background: var(--bg-header);
+  border-top: 1.5px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selection-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px;
+}
+
+/* Виджет подсказки камеры */
+.selection-camera-hint {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  z-index: 100;
+  box-shadow: var(--shadow-main);
+}
+
+.selection-camera-hint svg {
+  width: 13px;
+  height: 13px;
+  color: #ffffff;
+}
+
+/* Модальное окно удаления */
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-card {
+  width: 380px;
+  background: var(--bg-panel);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-main);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-card::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid var(--border-inner);
+  pointer-events: none;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  background: var(--bg-header);
+  border-bottom: 1.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-icon-danger {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--danger-color);
+}
+
+.modal-icon-danger svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-warning {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.delete-target-info {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.modal-instruction {
+  font-size: 11px;
+  color: var(--text-dark);
+}
+
+.modal-actions {
+  padding: 12px 20px;
+  background: var(--bg-header);
+  border-top: 1.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}

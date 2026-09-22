@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Меню игрока</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="player-wrapper" id="playerWrapper" style="display: none;">
+    <div class="player-window" id="playerWindow">
+      
+      <!-- Шапка окна -->
+      <div class="player-header" id="playerHeader">
+        <div class="header-title-box">
+          <h1>Меню игрока</h1>
+        </div>
+        <button class="close-btn" id="closeBtn" title="Закрыть">&times;</button>
+      </div>
+
+      <!-- Основное содержимое -->
+      <div class="player-body">
+        
+        <!-- Секция: Восстановление персонажа -->
+        <div class="section-group">
+          <div class="section-title">Персонаж</div>
+          <button class="action-card" id="btnReloadChar" onclick="requestCharReload()">
+            <div class="card-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+                <path d="M19 8l2 2-2 2"></path>
+                <path d="M21 10h-4"></path>
+              </svg>
+            </div>
+            <div class="card-title">Перезагрузить персонажа</div>
+          </button>
+          <button class="action-card" id="btnCharacterPosition" onclick="requestCharacterPosition()">
+            <div class="card-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M3 12h18"></path><circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div class="card-title">Позиция персонажа</div>
+          </button>
+        </div>
+
+        <!-- Секция: Стиль походки -->
+        <div class="section-group walk-style-group">
+          <div class="section-title">Стиль походки</div>
+          <div class="stepper-card" onclick="toggleWalkDropdown(event)" title="Открыть список походок">
+            <button type="button" class="stepper-arrow-btn" id="walkStylePrev" onclick="changeWalkStyle(-1, event)" title="Предыдущий стиль">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <div class="stepper-value-box" id="walkStyleValueBox">
+              <span class="stepper-value-label" id="currentWalkStyleLabel">Обычная</span>
+            </div>
+            <button type="button" class="stepper-arrow-btn" id="walkStyleNext" onclick="changeWalkStyle(1, event)" title="Следующий стиль">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+          <!-- Выпадающий список всех походок -->
+          <div class="walk-dropdown-menu" id="walkDropdownMenu"></div>
+        </div>
+
+        <!-- Секция: Режим отображения показателей -->
+        <div class="section-group">
+          <div class="section-title">Отображение показателей</div>
+          <div class="hud-mode-selector">
+            
+            <div class="hud-mode-card status-hud-mode-card active" id="modeAlwaysOn" onclick="setHudMode('always_on')">
+              <div class="mode-radio-circle"></div>
+              <div class="mode-title">Постоянно</div>
+            </div>
+
+            <div class="hud-mode-card status-hud-mode-card" id="modeDynamic" onclick="setHudMode('dynamic')">
+              <div class="mode-radio-circle"></div>
+              <div class="mode-title">Динамически</div>
+            </div>
+
+            <div class="hud-mode-card status-hud-mode-card" id="modeAlwaysOff" onclick="setHudMode('always_off')">
+              <div class="mode-radio-circle"></div>
+              <div class="mode-title">Отключено</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Секция: Режим отображения подсказок -->
+        <div class="section-group">
+          <div class="section-title">Отображение подсказок</div>
+          <div class="hud-mode-selector">
+            
+            <div class="hud-mode-card hints-hud-mode-card active" id="hintsModeAlwaysOn" onclick="setHintsMode('always_on')">
+              <div class="mode-radio-circle"></div>
+              <div class="mode-title">Постоянно</div>
+            </div>
+
+            <div class="hud-mode-card hints-hud-mode-card" id="hintsModeAlwaysOff" onclick="setHintsMode('always_off')">
+              <div class="mode-radio-circle"></div>
+              <div class="mode-title">Отключено</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

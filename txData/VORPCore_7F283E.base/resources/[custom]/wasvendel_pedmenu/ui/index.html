@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ped Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container" id="menu-container">
+        <div class="menu-panel">
+            <div class="menu-header">
+                <h1 id="menu-title">Ped Menu</h1>
+                <button class="btn-close" id="btn-close" type="button">×</button>
+            </div>
+            <div class="menu-filters">
+                <div class="menu-search">
+                    <input type="text" id="ped-search" placeholder="Search...">
+                </div>
+                <div class="custom-select" id="category-select">
+                    <button type="button" class="custom-select-trigger" id="category-trigger">
+                        <span id="category-label">All</span>
+                        <span class="custom-select-arrow">▾</span>
+                    </button>
+                    <div class="custom-select-dropdown hidden" id="category-dropdown"></div>
+                </div>
+            </div>
+            <div class="menu-list" id="ped-list"></div>
+            <div class="menu-footer hidden" id="menu-footer">
+                <div class="footer-model-row">
+                    <p class="footer-model copyable" id="footer-model"></p>
+                    <button type="button" class="btn-copy" id="footer-copy" title="Copy" aria-label="Copy">
+                        <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="9" y="9" width="11" height="11" rx="1.5"></rect>
+                            <path d="M7 15H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="footer-row">
+                    <span class="footer-label" id="outfit-label">Outfit</span>
+                    <button type="button" class="btn-sm" id="outfit-minus">−</button>
+                    <span class="outfit-val" id="outfit-val">0</span>
+                    <button type="button" class="btn-sm" id="outfit-plus">+</button>
+                </div>
+                <div class="footer-actions">
+                    <button type="button" class="btn-action btn-preview" id="btn-preview">Preview</button>
+                    <button type="button" class="btn-action btn-apply" id="btn-apply">Apply</button>
+                </div>
+            </div>
+            <div class="menu-actions">
+                <button type="button" class="btn-action btn-restore" id="btn-restore">Restore</button>
+            </div>
+            <div class="copy-toast hidden" id="copy-toast">Copied</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

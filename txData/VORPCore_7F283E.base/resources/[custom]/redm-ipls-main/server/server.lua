@@ -1,0 +1,2 @@
+-- This resource only loads IPL/interior data and does not require a framework.
+-- Kept as a server script because versionchecker.lua is loaded by fxmanifest.lua.

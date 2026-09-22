@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hunt Voice UI</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: transparent; overflow: hidden; }
+
+    /* Позиция: справа от миникарты и ядер */
+    .voice-widget {
+      position: fixed;
+      bottom: 35px;
+      left: 250px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .voice-widget.visible {
+      opacity: 1;
+    }
+
+    .mic-box {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 14, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    .mic-svg {
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.95));
+      transition: transform 0.2s ease;
+    }
+
+    .mic-path {
+      fill: rgba(180, 185, 195, 0.8);
+      transition: fill 0.2s ease;
+    }
+
+    /* При разговоре микрофон ярко подсвечивается чистым белым */
+    .voice-widget.talking .mic-box {
+      border-color: #ffffff;
+      background: rgba(25, 25, 32, 0.95);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    }
+
+    .voice-widget.talking .mic-path {
+      fill: #ffffff;
+    }
+
+    .voice-widget.talking .mic-svg {
+      transform: scale(1.08);
+    }
+
+    /* 3 индикаторные черточки дальности */
+    .range-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      justify-content: center;
+      height: 26px;
+    }
+
+    .bar {
+      width: 7px;
+      height: 4px;
+      border-radius: 1px;
+      background: rgba(60, 65, 75, 0.6);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      transition: all 0.25s ease;
+    }
+
+    /* Активные черточки */
+    .bar.active {
+      background: rgba(230, 235, 245, 0.95);
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    .voice-widget.talking .bar.active {
+      background: #ffffff;
+      box-shadow: 0 0 7px rgba(255, 255, 255, 0.85);
+    }
+
+    /* Пульсирующие звуковые волны при разговоре */
+    .pulse-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px;
+      height: 36px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .voice-widget.talking .pulse-ring {
+      opacity: 1;
+      animation: pulse-wave 1.3s ease-out infinite;
+    }
+
+    @keyframes pulse-wave {
+      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio_on" src="mic_click_on.ogg"></audio>
+  <audio id="audio_off" src="mic_click_off.ogg"></audio>
+
+  <div id="voiceWidget" class="voice-widget visible">
+    <div class="mic-box">
+      <div class="pulse-ring"></div>
+      <svg class="mic-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path class="mic-path" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+        <path class="mic-path" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+      </svg>
+    </div>
+
+    <!-- 3 черточки дальности: снизу вверх (1-шепот, 2-обычный, 3-крик) -->
+    <div class="range-bars">
+      <div id="bar3" class="bar"></div>
+      <div id="bar2" class="bar"></div>
+      <div id="bar1" class="bar active"></div>
+    </div>
+  </div>
+
+  <script>
+    const widget = document.getElementById('voiceWidget');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+
+    function updateRangeBars(modeIndex) {
+      const level = modeIndex + 1;
+      bar1.classList.toggle('active', level >= 1);
+      bar2.classList.toggle('active', level >= 2);
+      bar3.classList.toggle('active', level >= 3);
+    }
+
+    window.addEventListener('message', function(event) {
+      const data = event.data;
+
+      if (data.uiEnabled !== undefined) {
+        if (data.uiEnabled) {
+          widget.classList.add('visible');
+        } else {
+          widget.classList.remove('visible');
+        }
+      }
+
+      if (data.voiceMode !== undefined) {
+        updateRangeBars(Number(data.voiceMode));
+      }
+
+      if (data.talking !== undefined) {
+        if (data.talking) {
+          widget.classList.add('talking');
+        } else {
+          widget.classList.remove('talking');
+        }
+      }
+
+      if (data.sound && data.volume !== undefined) {
+        const audio = document.getElementById(data.sound);
+        if (audio) {
+          audio.load();
+          audio.volume = data.volume;
+          audio.play().catch(() => {});
+        }
+      }
+    });
+
+    // Default to level 2 (Normal)
+    updateRangeBars(1);
+
+    fetch('https://' + GetParentResourceName() + '/uiReady', { method: 'POST' }).catch(() => {});
+  </script>
+</body>
+</html>

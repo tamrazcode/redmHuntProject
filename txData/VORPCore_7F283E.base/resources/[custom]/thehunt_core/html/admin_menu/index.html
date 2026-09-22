@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель администратора</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ВАЖНО:
+    - Без надписей названий сервера в UI
+    - Первое слово с большой буквы
+    - Иконки — только чистые SVG
+  -->
+
+  <div id="adminApp" class="admin-wrapper" style="display: none;">
+    <div id="adminWindow" class="admin-window">
+      
+      <!-- Шапка -->
+      <div id="adminHeader" class="admin-header">
+        <div class="header-title-box">
+          <h1>Панель администратора</h1>
+        </div>
+        <button id="closeBtn" class="close-btn" title="Закрыть (ESC)">&times;</button>
+      </div>
+
+      <div class="admin-body">
+        <!-- Боковая навигация -->
+        <nav class="admin-sidebar">
+          <button class="nav-tab active" data-tab="self">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span class="tab-label">Персонаж</span>
+          </button>
+          <button class="nav-tab" data-tab="mounts">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><path d="M7 12v8l3-2 2 2 2-2 3 2v-8"/><circle cx="7" cy="12" r="1"/></svg></span>
+            <span class="tab-label">Лошади и транспорт</span>
+          </button>
+          <button class="nav-tab" data-tab="arsenal">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h6l3-9 3 18 3-9h5"/></svg></span>
+            <span class="tab-label">Оружие и снаряжение</span>
+          </button>
+          <button class="nav-tab" data-tab="teleport">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span class="tab-label">Телепортация</span>
+          </button>
+          <button class="nav-tab" data-tab="world">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <span class="tab-label">Мир и окружение</span>
+          </button>
+          <button class="nav-tab" data-tab="coords">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></span>
+            <span class="tab-label">Координаты и лазер</span>
+          </button>
+          <button class="nav-tab" data-tab="items">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+            <span class="tab-label">Предметы</span>
+          </button>
+          <button class="nav-tab" data-tab="players">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="tab-label">Игроки онлайн</span>
+          </button>
+        </nav>
+
+        <!-- Контент вкладок -->
+        <main class="admin-content">
+          <!-- 1. ПЕРСОНАЖ -->
+          <div class="tab-pane active" id="tab-self">
+            <h2 class="pane-title">Управление персонажем</h2>
+            <div class="actions-grid">
+              <div class="action-card" onclick="triggerAction('heal')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <div class="card-info"><h3>Полное лечение</h3><p>Здоровье и выносливость на 100%</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('metabolism')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+                <div class="card-info"><h3>Насытить</h3><p>Голод и жажда на 100%</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('refillStamina')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <div class="card-info"><h3>Восстановить энергию</h3><p>Выносливость и ядра на 100%</p></div>
+              </div>
+
+              <div class="action-card" id="cardNoclip" onclick="triggerAction('toggleNoclip')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div>
+                <div class="card-info"><h3>No-clip <span class="badge" id="badgeNoclip">ВЫКЛ</span></h3><p>Свободный полёт</p></div>
+              </div>
+
+              <div class="action-card" id="cardGod" onclick="triggerAction('toggleGodmode')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <div class="card-info"><h3>Бессмертие <span class="badge" id="badgeGod">ВЫКЛ</span></h3><p>Неуязвимость к урону</p></div>
+              </div>
+
+              <div class="action-card" id="cardInvis" onclick="triggerAction('toggleInvis')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <div class="card-info"><h3>Невидимость <span class="badge" id="badgeInvis">ВЫКЛ</span></h3><p>Скрыть персонажа</p></div>
+              </div>
+
+              <div class="action-card" id="cardSuperJump" onclick="triggerAction('toggleSuperJump')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg></div>
+                <div class="card-info"><h3>Суперпрыжок <span class="badge" id="badgeSuperJump">ВЫКЛ</span></h3><p>Усиленный прыжок</p></div>
+              </div>
+
+              <div class="action-card" id="cardFreezeHunger" onclick="triggerAction('toggleFreezeHunger')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="2" y1="12" x2="18" y2="12"/></svg></div>
+                <div class="card-info"><h3>Заморозка еды <span class="badge" id="badgeFreezeHunger">ВЫКЛ</span></h3><p>Сытость всегда на 100%</p></div>
+              </div>
+
+              <div class="action-card" id="cardFreezeThirst" onclick="triggerAction('toggleFreezeThirst')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                <div class="card-info"><h3>Заморозка жажды <span class="badge" id="badgeFreezeThirst">ВЫКЛ</span></h3><p>Жажда всегда на 100%</p></div>
+              </div>
+
+              <div class="action-card" id="cardFreezeStamina" onclick="triggerAction('toggleFreezeStamina')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <div class="card-info"><h3>Заморозка энергии <span class="badge" id="badgeFreezeStamina">ВЫКЛ</span></h3><p>Бесконечная выносливость</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('reviveSelf')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></div>
+                <div class="card-info"><h3>Реанимация</h3><p>Воскресить себя</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('cleanArea')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+                <div class="card-info"><h3>Очистить зону</h3><p>Удалить трупы и объекты (50м)</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. ЛОШАДИ И ТРАНСПОРТ -->
+          <div class="tab-pane" id="tab-mounts">
+            <h2 class="pane-title">Лошади и транспорт</h2>
+            
+            <h3 class="subcategory-title">Управление транспортом</h3>
+            <div class="actions-grid">
+              <div class="action-card" onclick="triggerAction('deleteCurrentVehicle')">
+                <div class="card-icon" style="color: #ff5555;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+                <div class="card-info"><h3>Удалить текущий транспорт</h3><p>Удалить повозку или лошадь под собой</p></div>
+              </div>
+              <div class="action-card" onclick="triggerAction('healMount')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <div class="card-info"><h3>Вылечить лошадь</h3><p>Восстановить здоровье лошади</p></div>
+              </div>
+            </div>
+
+            <h3 class="subcategory-title">Лошади</h3>
+            <div class="actions-grid">
+              <div class="action-card" onclick="triggerAction('spawnHorseTurkoman')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Туркоман»</h3><p>Боевая верховая лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseArabian')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Арабский»</h3><p>Белая элитная лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseMustang')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Мустанг»</h3><p>Дикая выносливая лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseMissouri')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Миссурийский»</h3><p>Универсальная лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseAndalusian')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Андалузский»</h3><p>Тяжёлая боевая лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseShire')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Шайр»</h3><p>Крупная тяжеловозная лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseNokota')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Нокота»</h3><p>Быстрая скаковая лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseAppaloosa')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Аппалуза»</h3><p>Пятнистая рабочая лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseKentucky')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Кентукки»</h3><p>Верховая прогулочная лошадь</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnHorseThoroughbred')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12c0-3-2.5-5-5-5a6.5 6.5 0 0 0-5 2.5A6.5 6.5 0 0 0 7 7C4.5 7 2 9 2 12"/><circle cx="7" cy="12" r="1"/></svg></div><div class="card-info"><h3>Спавн «Чистокровный»</h3><p>Скоростная гоночная лошадь</p></div></div>
+            </div>
+
+            <h3 class="subcategory-title">Повозки и лодки</h3>
+            <div class="actions-grid">
+              <div class="action-card" onclick="triggerAction('spawnWagonHunting')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="card-info"><h3>Повозка охотника</h3><p>Охотничья телега</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnWagonCoach')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="card-info"><h3>Дилижанс</h3><p>Пассажирская карета</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnWagonOpen')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="card-info"><h3>Открытая повозка</h3><p>Грузовая платформа</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnWagonSupply')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="card-info"><h3>Повозка снабжения</h3><p>Грузовая повозка</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnBoatRowboat')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20c2-1 4-2 6-2s4 1 6 2 4 1 6 0"/><path d="M4 18l-2-8h20l-2 8"/><path d="M12 2v8"/></svg></div><div class="card-info"><h3>Гребная лодка</h3><p>Вёсельная лодка</p></div></div>
+              <div class="action-card" onclick="triggerAction('spawnBoatCanoe')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20c2-1 4-2 6-2s4 1 6 2 4 1 6 0"/><path d="M4 18l-2-8h20l-2 8"/><path d="M12 2v8"/></svg></div><div class="card-info"><h3>Каноэ</h3><p>Лёгкая лодка-каноэ</p></div></div>
+            </div>
+          </div>
+
+          <!-- 3. ОРУЖИЕ И СНАРЯЖЕНИЕ -->
+          <div class="tab-pane" id="tab-arsenal">
+            <h2 class="pane-title">Оружие и снаряжение</h2>
+            
+            <!-- Поиск и фильтры арсенала -->
+            <div class="items-filter-bar">
+              <div class="search-input-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="arsenalSearchInput" placeholder="Поиск оружия или снаряжения..." oninput="filterArsenal()" />
+              </div>
+              <div class="category-pills" id="arsenalCategoryPills">
+                <button class="cat-pill active" data-cat="all" onclick="setArsenalCategory('all')">Все</button>
+                <button class="cat-pill" data-cat="revolvers" onclick="setArsenalCategory('revolvers')">Револьверы</button>
+                <button class="cat-pill" data-cat="pistols" onclick="setArsenalCategory('pistols')">Пистолеты</button>
+                <button class="cat-pill" data-cat="repeaters" onclick="setArsenalCategory('repeaters')">Карабины</button>
+                <button class="cat-pill" data-cat="rifles" onclick="setArsenalCategory('rifles')">Винтовки</button>
+                <button class="cat-pill" data-cat="snipers" onclick="setArsenalCategory('snipers')">Снайперские</button>
+                <button class="cat-pill" data-cat="shotguns" onclick="setArsenalCategory('shotguns')">Дробовики</button>
+                <button class="cat-pill" data-cat="bows" onclick="setArsenalCategory('bows')">Луки и лассо</button>
+                <button class="cat-pill" data-cat="throwable" onclick="setArsenalCategory('throwable')">Метательное</button>
+                <button class="cat-pill" data-cat="melee" onclick="setArsenalCategory('melee')">Холодное</button>
+                <button class="cat-pill" data-cat="equipment" onclick="setArsenalCategory('equipment')">Снаряжение и приборы</button>
+                <button class="cat-pill" data-cat="magic" onclick="setArsenalCategory('magic')">Магия</button>
+              </div>
+            </div>
+
+            <!-- Кнопки быстрого боезапаса -->
+            <div class="actions-grid" style="margin-bottom: 12px;">
+              <div class="action-card highlight-green" onclick="triggerAction('giveAmmo')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"/></svg></div>
+                <div class="card-info"><h3>Пополнить боезапас</h3><p>999 патронов на всё текущее оружие</p></div>
+              </div>
+            </div>
+
+            <!-- Сетка каталога оружия -->
+            <div class="actions-grid" id="arsenalGridContainer">
+              <div class="empty-msg">Загрузка арсенала...</div>
+            </div>
+          </div>
+
+          <!-- 4. ТЕЛЕПОРТАЦИЯ -->
+          <div class="tab-pane" id="tab-teleport">
+            <h2 class="pane-title">Телепортация</h2>
+            <div class="actions-grid">
+              <div class="action-card" onclick="triggerAction('tpToWaypoint')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
+                <div class="card-info"><h3>По метке на карте</h3><p>Телепорт к путевой точке</p></div>
+              </div>
+              <div class="action-card" onclick="openPlayersModal()">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <div class="card-info"><h3>Игроки</h3><p>Телепорт к игроку или к себе</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerTpLocation(-179.3, 627.8, 113.8, 'Валентайн')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Валентайн</h3><p>Северный город</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(-786.9, -1231.2, 44.5, 'Блэквотер')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Блэквотер</h3><p>Порт на озере</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(2508.8, -1305.4, 48.9, 'Сен-Дени')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Сен-Дени</h3><p>Крупный мегаполис</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(1292.8, -1296.2, 75.8, 'Роудс')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Роудс</h3><p>Южный город</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(-3685.2, -2600.8, -13.5, 'Армадилло')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Армадилло</h3><p>Пустынный город</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(-1780.2, -384.8, 157.0, 'Строберри')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Строберри</h3><p>Горный городок</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(2906.5, 1312.2, 44.6, 'Аннесбург')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Аннесбург</h3><p>Шахтёрский город</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(-5484.2, -2932.8, -0.5, 'Тамблвид')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Тамблвид</h3><p>Западный город</p></div></div>
+              <div class="action-card" onclick="triggerTpLocation(2962.8, 502.4, 44.5, 'Ван Хорн')"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="card-info"><h3>Ван Хорн</h3><p>Портовый город</p></div></div>
+            </div>
+          </div>
+
+          <!-- 5. МИР И ОКРУЖЕНИЕ -->
+          <div class="tab-pane" id="tab-world">
+            <h2 class="pane-title">Мир и окружение</h2>
+            <div class="actions-grid">
+              <div class="action-card" id="cardEmptyWorld" onclick="triggerAction('toggleEmptyWorld')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="10" x2="23" y2="10"/></svg></div>
+                <div class="card-info"><h3>Блокировка NPC <span class="badge on" id="badgeEmptyWorld">ВКЛ</span></h3><p>Выключить спавн NPC и повозок</p></div>
+              </div>
+
+              <div class="action-card" id="cardPlayerIDs" onclick="triggerAction('togglePlayerIDs')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 8h.01"/><path d="M12 8h5"/><path d="M7 12h.01"/><path d="M12 12h5"/></svg></div>
+                <div class="card-info"><h3>ID над головой <span class="badge" id="badgePlayerIDs">ВЫКЛ</span></h3><p>Отображение ID над игроками</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('openZombieEditor')">
+                <div class="card-info"><h3>Мёртвые</h3><p>Зоны, население, поведение и миграция</p></div>
+              </div>
+              <div class="action-card" onclick="triggerAction('toggleZombieInfo')">
+                <div class="card-info"><h3>Информация о Мёртвых <span class="badge" id="badgeZombieInfo">ВЫКЛ</span></h3><p>Тип, модель и здоровье ближайших Мёртвых</p></div>
+              </div>
+              <div class="action-card" onclick="triggerAction('toggleZombieImmunity')">
+                <div class="card-info"><h3>Мёртвые игнорируют вас <span class="badge" id="badgeZombieImmune">ВЫКЛ</span></h3><p>Переключить агрессию к своему персонажу</p></div>
+              </div>
+
+              <div class="action-card" id="cardBlips" onclick="triggerAction('toggleAdminBlips')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="card-info"><h3>Метки на карте <span class="badge" id="badgeBlips">ВЫКЛ</span></h3><p>Позиции игроков на карте</p></div>
+              </div>
+
+              <div class="action-card" onclick="openTimeModal()">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="card-info"><h3>Изменить время</h3><p>Установить время суток</p></div>
+              </div>
+
+              <div class="action-card" onclick="triggerAction('openWeatherUI')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+                <div class="card-info"><h3>Управление погодой</h3><p>Открыть weathersync UI</p></div>
+              </div>
+
+              <div class="action-card highlight-orange" onclick="triggerAction('openBuilder')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                <div class="card-info"><h3>Редактор мира</h3><p>Маппинг, спавн и удаление объектов</p></div>
+              </div>
+
+              <div class="action-card highlight-green" onclick="triggerAction('openDoorAdmin')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div class="card-info"><h3>Редактор дверей</h3><p>Разблокировка и регистрация домов</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. КООРДИНАТЫ И ЛАЗЕР -->
+          <div class="tab-pane" id="tab-coords">
+            <h2 class="pane-title">Координаты и 3D-лазерная указка</h2>
+            
+            <div class="actions-grid" style="margin-bottom: 16px;">
+              <div class="action-card" id="cardCoordLaser" onclick="triggerAction('toggleCoordLaser')">
+                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></div>
+                <div class="card-info">
+                  <h3>3D-лазер и экранный HUD <span class="badge" id="badgeCoordLaser">ВЫКЛ</span></h3>
+                  <p>Включает 3D-луч камеры, точку попадания и экранный HUD с быстрыми клавишами</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="coords-layout">
+              <div class="coords-box">
+                <div class="coords-box-header">
+                  <span class="box-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+                  <span class="box-title">Позиция персонажа (Ped)</span>
+                </div>
+                <div class="coords-values-grid">
+                  <div class="coord-item"><span class="c-label">X</span><span class="c-val" id="pedCoordX">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Y</span><span class="c-val" id="pedCoordY">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Z</span><span class="c-val" id="pedCoordZ">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Heading</span><span class="c-val" id="pedCoordH">0.0°</span></div>
+                </div>
+                <div class="copy-chips-group">
+                  <button class="copy-chip" onclick="copyPedVector3()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> vector3(x, y, z)</button>
+                  <button class="copy-chip" onclick="copyPedVector4()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> vector4(x, y, z, h)</button>
+                  <button class="copy-chip" onclick="copyPedTable()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> {x, y, z, h}</button>
+                  <button class="copy-chip" onclick="copyPedRaw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> x, y, z</button>
+                </div>
+              </div>
+
+              <div class="coords-box">
+                <div class="coords-box-header">
+                  <span class="box-icon">🎯</span>
+                  <span class="box-title">Точка луча камеры (Hit)</span>
+                </div>
+                <div class="coords-values-grid">
+                  <div class="coord-item"><span class="c-label">Hit X</span><span class="c-val" id="hitCoordX">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Hit Y</span><span class="c-val" id="hitCoordY">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Hit Z</span><span class="c-val" id="hitCoordZ">0.0000</span></div>
+                  <div class="coord-item"><span class="c-label">Дистанция</span><span class="c-val" id="hitDistVal">0.0м</span></div>
+                </div>
+                <div class="hit-entity-box" id="hitEntityDetails">
+                  <span class="entity-title">Объект:</span>
+                  <span class="entity-name" id="hitEntityName">Земля / окружение</span>
+                </div>
+                <div class="copy-chips-group">
+                  <button class="copy-chip highlight" onclick="copyHitVector3()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Точка луча: vector3</button>
+                  <button class="copy-chip" onclick="copyHitRaw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> x, y, z</button>
+                  <button class="copy-chip" id="copyEntityModelBtn" onclick="copyHitModel()" style="display: none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Хэш модели</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. ВЫДАЧА ПРЕДМЕТОВ -->
+          <div class="tab-pane" id="tab-items">
+            <div class="pane-header-row">
+              <h2 class="pane-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Выдача предметов</h2>
+              <div class="items-pagination-bar" id="adminItemsPagination">
+                <button class="page-nav-btn" id="adminItemsPrevBtn" onclick="changeAdminItemsPage(-1)">← Назад</button>
+                <span class="page-indicator" id="adminItemsPageInfo">Стр. 1 из 1</span>
+                <button class="page-nav-btn" id="adminItemsNextBtn" onclick="changeAdminItemsPage(1)">Вперёд →</button>
+              </div>
+            </div>
+            <div class="items-filter-bar">
+              <div class="search-input-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="itemsSearchInput" placeholder="Поиск предмета по названию..." oninput="filterAdminItems()" />
+              </div>
+              <div class="category-pills" id="adminCategoryPills">
+                <button class="cat-pill active" data-category="all" onclick="setAdminItemCategory('all')">Все</button>
+                <button class="cat-pill" data-category="food" onclick="setAdminItemCategory('food')">Съедобное</button>
+                <button class="cat-pill" data-category="material" onclick="setAdminItemCategory('material')">Материалы</button>
+                <button class="cat-pill" data-category="medical" onclick="setAdminItemCategory('medical')">Медицина</button>
+                <button class="cat-pill" data-category="clothing" onclick="setAdminItemCategory('clothing')">Одежда</button>
+                <button class="cat-pill" data-category="key" onclick="setAdminItemCategory('key')">Ключи</button>
+                <button class="cat-pill" data-category="item" onclick="setAdminItemCategory('item')">Предмет</button>
+                <button class="cat-pill" data-category="melee" onclick="setAdminItemCategory('melee')">Холодное</button>
+                <button class="cat-pill" data-category="gun" onclick="setAdminItemCategory('gun')">Огнестрельное</button>
+                <button class="cat-pill" data-category="furniture" onclick="setAdminItemCategory('furniture')">Интерьер</button>
+                <button class="cat-pill" data-category="storage" onclick="setAdminItemCategory('storage')">Хранение</button>
+              </div>
+            </div>
+
+            <div class="nearby-players-bar">
+              <span class="nearby-title">Игроки рядом:</span>
+              <div class="nearby-chips-list" id="adminNearbyPlayersChips">
+                <span class="empty-hint">Нет игроков поблизости</span>
+              </div>
+            </div>
+
+            <div class="admin-items-grid" id="adminItemsList">
+              <div class="empty-msg">Загрузка предметов...</div>
+            </div>
+
+            <div class="items-pagination-bar bottom-pagination" id="adminItemsBottomPagination">
+              <button class="page-nav-btn" id="adminItemsBottomPrevBtn" onclick="changeAdminItemsPage(-1)">← Предыдущая</button>
+              <span class="page-indicator" id="adminItemsBottomPageInfo">Стр. 1 из 1</span>
+              <button class="page-nav-btn" id="adminItemsBottomNextBtn" onclick="changeAdminItemsPage(1)">Следующая →</button>
+            </div>
+          </div>
+
+          <!-- 8. ИГРОКИ ОНЛАЙН (ПОЛНАЯ ПАНЕЛЬ С ВЫПАДАЮЩИМИ СПИСКАМИ) -->
+          <div class="tab-pane" id="tab-players">
+            <div class="players-pane-header">
+              <h2 class="pane-title">Игроки онлайн (<span id="playersOnlineCount">0</span>)</h2>
+              <div class="players-filter-box">
+                <div class="search-input-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="playersSearchInput" placeholder="Поиск по ID, RP имени или RedM нику..." oninput="filterPlayers()" />
+                </div>
+                <button class="refresh-btn" onclick="sendNui('requestPlayersList')" title="Обновить список">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Список раскрывающихся карточек игроков -->
+            <div class="players-cards-container" id="playersCardsContainer">
+              <div class="empty-msg">Загрузка списка игроков...</div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАННЫЙ HUD РЕЖИМА NOCLIP (СВОБОДНЫЙ ПОЛЁТ) -->
+  <div id="adminNoclipHud" class="noclip-hud" style="display: none;">
+    <div class="noclip-hud-card">
+      <div class="noclip-hud-header">
+        <span class="noclip-pulse-dot"></span>
+        <span class="noclip-title">Свободный полёт (NoClip)</span>
+        <span class="noclip-badge-mode" id="noclipSpeedBadge">Бег</span>
+      </div>
+      <div class="noclip-hud-body">
+        <div class="noclip-speed-section">
+          <div class="noclip-speed-row">
+            <span class="speed-label">Скорость:</span>
+            <span class="speed-val" id="noclipSpeedVal">2.20 м/с</span>
+            <span class="speed-step" id="noclipSpeedStep">(4/8)</span>
+          </div>
+          <div class="noclip-speed-bar">
+            <div class="noclip-speed-fill" id="noclipSpeedFill" style="width: 50%;"></div>
+          </div>
+        </div>
+        <div class="noclip-coords-row">
+          <div class="noclip-coord-col"><span class="nc-dim">X:</span> <span class="nc-bright" id="noclipCoordX">0.00</span></div>
+          <div class="noclip-coord-col"><span class="nc-dim">Y:</span> <span class="nc-bright" id="noclipCoordY">0.00</span></div>
+          <div class="noclip-coord-col"><span class="nc-dim">Z:</span> <span class="nc-bright" id="noclipCoordZ">0.00</span></div>
+          <div class="noclip-coord-col"><span class="nc-dim">H:</span> <span class="nc-bright" id="noclipCoordH">0.0°</span></div>
+        </div>
+      </div>
+      <div class="noclip-hud-footer">
+        <span class="key-tip"><kbd>WASD</kbd> Полёт</span>
+        <span class="key-tip"><kbd>Space</kbd>/<kbd>Ctrl</kbd> Высота</span>
+        <span class="key-tip"><kbd>Shift</kbd> Быстрее</span>
+        <span class="key-tip"><kbd>Alt</kbd> Медленнее</span>
+        <span class="key-tip highlight"><kbd>Backspace</kbd> Выход</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАННЫЙ HUD КООРДИНАТ И ЛАЗЕРА -->
+  <div id="adminCoordsHud" class="coords-hud" style="display: none;">
+    <div class="coords-hud-card">
+      <div class="coords-hud-header">
+        <span class="hud-dot"></span>
+        <span class="hud-title">3D-Лазер и координаты</span>
+        <span class="hud-tag">LIVE</span>
+      </div>
+      <div class="coords-hud-body">
+        <div class="coords-row">
+          <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+          <div class="row-content">
+            <span class="row-title">Игрок (Ped):</span>
+            <span class="row-val" id="hudPedCoords">X: 0.00 | Y: 0.00 | Z: 0.00 | H: 0.0°</span>
+          </div>
+        </div>
+        <div class="coords-row">
+          <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg></span>
+          <div class="row-content">
+            <span class="row-title">Прицел (Hit):</span>
+            <span class="row-val" id="hudHitCoords">X: 0.00 | Y: 0.00 | Z: 0.00 (<span id="hudHitDist">0.0</span>м)</span>
+          </div>
+        </div>
+        <div class="coords-row" id="hudHitEntityRow" style="display: none;">
+          <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></span>
+          <div class="row-content">
+            <span class="row-title">Объект:</span>
+            <span class="row-val highlight" id="hudHitEntity">0x0</span>
+          </div>
+        </div>
+      </div>
+      <div class="coords-hud-footer">
+        <span class="key-tip"><kbd>E</kbd> Прицел (vec3)</span>
+        <span class="key-tip"><kbd>C</kbd> Игрок (vec4)</span>
+        <span class="key-tip"><kbd>X</kbd> Игрок (vec3)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- КОНТЕЙНЕР ДЛЯ ВСПЛЫВАЮЩИХ УВЕДОМЛЕНИЙ -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Телепорт к игроку -->
+  <div id="playersModal" class="modal-overlay" style="display: none;">
+    <div id="playersModalWindow" class="modal-window">
+      <div id="playersModalHeader" class="modal-header">
+        <span>Телепорт к игроку</span>
+        <button class="close-btn" onclick="closePlayersModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-input-row">
+          <input type="text" id="tpPlayerIdInput" placeholder="Введите ID игрока" class="modal-input" />
+          <button class="modal-confirm-btn" onclick="tpToPlayerById()">ТП</button>
+        </div>
+        <div class="modal-players-list" id="modalPlayersList">
+          <div class="empty-msg">Загрузка...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Логи игрока -->
+  <div id="playerLogsModal" class="modal-overlay" style="display: none;">
+    <div id="playerLogsModalWindow" class="modal-window player-logs-modal">
+      <div id="playerLogsModalHeader" class="modal-header">
+        <span>Логи игрока <b id="playerLogsTargetName">#0</b></span>
+        <button class="close-btn" onclick="closePlayerLogsModal()">&times;</button>
+      </div>
+      <div class="modal-body player-logs-body">
+        <div class="player-logs-summary" id="playerLogsSummary">Загрузка данных игрока...</div>
+        <div class="player-logs-date-row">
+          <label class="player-logs-date-field" for="playerLogsDateFrom">
+            <span>&#1054;&#1090;</span>
+            <input type="date" id="playerLogsDateFrom" onchange="filterPlayerLogsByDate()" />
+          </label>
+          <label class="player-logs-date-field" for="playerLogsDateTo">
+            <span>&#1044;&#1086;</span>
+            <input type="date" id="playerLogsDateTo" onchange="filterPlayerLogsByDate()" />
+          </label>
+        </div>
+        <div class="modal-input-row player-logs-search-row">
+          <div class="search-input-box player-logs-search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="playerLogsSearchInput" placeholder="Поиск по любому тексту в логах..." oninput="filterPlayerLogs()" />
+          </div>
+          <button class="modal-confirm-btn" onclick="requestPlayerLogs({ reset: true })">Обновить</button>
+        </div>
+        <div class="player-logs-meta" id="playerLogsMeta">Загрузка...</div>
+        <div class="player-logs-list" id="playerLogsList">
+          <div class="empty-msg">Загрузка логов...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Изменение времени -->
+  <div id="timeModal" class="modal-overlay" style="display: none;">
+    <div id="timeModalWindow" class="modal-window modal-small">
+      <div id="timeModalHeader" class="modal-header">
+        <span>Изменить время</span>
+        <button class="close-btn" onclick="closeTimeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-input-row">
+          <input type="text" id="timeInput" placeholder="12:00 или 12" class="modal-input" />
+          <button class="modal-confirm-btn" onclick="submitTime()">Установить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Выдача оружия выбранному игроку -->
+  <div id="giveWeaponModal" class="modal-overlay" style="display: none;">
+    <div id="giveWeaponModalWindow" class="modal-window">
+      <div id="giveWeaponModalHeader" class="modal-header">
+        <span>Выдать оружие игроку <b id="weaponModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closeGiveWeaponModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="search-input-box" style="margin-bottom: 10px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="weaponModalSearch" placeholder="Поиск оружия по названию..." oninput="filterWeaponModalList()" />
+        </div>
+        <div class="modal-select-list" id="weaponModalList">
+          <!-- Динамический список оружия -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- МОДАЛЬНОЕ ОКНО: Выдача лошади выбранному игроку -->
+  <div id="giveHorseModal" class="modal-overlay" style="display: none;">
+    <div id="giveHorseModalWindow" class="modal-window">
+      <div id="giveHorseModalHeader" class="modal-header">
+        <span>Выдать лошадь игроку <b id="horseModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closeGiveHorseModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="search-input-box" style="margin-bottom: 10px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="horseModalSearch" placeholder="Поиск лошади по названию или модели..." oninput="filterHorseModalList()" />
+        </div>
+        <div class="modal-select-list" id="horseModalList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Изменение показателей выбранного игрока -->
+  <div id="playerStatsModal" class="modal-overlay" style="display: none;">
+    <div id="playerStatsModalWindow" class="modal-window modal-stats">
+      <div id="playerStatsModalHeader" class="modal-header">
+        <span>Изменить показатели <b id="playerStatsModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closePlayerStatsModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="player-stat-fields">
+          <label class="player-stat-field">
+            <span>Здоровье (HP, %)</span>
+            <input type="number" id="playerStatHealthInput" class="modal-input" min="0" max="100" step="1" />
+            <button class="modal-confirm-btn stat-confirm-btn" onclick="submitPlayerStat('health')">Установить HP</button>
+          </label>
+          <label class="player-stat-field">
+            <span>Голод (%)</span>
+            <input type="number" id="playerStatHungerInput" class="modal-input" min="0" max="100" step="1" />
+            <button class="modal-confirm-btn stat-confirm-btn" onclick="submitPlayerStat('hunger')">Установить голод</button>
+          </label>
+          <label class="player-stat-field">
+            <span>Жажда (%)</span>
+            <input type="number" id="playerStatThirstInput" class="modal-input" min="0" max="100" step="1" />
+            <button class="modal-confirm-btn stat-confirm-btn" onclick="submitPlayerStat('thirst')">Установить жажду</button>
+          </label>
+        </div>
+        <button class="modal-confirm-btn stats-all-btn" onclick="submitAllPlayerStats()">Установить все показатели</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- МОДАЛЬНОЕ ОКНО: Выдача предмета выбранному игроку -->
+  <div id="giveItemPlayerModal" class="modal-overlay" style="display: none;">
+    <div id="giveItemPlayerModalWindow" class="modal-window">
+      <div id="giveItemPlayerModalHeader" class="modal-header">
+        <span>Выдать предмет игроку <b id="itemModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closeGiveItemPlayerModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="search-input-box" style="margin-bottom: 10px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="itemModalSearch" placeholder="Поиск предмета по названию..." oninput="filterItemModalList()" />
+        </div>
+        <div class="modal-select-list" id="itemModalList">
+          <!-- Динамический список предметов -->
+        </div>
+        <div class="modal-input-row" style="margin-top: 10px;">
+          <input type="number" id="itemCountInput" placeholder="Количество (шт)" value="1" min="1" max="1000" class="modal-input" />
+          <button class="modal-confirm-btn" id="confirmGiveItemBtn" onclick="submitGiveItemToPlayer()">Выдать</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Кик игрока -->
+  <div id="kickModal" class="modal-overlay" style="display: none;">
+    <div id="kickModalWindow" class="modal-window modal-small">
+      <div id="kickModalHeader" class="modal-header">
+        <span>Исключить игрока <b id="kickModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closeKickModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-input-row">
+          <input type="text" id="kickReasonInput" placeholder="Причина кика..." value="Исключен администратором" class="modal-input" />
+          <button class="modal-confirm-btn danger" onclick="submitKickPlayer()">Кикнуть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Личное сообщение игроку (Toast) -->
+  <div id="messageModal" class="modal-overlay" style="display: none;">
+    <div id="messageModalWindow" class="modal-window modal-small message-modal-window">
+      <div id="messageModalHeader" class="modal-header">
+        <span>Сообщение игроку <b id="messageModalTargetName">#0</b></span>
+        <button class="close-btn" onclick="closeMessageModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="message-duration-row">
+          <label for="messageDurationInput">Длительность</label>
+          <select id="messageDurationInput" class="modal-select-input">
+            <option value="5">5 секунд</option>
+            <option value="10">10 секунд</option>
+            <option value="15" selected>15 секунд</option>
+            <option value="30">30 секунд</option>
+            <option value="45">45 секунд</option>
+            <option value="60">60 секунд</option>
+          </select>
+        </div>
+        <div class="modal-input-row">
+          <input type="text" id="playerMessageInput" placeholder="Текст сообщения..." class="modal-input" />
+          <button class="modal-confirm-btn" onclick="submitMessagePlayer()">Отправить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

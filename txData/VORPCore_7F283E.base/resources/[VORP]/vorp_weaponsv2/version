@@ -1,0 +1,18 @@
+<2.3>
+- clean up some code
+- changed exports oxmysql to MySQL lint you will need to update fxmanifest for this
+- patch an exploit with buy ammo 
+<2.2>
+- fix for several exploits
+- clean up code
+- use of the new inventory exports and vorp core
+- removed un used code and duplicated code some of it inventory was already doing it.
+<2.1>
+- Fix Issues with config
+- added store hours
+- added npcs that removes when closed
+- added blips that remove whn close
+- update all files
+<2.0>
+- features
+<1.0>

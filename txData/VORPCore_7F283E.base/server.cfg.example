@@ -1,0 +1,108 @@
+# HUNT: HardRP server configuration template
+# Copy this file to server.cfg and fill in credentials locally.
+
+endpoint_add_tcp "0.0.0.0:30120"
+endpoint_add_udp "0.0.0.0:30120"
+
+game_pool_size AttachmentExtension 430
+game_pool_size CPropSetObjectExtension 950
+game_pool_size DrawableStore 50000
+game_pool_size FragmentStore 4000
+game_pool_size Object 2000
+game_pool_size TxdStore 26000
+
+sv_licenseKey "REPLACE_WITH_CFX_LICENSE_KEY"
+sv_maxclients 48
+sv_enforceGameBuild 1491
+set gamename rdr3
+set steam_webApiKey "REPLACE_WITH_STEAM_WEB_API_KEY"
+set mysql_connection_string "mysql://USER:PASSWORD@127.0.0.1/VORPCore_7F283E?charset=utf8mb4"
+set mysql_slow_query_warning 200
+
+sv_hostname "HUNT"
+sets sv_projectName "HUNT RolePlay"
+sets sv_projectDesc "In development"
+sets locale "ru-RU"
+sets tags "hardrp, postapoc, survival, hunt, horror, fantasy"
+load_server_icon icon.png
+
+set chat_showJoins false
+set chat_showQuits false
+set resources_useSystemChat true
+
+ensure mapmanager
+ensure chat
+ensure chat-theme-hunt
+ensure spawnmanager
+ensure redm-map-one
+ensure hardcap
+ensure loadingscreen
+ensure pma-voice
+ensure oxmysql
+ensure PolyZone
+ensure syn_minigame
+ensure lockpick
+ensure vorp_menu
+ensure female_body_fix
+ensure vorp_lib
+ensure weathersync
+ensure redm-ipls-main
+ensure moonshine_interiors
+ensure [props]
+
+ensure vorp_core
+ensure vorp_inputs
+ensure vorp_progressbar
+setr hunt_inventory_owner "1"
+ensure vorp_metabolism
+ensure vorp_weaponsv2
+ensure vorp_walkanim
+ensure vorp_herbs
+
+# HUNT custom resources
+ensure thehunt_core
+ensure thehunt_character
+ensure thehunt_pedcustom
+ensure thehunt_gizmo
+ensure thehunt_menu
+ensure thehunt_interact
+ensure thehunt_worldinteractions
+ensure thehunt_doors
+ensure thehunt_items
+ensure thehunt_inventory
+ensure thehunt_crafting
+ensure thehunt_builder
+ensure thehunt_status
+ensure thehunt_death
+ensure thehunt_walking
+ensure thehunt_animations
+ensure thehunt_survival
+ensure thehunt_stamina
+ensure thehunt_shapes
+ensure thehunt_vfx
+ensure thehunt_zombie
+ensure thehunt_loot
+ensure thehunt_scenes
+ensure thehunt_playerinteraction
+ensure spooni_spooner
+ensure wasvendel_pedmenu
+ensure wasvendel_bird
+start uiprompt
+
+ensure spooni_straw_doctor
+ensure spooni_bla_church
+ensure spooni_mac_01_house
+ensure spooni_rho_doctor
+ensure spooni_crash_reporter
+ensure emistery_str_blue_house
+ensure spooni_moonstone_pond
+
+# Add your own admin identifiers locally; do not commit them.
+add_ace group.admin command allow
+add_ace group.admin command.quit deny
+add_ace resource.vorp_lib command.add_ace allow
+add_ace resource.vorp_lib command.remove_ace allow
+
+exec resources/[standalone]/weathersync/permissions.cfg
+exec resources/[VORP]/vorp_admin/vorp_perms.cfg
+exec @spooni_spooner/permissions.cfg

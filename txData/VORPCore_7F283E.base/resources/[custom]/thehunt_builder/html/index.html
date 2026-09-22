@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактор мира</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Центрированный прицел-крестик в режиме редактора мира -->
+  <div id="builderCrosshair" class="builder-crosshair" style="display: none;">
+    <div class="builder-crosshair-h"></div>
+    <div class="builder-crosshair-v"></div>
+  </div>
+
+  <!-- Главное окно редактора мира -->
+  <div id="builderApp" class="builder-wrapper" style="display: none;">
+    <div id="builderWindow" class="builder-window">
+      
+      <!-- Шапка -->
+      <div id="builderHeader" class="builder-header">
+        <div class="header-title">
+          <h1>Редактор мира</h1>
+        </div>
+        <div class="header-actions">
+          <button id="inspectorQuickToggle" class="inspector-quick-btn" title="Инспектор мира (Вкл / Выкл)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+          <button id="closeBtn" class="close-btn" title="Закрыть (ESC)">&times;</button>
+        </div>
+      </div>
+
+      <div class="builder-body">
+        <!-- Боковая панель категорий -->
+        <nav class="builder-sidebar">
+          <button class="nav-tab active" data-tab="catalog">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+            <span class="tab-label">Объекты и сеты</span>
+          </button>
+          <button class="nav-tab" data-tab="peds">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <span class="tab-label">NPC и Животные</span>
+          </button>
+          <button class="nav-tab" data-tab="vehicles">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/><path d="M5 17H3v-6l2-3h11l3 4h2v5h-2"/><path d="M9 17h6"/></svg></span>
+            <span class="tab-label">Транспорт</span>
+          </button>
+          <button class="nav-tab" data-tab="nearby">
+            <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>
+            <span class="tab-label">Объекты в базе</span>
+          </button>
+        </nav>
+
+        <!-- Контент вкладок -->
+        <main class="builder-content">
+          <!-- 1. КАТАЛОГ (ОБЪЕКТЫ / NPC / ТРАНСПОРТ) -->
+          <div class="tab-pane active" id="tab-catalog">
+            <div class="catalog-header">
+              <div class="search-row">
+                <input type="text" id="propSearchInput" placeholder="Поиск по названию или модели..." class="search-input" />
+                <button class="custom-model-btn" onclick="openCustomModelModal()" title="Спавн по точному имени модели">+ Своя модель</button>
+              </div>
+
+              <!-- Панель сценария для NPC (показывается во вкладке NPC) -->
+              <div class="ped-options-bar" id="pedOptionsBar" style="display: none;">
+                <div class="ped-option-group">
+                  <span class="option-label">RP-сценарий (анимация):</span>
+                  <select id="pedScenarioSelect" class="scenario-select">
+                    <option value="none">Без анимации (Статичная стойка)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="categories-filter" id="categoriesFilter">
+                <!-- Категории генерируются через JS -->
+              </div>
+            </div>
+
+            <div class="props-grid-container" id="propsGridContainer">
+              <div class="virtual-scroll-spacer" id="virtualScrollSpacer">
+                <div class="virtual-grid-content" id="virtualGridContent">
+                  <!-- Виртуальные карточки пропсов -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. ОБЪЕКТЫ В БАЗЕ ДАННЫХ -->
+          <div class="tab-pane" id="tab-nearby">
+            <div class="nearby-header">
+              <div class="nearby-title-row">
+                <h2 class="pane-title">Объекты в базе данных</h2>
+                <div class="nearby-controls">
+                  <input type="text" id="dbPropsSearchInput" placeholder="Поиск по названию, хэшу или #ID..." class="db-search-input" oninput="filterDBProps()" />
+                  <button class="refresh-btn" onclick="requestNearbyProps()">Обновить список</button>
+                  <button class="backup-btn" onclick="backupBuilderDatabase()">Сделать бэкап БД</button>
+                </div>
+              </div>
+              <div class="db-filter-tabs">
+                <button class="db-filter-btn active" data-filter="all" onclick="setDBFilter('all')">Все (<span id="count-all">0</span>)</button>
+                <button class="db-filter-btn" data-filter="placed" onclick="setDBFilter('placed')">Установленные (<span id="count-placed">0</span>)</button>
+                <button class="db-filter-btn" data-filter="moved" onclick="setDBFilter('moved')">Перемещённые (<span id="count-moved">0</span>)</button>
+                <button class="db-filter-btn" data-filter="deleted" onclick="setDBFilter('deleted')">Удалённые из мира (<span id="count-deleted">0</span>)</button>
+              </div>
+            </div>
+            <div class="nearby-table-wrapper">
+              <table class="nearby-table">
+                <thead>
+                  <tr>
+                    <th style="width: 70px;">ID</th>
+                    <th style="width: 120px;">Статус</th>
+                    <th>Название / Модель</th>
+                    <th style="width: 160px;">Координаты</th>
+                    <th style="width: 80px;">Дистанция</th>
+                    <th style="width: 220px; text-align: right;">Действия</th>
+                  </tr>
+                </thead>
+                <tbody id="nearbyListBody">
+                  <tr><td colspan="6" class="empty-msg">Загрузка объектов базы данных...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАННЫЙ HUD ПОДСКАЗОК ПРИ 3D-ПРЕДПРОСМОТРЕ (ВЕРХНИЙ ПРАВЫЙ УГОЛ, ВЕРТИКАЛЬНЫЙ) -->
+  <div id="previewHud" class="preview-hud" style="display: none;">
+    <div class="hud-box">
+      <div class="hud-header">
+        <div class="hud-title" id="hudPropName">Размещение объекта</div>
+        <div class="mode-badge" id="hudModeBadge">ПРЕДПРОСМОТР</div>
+      </div>
+      
+      <!-- Вертикальный список подсказок -->
+      <div class="hud-list-container" id="hudListContainer">
+        <div class="hud-item"><span class="key-badge">WASD</span><span class="key-desc">Перемещение персонажа</span></div>
+        <div class="hud-item"><span class="key-badge">Мышь</span><span class="key-desc">Прицеливание и осмотр</span></div>
+        <div class="hud-item"><span class="key-badge">Z / X</span><span class="key-desc">Вращать вокруг оси</span></div>
+        <div class="hud-item"><span class="key-badge">Q / E</span><span class="key-desc">Высота</span></div>
+        <div class="hud-item"><span class="key-badge">R / F</span><span class="key-desc">Дистанция</span></div>
+        <div class="hud-item"><span class="key-badge">Стрелки ↑↓ / ←→</span><span class="key-desc">Наклон и крен</span></div>
+        <div class="hud-item"><span class="key-badge">G</span><span class="key-desc" id="hudSnapDesc">Прилипание: ВКЛ</span></div>
+        <div class="hud-divider"></div>
+        <div class="hud-item primary"><span class="key-badge action-ok">ЛКМ / Enter</span><span class="key-desc">Установить</span></div>
+        <div class="hud-item danger"><span class="key-badge action-cancel">ПКМ / Esc</span><span class="key-desc">Отменить</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО: Спавн объекта по имени/хэшу -->
+  <div id="customModelModal" class="modal-overlay" style="display: none;">
+    <div id="customModelModalWindow" class="modal-window">
+      <div id="customModelModalHeader" class="modal-header">
+        <span>Спавн объекта по имени или хэшу</span>
+        <button class="close-btn" onclick="closeCustomModelModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Введите точное системное имя или хэш модели из файлов RDR2 / RedM (например: <code>p_campfire02x</code>, <code>p_chest01x</code>):</p>
+        <div class="modal-input-row">
+          <input type="text" id="customModelInput" placeholder="Название модели..." class="modal-input" />
+          <button class="modal-confirm-btn" onclick="submitCustomModel()">Спавн</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="catalogs_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

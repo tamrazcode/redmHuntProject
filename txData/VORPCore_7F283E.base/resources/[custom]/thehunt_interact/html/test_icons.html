@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SVG Icons Test</title>
+  <style>
+    body {
+      background: #11141a;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .grid {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .btn-preview {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #1f222b 0%, #101216 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .btn-preview svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .card span {
+      font-size: 12px;
+      color: #ccc;
+    }
+    .large-preview {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+      background: #1a1e27;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .large-preview svg {
+      width: 120px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Radial Menu Icon Previews (44px button, 20px icon - Game Size)</h2>
+  <div class="grid" id="iconsGrid"></div>
+
+  <h2>Large Vector Preview (120px)</h2>
+  <div class="large-preview" id="largeGrid"></div>
+
+  <script>
+    const boxLid = `<rect x="4" y="4" width="16" height="3.5" rx="0.75" fill="#ffffff"/>`;
+    const boxBody = `<path fill-rule="evenodd" d="M 5 9.5 H 19 V 11.9 A 5.8 5.8 0 0 0 12.5 20.5 H 6 A 1 1 0 0 1 5 19.5 V 9.5 Z M 9.5 11.5 H 14.5 V 13 H 9.5 Z" fill="#ffffff"/>`;
+
+    // 1. Plus (+)
+    const plusBadge = `<path d="M 16.5 14.7 H 18.5 V 16.5 H 20.3 V 18.5 H 18.5 V 20.3 H 16.5 V 18.5 H 14.7 V 16.5 H 16.5 Z" fill="#ffffff"/>`;
+
+    // 2. Cross (✖)
+    const crossBadge = `<path d="M 14.7 16.05 L 16.05 14.7 L 17.5 16.15 L 18.95 14.7 L 20.3 16.05 L 18.85 17.5 L 20.3 18.95 L 18.95 20.3 L 17.5 18.85 L 16.05 20.3 L 14.7 18.95 L 16.15 17.5 Z" fill="#ffffff"/>`;
+
+    // 3. Checkmark (✔)
+    const checkBadge = `<path d="M 15.4 15.9 L 14.1 17.2 L 16.9 20.2 L 21.0 14.8 L 19.7 13.5 L 16.9 17.5 Z" fill="#ffffff"/>`;
+
+    const ICONS = {
+      pickup: `<svg viewBox="0 0 24 24" class="solid-icon">${boxLid}${boxBody}${plusBadge}</svg>`,
+      pickup_lock: `<svg viewBox="0 0 24 24" class="solid-icon">${boxLid}${boxBody}${crossBadge}</svg>`,
+      pickup_unlock: `<svg viewBox="0 0 24 24" class="solid-icon">${boxLid}${boxBody}${checkBadge}</svg>`
+    };
+
+    const labels = {
+      pickup: "Подобрать (+)",
+      pickup_lock: "Запретить подбирать (✖)",
+      pickup_unlock: "Разрешить подбирать (✔)"
+    };
+
+    const iconsGrid = document.getElementById('iconsGrid');
+    const largeGrid = document.getElementById('largeGrid');
+
+    Object.keys(ICONS).forEach(key => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="btn-preview">${ICONS[key]}</div>
+        <span>${labels[key]}</span>
+      `;
+      iconsGrid.appendChild(card);
+
+      const lCard = document.createElement('div');
+      lCard.className = 'card';
+      lCard.innerHTML = `
+        <div>${ICONS[key]}</div>
+        <span>${labels[key]}</span>
+      `;
+      largeGrid.appendChild(lCard);
+    });
+  </script>
+</body>
+</html>

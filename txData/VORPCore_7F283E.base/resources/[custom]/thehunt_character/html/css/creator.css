@@ -1,0 +1,932 @@
+/* =================================================================
+   HUNT: Hard RP — Character Creator Screen CSS
+   Sims-Style Circular Vertical Dock + Sleek Obsidian Panel
+   Obsidian Black / Pure White / Steel Gray Palette
+   ================================================================= */
+
+/* =================================================================
+   1. SIMS-STYLE CIRCULAR ICON DOCK (LEFT SIDE VERTICAL)
+   ================================================================= */
+.creator-sims-dock {
+  position: absolute;
+  top: 50%;
+  left: 28px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 120;
+}
+
+.sims-circle-btn {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #14171f;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.15s ease, border-color 0.15s ease;
+}
+
+.sims-circle-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 0.18s ease;
+}
+
+.sims-btn-label {
+  position: absolute;
+  left: 62px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #101217;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  box-shadow: none;
+}
+
+.sims-circle-btn:hover {
+  transform: scale(1.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: #202430;
+  box-shadow: none;
+}
+
+.sims-circle-btn:hover .sims-btn-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(4px);
+}
+
+.sims-circle-btn.active {
+  transform: scale(1.12);
+  color: #0c0c0f !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: none;
+}
+
+.sims-circle-btn.active svg {
+  stroke: #0c0c0f !important;
+}
+
+/* =================================================================
+   2. CREATOR FLOATING PANEL (CENTERED RELATIVE TO DOCK)
+   ================================================================= */
+.creator-panel {
+  position: absolute;
+  top: 50%;
+  left: 98px;
+  bottom: auto;
+  transform: translateY(-50%);
+  width: 440px;
+  max-height: 82vh;
+  background: #0f1118;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 100;
+  animation: slidePanelIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slidePanelIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(-10px); }
+  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.creator-panel::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid var(--border-inner);
+  pointer-events: none;
+  border-radius: calc(var(--radius-md) - 2px);
+}
+
+/* Шапка панели и переключатель пола */
+.panel-header {
+  flex-shrink: 0;
+  padding: 14px 18px 10px 18px;
+  background: var(--bg-header);
+  border-bottom: 1.5px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.creator-panel.is-dragging,
+.creator-panel.is-dragging * {
+  user-select: none;
+}
+
+.panel-header.is-dragging {
+  cursor: grabbing;
+}
+
+.panel-header button,
+.panel-header input,
+.panel-header select,
+.panel-header textarea,
+.panel-header label {
+  cursor: auto;
+}
+
+.panel-header button {
+  cursor: pointer;
+}
+
+.header-title-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.gender-switch-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.gender-switch-container.hidden {
+  display: none;
+}
+
+.gender-btn {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.gender-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gender-btn:hover {
+  color: #ffffff;
+}
+
+.gender-btn:active {
+  transform: scale(0.97);
+}
+
+.gender-btn.active {
+  background: #ffffff;
+  color: #0c0c0f;
+  font-weight: 700;
+}
+
+/* Содержимое вкладки */
+.creator-tab-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 58vh;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.creator-tab-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.creator-tab-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* Секции параметров */
+.creator-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+}
+
+/* Сетки элементов (карточки причесок, голов, одежды) */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 4px 5px 4px 3px;
+  margin: -2px 0;
+}
+
+/* Карточки элементов в стиле Obsidian Crafting: градиент, левая полоска-индикатор и тактильное нажатие без сдвигов за пределы границ */
+.item-card {
+  position: relative;
+  overflow: hidden;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+  color: #c0c5d0;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Плавная вертикальная полоска-индикатор слева */
+.item-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3.5px;
+  border-radius: 2px 0 0 2px;
+  background: #e2e8f0;
+  transform: scaleY(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.item-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Тактильная анимация нажатия (внутрь, без вылезания за рамки контейнера) */
+.item-card:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/* Выбранное активное состояние: мягкий обсидиановый градиент и серебристая обводка */
+.item-card.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.03), 0 0 8px rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.item-card.active::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.item-card-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #c0c5d0;
+  transition: color 0.18s ease;
+  z-index: 1;
+}
+
+.item-card:hover .item-card-title,
+.item-card.active .item-card-title {
+  color: #ffffff;
+}
+
+.item-card.active .item-card-title {
+  font-weight: 700;
+}
+
+/* Цветовые палитры (свотчи) */
+.swatches-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  padding: 4px 3px;
+}
+
+.swatch-item {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.swatch-item:hover {
+  transform: scale(1.08);
+  border-color: #ffffff;
+  z-index: 2;
+}
+
+.swatch-item:active {
+  transform: scale(0.94);
+}
+
+.swatch-item.active {
+  border: 2px solid #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+  z-index: 3;
+}
+
+/* Слайдеры морфов и параметров */
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.slider-val-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-step {
+  position: relative;
+  overflow: hidden;
+  width: 24px;
+  height: 24px;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-step:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn-step:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hunt-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  outline: none;
+}
+
+.hunt-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  transition: transform 0.15s ease;
+}
+
+.hunt-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* Навигация по группам гардероба */
+.wardrobe-group-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.wardrobe-group-btn {
+  position: relative;
+  overflow: hidden;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c0c5d0;
+  padding: 7px 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.wardrobe-group-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.wardrobe-group-btn:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.wardrobe-group-btn.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-color: rgba(255, 255, 255, 0.40);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.03), 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Пилюли категорий одежды (Pill Tabs) */
+.clothing-pill-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  padding: 4px 5px 4px 3px;
+  margin-bottom: 8px;
+  margin-top: -2px;
+}
+
+.clothing-pill {
+  position: relative;
+  overflow: hidden;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c0c5d0;
+  padding: 6px 10px 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.18s ease;
+}
+
+.clothing-pill::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 2px 0 0 2px;
+  background: #e2e8f0;
+  transform: scaleY(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.clothing-pill svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  transition: stroke 0.18s ease;
+}
+
+.clothing-pill:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.clothing-pill:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.clothing-pill.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.03), 0 0 8px rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.clothing-pill.active::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.clothing-pill.active svg {
+  stroke: #ffffff;
+}
+
+/* Секция выбора расцветки модели */
+.clothing-tints-panel {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clothing-tints-header {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clothing-tints-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 90px;
+  overflow-y: auto;
+  padding: 4px 5px 4px 3px;
+  margin: -2px 0;
+}
+
+.clothing-tint-chip {
+  position: relative;
+  overflow: hidden;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c0c5d0;
+  padding: 5px 10px 5px 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.clothing-tint-chip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2.5px;
+  border-radius: 2px 0 0 2px;
+  background: #e2e8f0;
+  transform: scaleY(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.clothing-tint-chip:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.clothing-tint-chip:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.clothing-tint-chip.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.03), 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+.clothing-tint-chip.active::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+/* Формы вкладки Информация */
+.info-hint-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.select-nation {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  padding: 8px 10px;
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+}
+
+.select-nation option {
+  background: #14171d;
+  color: #ffffff;
+}
+
+/* Футер панели */
+.creator-panel-footer {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  background: var(--bg-footer);
+  border-top: 1.5px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Верхняя панель камеры справа */
+.camera-toolbar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: #0f1118;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+
+.camera-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.camera-presets-row {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-cam-preset {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-cam-preset:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.btn-cam-preset:active {
+  transform: scale(0.96);
+}
+
+.btn-cam-preset.active {
+  background: #ffffff;
+  color: #0c0c0f;
+  font-weight: 700;
+  border-color: #ffffff;
+}
+
+.sims-circle-btn.btn-dock-back {
+  width: 42px;
+  height: 42px;
+  align-self: center;
+  background: #7f1d1d !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  margin-bottom: 12px;
+}
+
+.sims-circle-btn.btn-dock-back svg {
+  width: 17px;
+  height: 17px;
+  stroke: #ffffff !important;
+}
+
+.sims-circle-btn.btn-dock-back:hover {
+  background: #dc2626 !important;
+  border-color: #f87171 !important;
+  transform: scale(1.12);
+}
+
+/* The final Info action mirrors the compact return button, but remains a
+   positive green action even while its tab is active. */
+.sims-circle-btn[data-tab="info"],
+.sims-circle-btn[data-tab="info"].active {
+  width: 42px;
+  height: 42px;
+  align-self: center;
+  margin-top: 12px;
+  background: #15803d !important;
+  border-color: #4ade80 !important;
+  color: #ffffff !important;
+}
+
+.sims-circle-btn[data-tab="info"] svg,
+.sims-circle-btn[data-tab="info"].active svg {
+  width: 17px;
+  height: 17px;
+  stroke: #ffffff !important;
+}
+
+.sims-circle-btn[data-tab="info"]:hover {
+  background: #16a34a !important;
+  border-color: #86efac !important;
+}
+
+/* Единый обсидиановый скроллбар для всех прокручиваемых областей редактора. */
+#creatorScreen * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.24) rgba(255, 255, 255, 0.035);
+}
+
+#creatorScreen *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+#creatorScreen *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 3px;
+}
+
+#creatorScreen *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+}
+
+#creatorScreen *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.camera-hints-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 8px;
+}
+
+.cam-hint-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #9aa8ba;
+}
+
+.cam-hint-line span {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.creator-submit-box {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-submit-char {
+  width: 100%;
+  padding: 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-submit-char:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #1f2430;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.4);
+  box-shadow: none;
+}
+
+.btn-submit-char.ready {
+  opacity: 1.0 !important;
+  cursor: pointer !important;
+  background: #22c55e !important;
+  border-color: #4ade80 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+}
+
+.btn-submit-char.ready:hover {
+  background: #16a34a !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+}
+#inputFullName::placeholder {
+  color: rgba(170, 180, 195, 0.30);
+  opacity: 1;
+}
+
+#inputBirthdate::placeholder {
+  color: rgba(170, 180, 195, 0.30);
+  opacity: 1;
+}

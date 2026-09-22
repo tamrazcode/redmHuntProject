@@ -1,0 +1,17 @@
+<0.6>
+- added vorp_lib support
+- added vorp_menu features to the menus
+- small fixes and features
+<0.5>
+- fix jail system
+- added config to allow everyone use cuffs or only police
+<0.4>
+- added jail system using polyzones (you need to download polyzones)
+<0.3>
+- added webhooks
+- small fixes
+- update all files including fxmanifest.lua
+<0.2>
+- added translation file
+- some other improvments and small fixes
+<0.1>

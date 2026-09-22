@@ -1,0 +1,313 @@
+/* =================================================================
+   HUNT: Hard RP — The Corruption | Dynamic Interaction Styles
+   Obsidian Theme / Radial Buttons with Dedicated Attached Labels
+   ================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Outfit:wght@500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Outfit', sans-serif !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background: transparent;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ТОЧКА ПРИЦЕЛА ПО ЦЕНТРУ ЭКРАНА */
+.reticle-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.65;
+  box-shadow: none;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ОВЕРЛЕЙ РАДИАЛЬНОГО МЕНЮ */
+.interaction-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.radial-container {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ЦЕНТРАЛЬНАЯ ТОЧКА МЕНЮ */
+.radial-center-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: none;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radial-buttons-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* КРУГЛАЯ КНОПКА ДЕЙСТВИЯ (44x44px) */
+.radial-btn {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #1f222b 0%, #101216 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  color: #ffffff;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease, border 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.radial-btn.active-bloom {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.radial-btn:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+  border: 2px solid #ffffff !important;
+  background: radial-gradient(circle at center, #2a2e3a 0%, #14171d 100%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.95), 0 0 16px rgba(255, 255, 255, 0.45);
+}
+
+.radial-btn:active {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* ИКОНКА ВНУТРИ КНОПКИ */
+.radial-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  stroke: #ffffff;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.18s ease;
+}
+
+.radial-btn svg.solid-icon,
+.radial-btn svg.solid-icon * {
+  stroke: none !important;
+  fill: #ffffff !important;
+}
+
+.radial-btn:hover svg {
+  transform: scale(1.08);
+}
+
+/* ПОДПИСЬ НАЗВАНИЯ ДЕЙСТВИЯ (ЧИСТЫЙ ТЕКСТ БЕЗ ТЕНИ И БЕЗ ПЛАШЕК) */
+.radial-btn-label {
+  position: absolute;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.4px;
+  text-shadow: none !important;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  z-index: 1020;
+}
+
+/* ПОКАЗЫВАЕТСЯ ТОЛЬКО ПРИ НАВЕДЕНИИ НА КНОПКУ */
+.radial-btn:hover .radial-btn-label {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ПОЗИЦИОНИРОВАНИЕ ЧИСТОГО ТЕКСТА */
+.radial-btn-label.pos-top {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(3px);
+}
+.radial-btn:hover .radial-btn-label.pos-top {
+  transform: translateX(-50%) translateY(0);
+}
+
+.radial-btn-label.pos-bottom {
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-3px);
+}
+.radial-btn:hover .radial-btn-label.pos-bottom {
+  transform: translateX(-50%) translateY(0);
+}
+
+.radial-btn-label.pos-left {
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(3px);
+}
+.radial-btn:hover .radial-btn-label.pos-left {
+  transform: translateY(-50%) translateX(0);
+}
+
+.radial-btn-label.pos-right {
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-3px);
+}
+.radial-btn:hover .radial-btn-label.pos-right {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* МОДАЛЬНОЕ ОКНО ИНФОРМАЦИИ ОБ ОБЪЕКТЕ */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  pointer-events: auto;
+}
+
+.modal-card {
+  width: 320px;
+  background: radial-gradient(circle at center, #16181f 0%, #0c0d11 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 15px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  height: 38px;
+  background: linear-gradient(180deg, #1f222b 0%, #121419 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+
+.modal-header h2 {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.close-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 16px;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #dc2626;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+.modal-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+
+.info-label {
+  font-size: 11px;
+  color: #8f94a0;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.info-value.status-active {
+  color: #22c55e;
+}
+

@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CMapTypes>
+	<archetypes>
+		<Item type="CBaseArchetypeDef">
+			<loadFlags value="0x0000000000000000" />
+			<lodDist value="199" />
+			<flags value="0" />
+			<avoidanceflags value="0" />
+			<specialAttribute value="0" />
+			<bbMin x="-51.8971872" y="-58.625734" z="-35.228065" />
+			<bbMax x="51.9010906" y="58.649563" z="34.964195" />
+			<bsCentre x="0.00195217133" y="0.0119142532" z="-0.13193512" />
+			<bsRadius value="48.56178" />
+			<hdTextureDist value="100" />
+			<name>rho_doctor_shell</name>
+			<textureDictionary>rho_01_</textureDictionary>
+			<clipDictionary />
+			<drawableDictionary />
+			<physicsDictionary />
+			<assetType>ASSET_TYPE_DRAWABLE</assetType>
+			<assetName>rho_doctor_shell</assetName>
+			<extensions />
+			<guid value="0x0000000000000000" />
+			<zqNiUDA_0x07D164A8>MAP_ENTITY_TYPE_BUILDING</zqNiUDA_0x07D164A8>
+		</Item>
+		<Item type="CMloArchetypeDef">
+			<loadFlags value="0x0000000000000000" />
+			<lodDist value="80" />
+			<flags value="0" />
+			<avoidanceflags value="0" />
+			<specialAttribute value="0" />
+			<bbMin x="0" y="0" z="0" />
+			<bbMax x="0" y="0" z="0" />
+			<bsCentre x="0" y="0" z="0" />
+			<bsRadius value="0" />
+			<hdTextureDist value="40" />
+			<name>rho_doctor_col</name>
+			<textureDictionary />
+			<clipDictionary />
+			<drawableDictionary />
+			<physicsDictionary>rho_doctor_col</physicsDictionary>
+			<assetType>ASSET_TYPE_ASSETLESS</assetType>
+			<assetName>rho_doctor_col</assetName>
+			<extensions />
+			<guid value="0x0000000000000000" />
+			<zqNiUDA_0x07D164A8>ORmmUEA_0x9B931532</zqNiUDA_0x07D164A8>
+			<mloFlags value="0" />
+			<entities>
+				<Item type="CEntityDef">
+					<archetypeName>rho_doctor_shell</archetypeName>
+					<flags value="1572864" />
+					<id value="0x0000000000000000" />
+					<position x="0" y="0" z="0" />
+					<rotation x="0" y="0" z="0" w="1" />
+					<scaleXY value="1" />
+					<scaleZ value="1" />
+					<parentIndex value="-1" />
+					<lodDist value="80" />
+					<childLodDist value="0" />
+					<lodLevel>LODTYPES_DEPTH_ORPHANHD</lodLevel>
+					<numChildren value="0" />
+					<priorityLevel>PRI_REQUIRED</priorityLevel>
+					<extensions />
+					<powerGridId value="0" />
+					<tintValue value="0" />
+					<GtyHDFA_0x0DC5F270 value="255" />
+					<kXvVXMA_0x540CA436 value="255" />
+				</Item>
+        <Item type="CEntityDef">
+			<archetypeName>p_door01x</archetypeName>
+			<flags value="1572865"/>
+			<position x="-0.600000" y="-1.710000" z="-2.406670"/>
+			<rotation w="1.000000" x="0.000000" y="0.000000" z="0.000000"/>
+			<scaleXY value="1"/>
+			<scaleZ value="1"/>
+			<parentIndex value="-1"/>
+			<lodDist value="30"/>
+			<childLodDist value="0"/>
+			<lodLevel>LODTYPES_DEPTH_HD</lodLevel>
+			<numChildren value="0"/>
+			<ambientOcclusionMultiplier value="255"/>
+			<artificialAmbientOcclusion value="255"/>
+			<extensions>
+                <Item type="CExtensionDefDoor">
+                <name>p_door01x</name>
+                <offsetPosition x="0" y="0" z="0" />
+                <ELUGHoA_0xDAF8214E value="false" />
+                <enableLimitAngle value="true" />
+                <EFwMwAA_0x091A42D0 value="false" />
+                <startsLocked value="false" />
+                <canBreak value="false" />
+                <PkpciBA_0xA37CAB71 value="false" />
+                <dKbmTLA_0xCFE37BDB value="1.470796" />
+                <nuskEbA_0xA0CF3C8D value="1.470796" />
+                <RbUnQLA_0x9C555ECF value="0" />
+                <OPkNlHA_0xBCA0289E value="0" />
+                <doorTargetRatio value="0" />
+                <audioHash>ismdclsa_0x725d11b6</audioHash>
+                <doorTags>
+                    <Item />
+                    <Item />
+                    <Item />
+                    <Item />
+                </doorTags>
+                </Item>
+                <Item type="SSxlGTA_0xDB12012B">
+                <name>p_door01x</name>
+                <offsetPosition x="0" y="0" z="0" />
+                <Id>rho_doctor_door1</Id>
+                </Item>
+        </extensions>
+		</Item>
+			</entities>
+        <rooms itemType="CMloRoomDef">
+        <Item>
+          <name>limbo</name>
+          <bbMin x="-3.2235448" y="-1.7275395" z="-2.6237717" />
+          <bbMax x="3.308536" y="6.9436812" z="2.660821" />
+          <blend value="1" />
+          <timecycleName>rho_doctor_int</timecycleName>
+          <flags value="0" />
+          <portalCount value="11" />
+          <floorId value="0" />
+          <exteriorVisibiltyDepth value="-1" />
+          <attachedObjects content="int_array">0</attachedObjects>
+        </Item>
+        <Item>
+          <name>Room.1</name>
+          <bbMin x="-3.2235448" y="-1.7275395" z="-2.6237717" />
+          <bbMax x="3.308536" y="6.9436812" z="2.660821" />
+          <blend value="1" />
+          <timecycleName>rho_doctor_int</timecycleName>
+          <flags value="0" />
+          <portalCount value="11" />
+          <floorId value="0" />
+          <exteriorVisibiltyDepth value="-1" />
+          <attachedObjects content="int_array" />
+           <reflectionProbes itemType="CReflectionProbeData">
+						<Item>
+							<minExtents x="-3.2235448" y="-1.7275395" z="-2.6237717" />
+							<maxExtents x="3.308536" y="6.9436812" z="2.660821" />
+							<rotation x="0" y="0" z="0" w="1" />
+							<centerOffset x="0" y="0" z="0" />
+							<influenceExtents x="1" y="1" z="1" />
+							<probePriority value="255" />
+							<guid value="0x413ee5057f3b7a29" />
+						</Item>
+			</reflectionProbes>
+        </Item>
+      </rooms>
+      <portals itemType="CMloPortalDef">
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            0.4903792   -1.687014   -2.4377897   
+            0.4903792   -1.6870136   -0.21025035   
+            -0.60004765   -1.6870136   -0.21025035   
+            -0.60004765   -1.687014   -2.4377897
+          </corners>
+          <attachedObjects content="int_array">1</attachedObjects>
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            -1.2915039   -1.5690591   -1.4145505   
+            -1.2915039   -1.5690588   0.48535183   
+            -2.041504   -1.5690588   0.48535183   
+            -2.041504   -1.5690591   -1.4145505
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            1.8984375   -1.5685709   -1.4145505   
+            1.8984375   -1.5685705   0.48535183   
+            1.1484375   -1.5685705   0.48535183   
+            1.1484375   -1.5685709   -1.4145505
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            3.1474333   0.38281226   -1.4145509   
+            3.1474333   0.3828126   0.4853515   
+            3.1474335   -0.3671874   0.48535162   
+            3.1474335   -0.36718774   -1.4145507
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            3.1474335   3.0898435   -1.4145513   
+            3.1474335   3.0898438   0.48535106   
+            3.1474333   2.3398438   0.48535118   
+            3.1474333   2.3398435   -1.4145511
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            3.1474333   6.0146685   -1.4145517   
+            3.1474333   6.0146685   0.48535058   
+            3.1474335   5.2646685   0.4853507   
+            3.1474335   5.2646685   -1.4145516
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            1.1484375   6.7384195   -1.4145519   
+            1.1484375   6.7384195   0.48535046   
+            1.8984375   6.7384195   0.48535046   
+            1.8984375   6.7384195   -1.4145519
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            -2.0415041   6.7379313   -1.4145519   
+            -2.0415041   6.7379313   0.48535046   
+            -1.2915039   6.7379313   0.48535046   
+            -1.2915039   6.7379313   -1.4145519
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            -3.0953667   5.2646685   -1.4145516   
+            -3.0953667   5.2646685   0.4853507   
+            -3.095367   6.0146685   0.48535058   
+            -3.095367   6.0146685   -1.4145517
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            -3.095367   2.3398435   -1.4145511   
+            -3.095367   2.3398438   0.48535118   
+            -3.0953667   3.0898438   0.48535106   
+            -3.0953667   3.0898435   -1.4145513
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+          <opacity value="0" />
+					<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+					<redm_loves_you_77f55279e5bd37e2 value="1" />
+					<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+					<redm_loves_you_e8f083f1ebc039d7 value="1" />
+					<audioOcclusion value="0" />
+          <corners content="vector3_array">
+            -3.0953667   -0.36718774   -1.4145507   
+            -3.0953667   -0.3671874   0.48535162   
+            -3.095367   0.3828126   0.4853515   
+            -3.095367   0.38281226   -1.4145509
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+      </portals>
+      <entitySets />
+      <timeCycleModifiers />
+      <redm_loves_you_a1eeea498c70af98 />
+      <redm_loves_you_4f772a6e01dcf2fd />
+      <redm_loves_you_19e1250a833f3e04>
+        <redm_loves_you_4b0e6c8bf963c46b>
+          <centerAndRadius x="0" y="0" z="0" w="0" />
+        </redm_loves_you_4b0e6c8bf963c46b>
+        <flags />
+      </redm_loves_you_19e1250a833f3e04>
+      <redm_loves_you_525e3103a5fdd7ca value="false" />
+    </Item>
+	</archetypes>
+	<name>rho_doctor_t</name>
+</CMapTypes>

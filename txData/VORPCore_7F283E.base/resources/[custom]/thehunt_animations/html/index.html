@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUNT — Анимации</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="animApp" class="anim-app hidden">
+    
+    <!-- Основное окно меню анимаций -->
+    <div class="anim-window" id="animWindow">
+      
+      <!-- Шапка окна (перетаскиваемая) -->
+      <div class="anim-header" id="animHeader">
+        <div class="header-left">
+          <h2 class="header-title">Анимации</h2>
+        </div>
+
+        <div class="header-right">
+          <button class="btn-close" id="btnClose" title="Закрыть [Esc / F3]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Основное тело окна с сайдбаром слева и списком справа -->
+      <div class="anim-body">
+        
+        <!-- Сайдбар категорий слева (как в Админ-панели) -->
+        <div class="anim-sidebar" id="animSidebar">
+          
+          <!-- Отдельная выделенная кнопка Избранное (вверху, оранжевая) -->
+          <div class="sidebar-top-section">
+            <button class="nav-tab tab-favorites" id="tabFavorites" data-cat="Favorites">
+              <div class="tab-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </div>
+              <span class="tab-label">Избранное</span>
+              <span class="tab-count count-favorites" id="favCount">0</span>
+            </button>
+          </div>
+
+          <!-- Разделитель -->
+          <div class="sidebar-divider"></div>
+
+          <!-- Список основных категорий -->
+          <div class="sidebar-categories" id="sidebarCategories">
+            <!-- Генерируется динамически в app.js -->
+          </div>
+
+        </div>
+
+        <!-- Правая область: Тулбар и сетка карточек -->
+        <div class="anim-content">
+          
+          <!-- Верхняя панель: Поиск и переключатель режима тела -->
+          <div class="anim-toolbar">
+            <div class="search-box">
+              <div class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <input type="text" id="searchInput" class="search-input" placeholder="Поиск анимации по названию" autocomplete="off" spellcheck="false">
+              <button id="btnClearSearch" class="btn-clear-search hidden" title="Очистить">✕</button>
+            </div>
+
+            <div class="body-mode-switch" title="Режим проигрывания анимации">
+              <button class="mode-btn active" id="btnModeFull" data-mode="full">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="4" r="2.5"/><path d="M9 20l3-6 3 6M10 8h4l1 6H9l1-6z"/>
+                </svg>
+                <span>Все тело</span>
+              </button>
+              <button class="mode-btn" id="btnModeUpper" data-mode="upper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 3v9M7 8l5-5 5 5M6 14h12"/>
+                </svg>
+                <span>Только верх</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Контейнер со списком карточек анимаций -->
+          <div class="anim-list-container">
+            <div class="anim-grid" id="animGrid">
+              <!-- Заполняется динамически -->
+            </div>
+
+            <div id="emptyState" class="empty-state hidden">
+              <div class="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <p class="empty-text">Ничего не найдено</p>
+              <span class="empty-sub">Попробуйте изменить поисковый запрос или категорию</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Футер окна: кнопка остановки и подсказки -->
+      <div class="anim-footer">
+        <button class="btn-stop-anim" id="btnStopAnim">
+          <span class="key-badge">F1</span>
+          <span>Остановить анимацию</span>
+        </button>
+
+        <div class="footer-hints">
+          <div class="hint-item"><span class="kbd">ЛКМ</span> Запустить</div>
+          <div class="hint-item"><span class="kbd">ПКМ</span> Предпросмотр</div>
+          <div class="hint-item"><span class="kbd">СКМ</span> Камера</div>
+          <div class="hint-item"><span class="kbd">F3</span> Закрыть</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Радиальное меню быстрого доступа (Удержание B) -->
+  <div class="radial-container hidden" id="radialContainer">
+    <div class="radial-wheel" id="radialWheel">
+      
+      <!-- 4 Сектора: Верх (1), Право (2), Низ (3), Лево (4) -->
+      <div class="radial-slot slot-top is-empty" data-slot="1" id="radialSlot1">
+        <div class="slot-icon" id="slotIcon1">1</div>
+        <div class="slot-content">
+          <span class="slot-label" id="slotLabel1">Слот 1</span>
+          <span class="slot-sub" id="slotSub1">Пусто</span>
+        </div>
+      </div>
+
+      <div class="radial-slot slot-right is-empty" data-slot="2" id="radialSlot2">
+        <div class="slot-icon" id="slotIcon2">2</div>
+        <div class="slot-content">
+          <span class="slot-label" id="slotLabel2">Слот 2</span>
+          <span class="slot-sub" id="slotSub2">Пусто</span>
+        </div>
+      </div>
+
+      <div class="radial-slot slot-bottom is-empty" data-slot="3" id="radialSlot3">
+        <div class="slot-icon" id="slotIcon3">3</div>
+        <div class="slot-content">
+          <span class="slot-label" id="slotLabel3">Слот 3</span>
+          <span class="slot-sub" id="slotSub3">Пусто</span>
+        </div>
+      </div>
+
+      <div class="radial-slot slot-left is-empty" data-slot="4" id="radialSlot4">
+        <div class="slot-icon" id="slotIcon4">4</div>
+        <div class="slot-content">
+          <span class="slot-label" id="slotLabel4">Слот 4</span>
+          <span class="slot-sub" id="slotSub4">Пусто</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

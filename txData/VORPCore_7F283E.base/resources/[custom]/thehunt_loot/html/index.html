@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактор зон лута — HUNT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Центрированный прицел редактора -->
+  <div id="editorCrosshair" class="editor-crosshair" style="display: none;">
+    <div class="editor-crosshair-h"></div>
+    <div class="editor-crosshair-v"></div>
+  </div>
+
+  <!-- Главная оболочка редактора -->
+  <div id="lootEditorApp" class="editor-wrapper" style="display: none;">
+
+    <!-- 1. Верхняя панель управления -->
+    <header class="editor-topbar">
+      <div class="topbar-left">
+        <div class="app-brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span class="brand-title">Редактор зон лута</span>
+        </div>
+
+        <button id="btnOpenZonesList" class="btn-topbar" onclick="openZonesListDrawer()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <span>Список зон (<span id="topZonesCount">0</span>)</span>
+        </button>
+
+        <button id="btnCreateZoneModal" class="btn-topbar btn-accent" onclick="openCreateZoneModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>+ Новая зона</span>
+        </button>
+      </div>
+
+      <div class="topbar-center" id="activeZoneBanner" style="display: none;">
+        <span class="badge-type" id="activeZoneTypeBadge">Круг</span>
+        <span class="active-zone-name" id="activeZoneNameText">Название зоны</span>
+        <span class="badge-id" id="activeZoneIdBadge">#0</span>
+      </div>
+
+      <div class="topbar-right">
+        <div class="shortcuts-hint" title="Горячие клавиши">
+          <span class="key-pill">ПКМ</span> Обзор
+          <span class="key-pill">WASD/QE</span> Полёт
+          <span class="key-pill">E</span> Выбор зоны
+          <span class="key-pill">G</span> Прицел
+          <span class="key-pill">PgUp/Dn</span> Центр Z
+          <span class="key-pill">V</span> Вершина
+        </div>
+        <button class="btn-close" onclick="closeEditor()" title="Закрыть (ESC)">&times;</button>
+      </div>
+    </header>
+
+    <!-- 2. Основная рабочая область (если зона выбрана) -->
+    <main class="editor-main" id="editorMainWorkspace" style="display: none;">
+      
+      <!-- Левая колонка: Настройки геометрии и правил зоны -->
+      <section class="panel-card panel-settings">
+        <div class="panel-header">
+          <h2>Параметры зоны</h2>
+          <label class="switch-toggle" title="Включить / Выключить зону">
+            <input type="checkbox" id="zoneEnabledInput" onchange="handleZoneFieldChange('is_enabled', this.checked)">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div id="zoneRuntimeStatus" class="runtime-status" role="status">Получение состояния…</div>
+        <div class="panel-scroll-body">
+          <div class="form-group">
+            <label>Название зоны: <span class="help-tip" data-tip="Уникальное название зоны лута для удобного поиска в списке зон и в журналах аудита.">?</span></label>
+            <input type="text" id="zoneNameInput" class="text-input" placeholder="Например: Улицы Валентайна" oninput="handleZoneFieldChange('name', this.value)" />
+          </div>
+
+          <div class="form-group">
+            <label>Тип геометрии: <span class="help-tip" data-tip="Форма 3D-области, внутри которой сервер будет случайно распределять предметы лута.">?</span></label>
+            <select id="zoneTypeSelect" class="select-input" onchange="handleZoneTypeChange(this.value)">
+              <option value="circle">Круг / Цилиндр (Улицы, поляны, дворы)</option>
+              <option value="rectangle">Прямоугольник / 3D Box (Здания, комнаты)</option>
+              <option value="polygon">Многоугольник (Сложные участки)</option>
+              <option value="point">Фиксированная точка (Полка, стол, шкаф)</option>
+              <option value="container">Контейнер / Тайник (Сундук, ящик)</option>
+            </select>
+          </div>
+
+          <!-- Динамические параметры геометрии -->
+          <div id="geomParamsCircle" class="geom-subgroup">
+            <div class="form-row">
+              <div class="form-group half">
+                <label>Радиус (м): <span class="help-tip" data-tip="Радиус цилиндра зоны в метрах от центра.">?</span></label>
+                <input type="number" id="zoneRadiusInput" class="num-input" min="1" max="150" step="0.5" oninput="handleZoneFieldChange('radius', parseFloat(this.value))" />
+              </div>
+              <div class="form-group half">
+                <label>Высота (м): <span class="help-tip" data-tip="Вертикальный диапазон зоны по высоте (Z) от центра.">?</span></label>
+                <input type="number" id="zoneHeightInput" class="num-input" min="1" max="50" step="0.5" oninput="handleZoneFieldChange('height', parseFloat(this.value))" />
+              </div>
+            </div>
+          </div>
+
+          <div id="geomParamsRectangle" class="geom-subgroup" style="display: none;">
+            <div class="form-row">
+              <div class="form-group third">
+                <label>Длина X (м): <span class="help-tip" data-tip="Размер ориентированного 3D бокса вдоль локальной оси X.">?</span></label>
+                <input type="number" id="zoneSizeXInput" class="num-input" min="1" max="150" step="0.5" oninput="handleZoneFieldChange('size_x', parseFloat(this.value))" />
+              </div>
+              <div class="form-group third">
+                <label>Ширина Y (м): <span class="help-tip" data-tip="Размер ориентированного 3D бокса вдоль локальной оси Y.">?</span></label>
+                <input type="number" id="zoneSizeYInput" class="num-input" min="1" max="150" step="0.5" oninput="handleZoneFieldChange('size_y', parseFloat(this.value))" />
+              </div>
+              <div class="form-group third">
+                <label>Высота Z (м): <span class="help-tip" data-tip="Высота 3D бокса по вертикали.">?</span></label>
+                <input type="number" id="zoneSizeZInput" class="num-input" min="1" max="50" step="0.5" oninput="handleZoneFieldChange('size_z', parseFloat(this.value))" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Поворот Heading (°): <span class="help-tip" data-tip="Угол поворота прямоугольного здания вокруг вертикальной оси (0–360°).">?</span></label>
+              <input type="number" id="zoneHeadingInput" class="num-input" min="0" max="360" step="1" oninput="handleZoneFieldChange('heading', parseFloat(this.value))" />
+            </div>
+          </div>
+
+          <div id="geomParamsPolygon" class="geom-subgroup" style="display: none;">
+            <div class="polygon-toolbar">
+              <span>Вершин: <strong id="polygonVertexCount">0</strong></span>
+              <div class="btn-group-sm">
+                <button class="btn-sm" onclick="addVertexAtRaycast()" title="Добавить вершину к прицелу (V)">+ Вершина (V)</button>
+                <button class="btn-sm btn-danger" onclick="removeSelectedVertex()" title="Удалить выбранную вершину (X)">- Удалить (X)</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Высота полигона (м): <span class="help-tip" data-tip="Вертикальный диапазон высоты для произвольного многоугольника.">?</span></label>
+              <input type="number" id="zonePolyHeightInput" class="num-input" min="1" max="50" step="0.5" oninput="handleZoneFieldChange('height', parseFloat(this.value))" />
+            </div>
+          </div>
+
+          <div id="geomParamsContainer" class="geom-subgroup" style="display: none;">
+            <div class="form-group">
+              <label>Проп-модель контейнера: <span class="help-tip" data-tip="Имя 3D-модели сундука/ящика (например, p_crate26x_b или p_chest01x), в котором будет лежать лут.">?</span></label>
+              <input type="text" id="zoneModelInput" class="text-input" placeholder="p_crate26x_b или p_chest01x" oninput="handleZoneFieldChange('model_name', this.value)" />
+            </div>
+          </div>
+
+          <div class="center-controls-box" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+            <button class="btn-action-outline" onclick="moveZoneToCursor()" style="width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+              Переместить центр зоны к прицелу (G)
+            </button>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn-action-outline" onclick="adjustZoneHeight(0.5)" style="flex: 1; font-size: 11px; padding: 6px 8px;" title="Клавиша PageUp / Стрелка вверх">▲ Вверх (+0.5м)</button>
+              <button class="btn-action-outline" onclick="adjustZoneHeight(-0.5)" style="flex: 1; font-size: 11px; padding: 6px 8px;" title="Клавиша PageDown / Стрелка вниз">▼ Вниз (-0.5м)</button>
+            </div>
+            <div id="zoneCoordsDisplay" style="font-size: 11px; color: #8f94a0; text-align: center; margin-top: 2px;">X: 0.0 | Y: 0.0 | Z: 0.0</div>
+          </div>
+
+          <!-- Лимиты спавна -->
+          <div class="section-divider">Лимиты и расстояния</div>
+
+          <div class="form-row">
+            <div class="form-group third">
+              <label>Макс. слотов: <span class="help-tip" data-tip="Максимальное общее количество предметов, которое может одновременно лежать в этой зоне. Если лимит достигнут, новые предметы не появляются.">?</span></label>
+              <input type="number" id="zoneMaxItemsInput" class="num-input" min="1" max="50" oninput="handleZoneFieldChange('max_active_items', parseInt(this.value))" />
+            </div>
+            <div class="form-group third">
+              <label>Мин. спавн: <span class="help-tip" data-tip="Нижняя граница случайного количества слотов; в тесной зоне предметов может быть меньше. Используется при первой активации зоны или после окончания кулдауна.">?</span></label>
+              <input type="number" id="zoneMinItemsInput" class="num-input" min="1" max="50" oninput="handleZoneFieldChange('min_items', parseInt(this.value))" />
+            </div>
+            <div class="form-group third">
+              <label>Мин. дист. (м): <span class="help-tip" data-tip="Минимальное расстояние в метрах между точками спавна предметов внутри зоны, чтобы лут не накладывался друг на друга.">?</span></label>
+              <input type="number" id="zoneMinDistInput" class="num-input" min="0.8" max="100" step="0.1" oninput="handleZoneFieldChange('min_distance', parseFloat(this.value))" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="zoneActivationInput">Радиус активации (м)</label>
+            <input type="number" id="zoneActivationInput" class="num-input" min="1" max="2000" step="1" oninput="handleZoneFieldChange('activation_radius', Number(this.value))" />
+            <p class="field-hint">Новый цикл начинается рядом с игроком, после очистки зоны и завершения кулдауна.</p>
+          </div>
+          <div class="section-divider">Правила генерации</div>
+          <label class="rule-option"><input type="checkbox" id="zoneUniqueInput" onchange="changeZoneRule('unique_items', this.checked)" /> Без повторения типов предметов</label>
+          <p class="field-hint">Каждый тип выпадает не более одного раза за цикл. Слотов будет не больше, чем типов в пуле.</p>
+          <label class="rule-option"><input type="checkbox" id="zoneExitInput" onchange="changeZoneRule('respawn_after_exit', this.checked)" /> Новый цикл только после ухода игроков</label>
+          <p class="field-hint">После сбора лута игроки должны покинуть радиус активации. Следующий вход запускает генерацию, когда истечёт кулдаун.</p>
+
+          <!-- Таймеры и респавн -->
+          <div class="section-divider">Таймеры и респавн</div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>Мин. кулдаун (сек): <span class="help-tip" data-tip="Минимальное время ожидания перед повторным спавном после того, как игроки забрали весь лут из зоны.">?</span></label>
+              <input type="number" id="zoneMinRespawnInput" class="num-input" min="5" max="86400" oninput="handleZoneFieldChange('min_respawn_time', parseInt(this.value))" />
+            </div>
+            <div class="form-group half">
+              <label>Макс. кулдаун (сек): <span class="help-tip" data-tip="Максимальное время кулдауна. Сервер выбирает случайное время между Мин и Макс для непредсказуемого респавна.">?</span></label>
+              <input type="number" id="zoneMaxRespawnInput" class="num-input" min="5" max="86400" oninput="handleZoneFieldChange('max_respawn_time', parseInt(this.value))" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Время жизни предметов (сек, 0 = вечно): <span class="help-tip" data-tip="Сколько секунд нетронутый предмет лежит на земле перед тем, как исчезнуть (деспавниться). 0 = предмет лежит вечно.">?</span></label>
+            <input type="number" id="zoneLifetimeInput" class="num-input" min="0" max="86400" oninput="handleZoneFieldChange('item_lifetime', parseInt(this.value))" />
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Правая колонка: Пул предметов зоны (Выбранные вручную предметы) -->
+      <section class="panel-card panel-lootpool">
+        <div class="panel-header">
+          <div>
+            <h2>Пул предметов зоны</h2>
+            <span class="subtitle">Выбрано предметов: <strong id="selectedPoolCount">0</strong></span>
+          </div>
+          <button class="btn-primary" onclick="openItemCatalogModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Выбрать предметы
+          </button>
+        </div>
+
+        <div class="pool-items-list" id="poolItemsListContainer">
+          <!-- Генерируется через JS -->
+        </div>
+      </section>
+    </main>
+
+    <!-- 3. Нижняя панель действий (Save, Delete, Test) -->
+    <footer class="editor-bottombar" id="editorBottomBar" style="display: none;">
+      <div class="bottombar-left">
+        <button class="btn-bottom btn-test" onclick="triggerTestLootSpawn()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Тестовый спавн лута
+        </button>
+        <button class="btn-bottom" onclick="clearTestPreview()">Убрать тест</button>
+        <button class="btn-bottom" onclick="triggerForceRespawn()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Обновить лут
+        </button>
+        <button class="btn-bottom" onclick="duplicateCurrentZone()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Дублировать
+        </button>
+      </div>
+
+      <div class="bottombar-right">
+        <span id="saveStatus" role="status" aria-live="polite"></span>
+        <button class="btn-bottom btn-danger" onclick="deleteCurrentZone()">Удалить зону</button>
+        <button id="saveZoneButton" class="btn-bottom btn-save" onclick="saveCurrentZone()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Сохранить зону
+        </button>
+      </div>
+    </footer>
+
+    <!-- Пустое состояние если зона не выбрана -->
+    <div class="empty-state-hero" id="emptyStateHero">
+      <div class="empty-hero-card">
+        <svg class="hero-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <h2>Выберите существующую зону или создайте новую</h2>
+        <p>Используйте свободную камеру <code>WASD</code> для перемещения по карте. Нажмите <code>+ Новая зона</code> сверху, чтобы создать круг, здание, полигон или тайник.</p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" onclick="openCreateZoneModal()">+ Создать зону</button>
+          <button class="btn-hero-secondary" onclick="openZonesListDrawer()">Открыть список зон</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО 1: ВЫБОР ПРЕДМЕТОВ ИЗ КАТАЛОГА THEHUNT_ITEMS       -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="itemCatalogModal" style="display: none;">
+    <div class="modal-window modal-catalog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2>Выбор предметов для зоны</h2>
+          <span class="modal-subtitle">Кликните по предмету, чтобы добавить или убрать его из пула спавна</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeItemCatalogModal()">&times;</button>
+      </div>
+
+      <div class="modal-toolbar">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="catalogSearchInput" placeholder="Поиск по названию или ID (apple, bandage...)" oninput="filterCatalogItems()" />
+        </div>
+
+        <div class="category-filters" id="catalogCategoryTabs">
+          <!-- Генерируется через JS -->
+        </div>
+      </div>
+
+      <div class="catalog-grid-body" id="catalogItemsGrid">
+        <!-- Карточки предметов генерируются через JS -->
+      </div>
+
+      <div class="modal-footer">
+        <div class="footer-stats">
+          Выбрано предметов: <strong id="catalogModalSelectedCount">0</strong>
+        </div>
+        <button class="btn-save" onclick="applyCatalogSelection()">Применить выбор</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО 2: СОЗДАНИЕ НОВОЙ ЗОНЫ (ВЫБОР ТИПА)                -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="createZoneModal" style="display: none;">
+    <div class="modal-window modal-types">
+      <div class="modal-header">
+        <h2>Выберите тип зоны лута</h2>
+        <button class="modal-close-btn" onclick="closeCreateZoneModal()">&times;</button>
+      </div>
+      <div class="types-grid">
+        <div class="type-card" onclick="selectNewZoneType('circle')">
+          <div class="type-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3>Круг / Цилиндр</h3>
+          <p>Улицы, дворы, поляны, лагеря, открытые развалины</p>
+        </div>
+
+        <div class="type-card" onclick="selectNewZoneType('rectangle')">
+          <div class="type-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+          </div>
+          <h3>Прямоугольник (Box)</h3>
+          <p>Здания, комнаты, коридоры, прямоугольные кварталы</p>
+        </div>
+
+        <div class="type-card" onclick="selectNewZoneType('polygon')">
+          <div class="type-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Многоугольник</h3>
+          <p>Сложные территории с произвольными углами и вершинами</p>
+        </div>
+
+        <div class="type-card" onclick="selectNewZoneType('point')">
+          <div class="type-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Фиксированная точка</h3>
+          <p>Полки, столы, кровати, подоконники, шкафы</p>
+        </div>
+
+        <div class="type-card" onclick="selectNewZoneType('container')">
+          <div class="type-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>Контейнер / Тайник</h3>
+          <p>Сундуки, бочки, ящики, трупы с кастомной проп-моделью</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО 3: СПИСОК ВСЕХ ЗОН (DRAWER)                        -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="zonesListDrawer" style="display: none;">
+    <div class="modal-window modal-zones-drawer">
+      <div class="modal-header">
+        <h2>Список всех зон лута</h2>
+        <button class="modal-close-btn" onclick="closeZonesListDrawer()">&times;</button>
+      </div>
+
+      <div class="drawer-search-bar">
+        <input type="text" id="zonesDrawerSearchInput" placeholder="Поиск зоны по названию или #ID..." oninput="filterZonesDrawerList()" />
+      </div>
+
+      <div class="zones-drawer-scroll" id="zonesDrawerListContainer">
+        <!-- Список зон генерируется через JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- МОДАЛЬНОЕ ОКНО 4: ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ (IN-GAME DIALOG)         -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="confirmDeleteModal" style="display: none;">
+    <div class="modal-window modal-confirm-window">
+      <div class="modal-header">
+        <h2 style="color: #ef4444; display: flex; align-items: center; gap: 8px;">
+          <svg style="width: 20px; height: 20px; stroke: #ef4444;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          Удаление зоны
+        </h2>
+        <button class="modal-close-btn" onclick="closeConfirmDeleteModal()">&times;</button>
+      </div>
+      <div class="modal-confirm-body">
+        <p id="confirmDeleteText">Вы уверены, что хотите удалить эту зону?</p>
+        <span class="confirm-subtext">Это действие необратимо. Зона и весь её лут будут стёрты из базы данных.</span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-bottom" onclick="closeConfirmDeleteModal()">Отмена</button>
+        <button class="btn-bottom btn-danger" id="btnConfirmDeleteAction">Удалить навсегда</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Глобальный плавающий тултип подсказок -->
+  <div id="globalHelpTooltip" class="global-help-tooltip" style="display: none;"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

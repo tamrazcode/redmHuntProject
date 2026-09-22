@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUNT Status HUD</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HUD активных эффектов и баффов -->
+  <div id="statusHud" class="status-hud-container" style="display: none;">
+    <div id="effectsList" class="effects-list"></div>
+  </div>
+
+  <!-- ГЛАВНЫЙ ЕДИНЫЙ HUD СТАТУСОВ (В ОДНУ ЛИНИЮ ПО ЦЕНТРУ СНИЗУ) -->
+  <div id="mainStatusHud" class="main-status-hud hud-hidden">
+    <div class="status-row" id="statusRow">
+      
+      <!-- 1. Здоровье (HP / Сердце) -->
+      <div class="status-circle" id="circleHealth">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-health-ghost" id="fillHealthGhost" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-health" id="fillHealth" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 2. Выносливость (Энергия / Молния) -->
+      <div class="status-circle" id="circleStamina">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-stamina" id="fillStamina" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 2.1. Здоровье лошади (Сердце в подкове) -->
+      <div class="status-circle horse-health-hidden" id="circleHorseHealth">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-horse-health" id="fillHorseHealth" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v10a9 9 0 0 0 18 0V3" fill="none"></path>
+            <path d="M3 3h5M16 3h5" fill="none"></path>
+            <path d="M12 16.5 L7.8 12.3 C6.5 11 6.5 9 7.7 7.8 C8.9 6.6 10.9 6.6 12 7.7 C13.1 6.6 15.1 6.6 16.3 7.8 C17.5 9 17.5 11 16.2 12.3 Z" fill="currentColor" stroke="none"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 3. Выносливость лошади (Молния в подкове) -->
+      <div class="status-circle horse-stamina-hidden" id="circleHorseStamina">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-horse-stamina" id="fillHorseStamina" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v10a9 9 0 0 0 18 0V3" fill="none"></path>
+            <path d="M3 3h5M16 3h5" fill="none"></path>
+            <path d="M9.4 6.5 L9.4 12.2 H11 L11 16.9 L14.6 10.7 H12.5 L14.6 6.5 Z" fill="currentColor" stroke="none"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 3. Сытость (Еда / Вилка и нож) -->
+      <div class="status-circle" id="circleFood">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-food" id="fillFood" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v16h2.5V2c-2.76 0-5 2.24-5 5v2h2.5V6z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 4. Жажда (Вода / Бокал) -->
+      <div class="status-circle" id="circleWater">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-water" id="fillWater" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 4h14l-1.5 14a4 4 0 0 1-4 3.5h-3a4 4 0 0 1-4-3.5L5 4zm2.1 2l1.1 10.5c.1.8.8 1.5 1.6 1.5h4.4c.8 0 1.5-.7 1.6-1.5L16.9 6H7.1z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="status-circle" id="circleTemperature" style="display:none" aria-label="Температура воздуха и тепловой комфорт">
+        <canvas id="temperatureRing" width="132" height="132" style="width:44px;height:44px"></canvas>
+        <div class="temperature-value" id="temperatureValue">0°</div>
+      </div>
+      <!-- 5. Микрофон / Голосовой чат -->
+      <div class="status-circle" id="circleVoice">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-voice" id="fillVoice" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon" id="voiceIconContainer">
+          <svg viewBox="0 0 24 24" id="voiceIconSvg">
+            <line x1="2" y1="2" x2="22" y2="22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M5 10v2a7 7 0 0 0 12 5" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <line x1="12" y1="19" x2="12" y2="22" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 6. Скорость передвижения -->
+      <div class="status-circle" id="circleSpeed">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-speed" id="fillSpeed" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ВСПЛЫВАЮЩИЙ ЕДИНЫЙ РЯД ИНДИКАТОРОВ (когда основной худ скрыт) -->
+  <div id="popupHudRow" class="popup-hud-row">
+    
+    <!-- Всплывающий микрофон -->
+    <div id="standaloneVoicePopup" class="popup-item popup-hidden">
+      <div class="status-circle" id="popupCircleVoice">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-voice" id="popupFillVoice" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon" id="popupVoiceIconContainer">
+          <svg viewBox="0 0 24 24">
+            <line x1="2" y1="2" x2="22" y2="22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M5 10v2a7 7 0 0 0 12 5" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <line x1="12" y1="19" x2="12" y2="22" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Всплывающая скорость походки -->
+    <div id="standaloneSpeedPopup" class="popup-item popup-hidden">
+      <div class="status-circle" id="popupCircleSpeed">
+        <svg class="progress-ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="18"></circle>
+          <circle class="ring-fill ring-speed" id="popupFillSpeed" cx="22" cy="22" r="18"></circle>
+        </svg>
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ОТДЕЛЬНЫЙ HUD ПОДСКАЗОК -->
+  <div id="hintsHud" class="hints-hud hints-hidden" aria-hidden="true">
+    <div class="hints-title">Подсказки</div>
+    <div class="hints-list">
+      <div class="hint-row">
+        <div class="hint-key hint-key-wide"><span>Ё / ~</span></div>
+        <div class="hint-label">Меню игрока</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>G</span></div>
+        <div class="hint-label">Взаимодействие</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>F3</span></div>
+        <div class="hint-label">Меню анимаций</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>B</span></div>
+        <div class="hint-label">Колесо анимаций</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>F1</span></div>
+        <div class="hint-label">Отмена анимации</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key hint-key-with-sub"><span>X</span><span class="hint-sub">УДЕРЖ.</span></div>
+        <div class="hint-label">Поднять руки</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>L</span></div>
+        <div class="hint-label">Рэгдолл</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>J</span></div>
+        <div class="hint-label">Меню крафта</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key hint-key-wide"><span>↑ / ↓</span></div>
+        <div class="hint-label">Радиус войсчата</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-combo">
+          <div class="hint-key hint-key-alt"><span>ALT</span></div>
+          <span class="hint-plus">+</span>
+          <div class="hint-key hint-key-mouse" aria-label="Колесо мыши">
+            <svg class="hint-mouse-icon" viewBox="0 0 24 32" aria-hidden="true">
+              <rect x="3" y="1.5" width="18" height="29" rx="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M3.8 11.5h16.4" stroke="currentColor" stroke-width="1.2" opacity=".65"/>
+              <rect class="hint-mouse-wheel" x="10" y="5" width="4" height="7" rx="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hint-label">Скорость походки</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST УВЕДОМЛЕНИЯ -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Специальные уведомления от администрации -->
+  <div id="adminNotificationContainer" class="admin-notification-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

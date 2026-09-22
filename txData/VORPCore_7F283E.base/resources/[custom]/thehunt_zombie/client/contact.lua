@@ -1,0 +1,3 @@
+-- Kept only as an inert compatibility file for installations that reference it
+-- externally. It is not loaded by this resource: NPC melee damage is owned by
+-- RDR3's native combat system and must never be proxied into scripted HP loss.

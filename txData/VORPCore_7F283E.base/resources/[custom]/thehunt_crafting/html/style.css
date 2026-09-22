@@ -1,0 +1,956 @@
+/* =================================================================
+   HUNT: Hard RP — Crafting System UI Style
+   Obsidian Dark Theme (No CEF Glitch, Pure Server Style)
+   ================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-window: radial-gradient(circle at center, #15151a 0%, #0c0c0f 100%);
+  --bg-header: linear-gradient(180deg, #1f1f26 0%, #121216 100%);
+  --bg-sidebar: #0d0d10;
+  --bg-main: rgba(12, 12, 16, 0.95);
+  --bg-card: #101014;
+  --bg-card-alt: #14161d;
+  --bg-input: #101014;
+
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-medium: rgba(255, 255, 255, 0.22);
+  --border-strong: rgba(255, 255, 255, 0.40);
+  
+  --text-main: #ffffff;
+  --text-muted: #8f94a0;
+  --text-dim: #5a5f6d;
+
+  --color-green: #22c55e;
+  --color-green-glow: rgba(34, 197, 94, 0.5);
+  --color-red: #ef4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif !important;
+  font-weight: 600;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  background: transparent !important;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* СТИЛИЗОВАННЫЙ ОБСИДИАНОВЫЙ СКРОЛЛБАР */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.40);
+}
+
+/* =================================================================
+   ОСНОВНОЙ КОНТЕЙНЕР (ПОЛНОСТЬЮ БЕЗ CEF БАГОВ)
+   ================================================================= */
+
+.crafting-app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.crafting-window {
+  position: absolute;
+  width: 880px;
+  max-width: 94vw;
+  height: 600px;
+  max-height: 90vh;
+  background: radial-gradient(circle at center, #15151a 0%, #0c0c0f 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 15px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.crafting-window::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* =================================================================
+   ШАПКА ОКНА (DRAGGABLE)
+   ================================================================= */
+
+.crafting-header {
+  height: 42px;
+  background: linear-gradient(180deg, #1f1f26 0%, #121216 100%);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  position: relative;
+  cursor: move;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.header-left h2 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.btn-close {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.btn-close:hover {
+  background: #dc2626;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+/* =================================================================
+   ТЕЛО ОКНА
+   ================================================================= */
+
+.crafting-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* =================================================================
+   ЛЕВАЯ ПАНЕЛЬ: АККОРДЕОН КАТЕГОРИЙ
+   ================================================================= */
+
+.crafting-sidebar {
+  width: 260px;
+  background: #0d0d10;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.categories-accordion {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 2px;
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #c0c5d0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cat-header:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.cat-header.is-expanded {
+  background: #1a1d26;
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.cat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cat-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8f94a0;
+}
+
+.cat-header.is-expanded .cat-icon,
+.cat-header:hover .cat-icon {
+  color: #ffffff;
+}
+
+.cat-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.cat-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cat-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.cat-chevron {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  color: #8f94a0;
+}
+
+.cat-header.is-expanded .cat-chevron {
+  transform: rotate(180deg);
+  color: #ffffff;
+}
+
+.cat-recipes-list {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0 4px 6px;
+}
+
+.cat-recipes-list.is-open {
+  display: flex;
+}
+
+.cat-empty-hint {
+  padding: 6px 12px;
+  font-size: 10px;
+  color: #5a5f6d;
+  font-style: italic;
+}
+
+@keyframes slideIndicatorIn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Элемент рецепта в списке слева: по умолчанию нейтральный темный, при выборе активируется градиент качества и плавная серая полоска */
+.recipe-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px 7px 14px;
+  border-radius: 2px;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c0c5d0;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 11.5px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3.5px;
+  border-radius: 2px 0 0 2px;
+  transform: scaleY(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+}
+
+.nav-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.recipe-nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.recipe-nav-icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.recipe-nav-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.recipe-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Активное состояние выбранного предмета (только при нажатии) */
+.recipe-nav-item.is-selected {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.recipe-nav-item.is-selected::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.recipe-nav-item.rarity-white::before { background: #e2e8f0; }
+.recipe-nav-item.rarity-green::before { background: #2e8a54; }
+.recipe-nav-item.rarity-blue::before { background: #3a70b2; }
+.recipe-nav-item.rarity-purple::before { background: #a855f7; }
+.recipe-nav-item.rarity-orange::before { background: #b2642a; }
+.recipe-nav-item.rarity-red::before { background: #a83e3e; }
+
+.recipe-nav-item.is-selected.rarity-white {
+  background: linear-gradient(135deg, rgba(235, 240, 248, 0.16) 0%, rgba(235, 240, 248, 0.025) 100%);
+  border-color: rgba(235, 240, 248, 0.42);
+}
+
+.recipe-nav-item.is-selected.rarity-green {
+  background: linear-gradient(135deg, rgba(46, 138, 84, 0.12) 0%, rgba(46, 138, 84, 0.02) 100%);
+  border-color: rgba(46, 138, 84, 0.36);
+}
+
+.recipe-nav-item.is-selected.rarity-blue {
+  background: linear-gradient(135deg, rgba(58, 112, 178, 0.12) 0%, rgba(58, 112, 178, 0.02) 100%);
+  border-color: rgba(58, 112, 178, 0.36);
+}
+
+.recipe-nav-item.is-selected.rarity-purple {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.14) 0%, rgba(168, 85, 247, 0.02) 100%);
+  border-color: rgba(168, 85, 247, 0.38);
+}
+
+.recipe-nav-item.is-selected.rarity-orange {
+  background: linear-gradient(135deg, rgba(178, 100, 42, 0.12) 0%, rgba(178, 100, 42, 0.02) 100%);
+  border-color: rgba(178, 100, 42, 0.36);
+}
+
+.recipe-nav-item.is-selected.rarity-red {
+  background: linear-gradient(135deg, rgba(168, 62, 62, 0.12) 0%, rgba(168, 62, 62, 0.02) 100%);
+  border-color: rgba(168, 62, 62, 0.36);
+}
+
+/* Кружок доступности: СКРЫТ когда крафт не доступен, ПОКАЗЫВАЕТСЯ только когда доступен */
+.craftable-dot {
+  display: none;
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.75);
+  flex-shrink: 0;
+}
+
+.craftable-dot.is-available {
+  display: block;
+}
+
+/* =================================================================
+   ПРАВАЯ ПАНЕЛЬ: ДЕТАЛИ И ОЧЕРЕДЬ
+   ================================================================= */
+
+.crafting-main {
+  flex: 1;
+  min-width: 0;
+  background: rgba(12, 12, 16, 0.95);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Пустое состояние */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #8f94a0;
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5a5f6d;
+}
+
+.empty-state h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.empty-state p {
+  font-size: 11px;
+  color: #8f94a0;
+  max-width: 320px;
+}
+
+/* Карточка рецепта */
+.recipe-details {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Большая картинка предмета сверху: чистый контейнер без плашки и обводки с увеличенными отступами */
+.recipe-preview-full {
+  width: 100%;
+  height: 116px;
+  padding: 8px 0 10px 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.preview-icon-wrapper-large {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-icon-wrapper-large svg {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.85));
+}
+
+.preview-icon-wrapper-large img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.85));
+}
+
+/* Блок названия и описания предмета */
+.recipe-header-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recipe-header-block h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.recipe-description {
+  font-size: 11.5px;
+  color: #8f94a0;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+/* Секция ингредиентов */
+.ingredients-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #8f94a0;
+  letter-spacing: 0.3px;
+}
+
+/* Список ингредиентов с поддержкой скроллбара */
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 130px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.ingredient-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding: 6px 10px;
+  transition: border-color 0.15s ease;
+}
+
+.ingredient-row:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.ing-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ing-icon-wrap {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0c5d0;
+}
+
+.ing-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ing-icon-wrap img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.ing-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ing-count-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ing-count-wrap.has-enough {
+  color: #22c55e;
+}
+
+.ing-count-wrap.not-enough {
+  color: #ef4444;
+}
+
+.ing-sep {
+  color: #5a5f6d;
+}
+
+/* Требование рецепта */
+.recipe-requirement-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #101014;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  padding: 7px 12px;
+  gap: 10px;
+}
+
+.req-book-icon {
+  width: 18px;
+  height: 18px;
+  color: #8f94a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.req-book-info {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  color: #8f94a0;
+}
+
+.req-book-info strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.req-status-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.req-status-tag.is-ready {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+.req-status-tag.is-missing {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+/* Панель создания (Степпер, Время и Кнопка Создать) */
+.craft-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.stepper-wrap {
+  display: inline-flex;
+  align-items: center;
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.btn-step {
+  width: 24px;
+  height: 34px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-step:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+.step-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 8px;
+}
+
+.step-input-wrap input {
+  width: 1.2ch;
+  min-width: 1.2ch;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+  -moz-appearance: textfield;
+}
+
+.step-input-wrap input::-webkit-outer-spin-button,
+.step-input-wrap input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.step-unit {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #8f94a0;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Индикатор времени изготовления: чистый текст и иконка без плашки и обводки */
+.craft-time-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  height: 34px;
+  padding: 0 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #8f94a0;
+  white-space: nowrap;
+}
+
+.craft-time-badge svg {
+  color: #707580;
+}
+
+.btn-craft {
+  flex: 1;
+  height: 34px;
+  background: linear-gradient(180deg, #1b4d24 0%, #123318 100%);
+  border: 1.5px solid #2ea043;
+  color: #56d364;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.btn-craft:hover {
+  background: #2ea043;
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(46, 160, 67, 0.5);
+}
+
+.btn-craft.is-disabled {
+  background: #16181d;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #4e5360;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =================================================================
+   НИЖНЯЯ ПАНЕЛЬ: ОЧЕРЕДЬ КРАФТА
+   ================================================================= */
+
+.crafting-queue-panel {
+  background: #0d0d10;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 64px;
+}
+
+.queue-slots-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+}
+
+.queue-slot {
+  width: 50px;
+  height: 50px;
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.queue-slot.is-active {
+  border-color: #2ea043;
+  box-shadow: inset 0 0 10px rgba(46, 160, 67, 0.25);
+}
+
+.queue-item-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0c5d0;
+}
+
+.queue-item-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.queue-item-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.queue-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1b4d24, #2ea043);
+  transition: width 0.1s linear;
+}
+
+.queue-timer-badge {
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  font-size: 8px;
+  font-weight: 700;
+  color: #22c55e;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 1px 3px;
+  border-radius: 1px;
+}
+
+.queue-amount-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 1px 3px;
+  border-radius: 1px;
+}
+
+.queue-cancel-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  border: none;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.queue-slot:hover .queue-cancel-btn {
+  display: flex;
+}
+
+.queue-cancel-btn:hover {
+  background: rgba(239, 68, 68, 0.85);
+  color: #ffffff;
+}

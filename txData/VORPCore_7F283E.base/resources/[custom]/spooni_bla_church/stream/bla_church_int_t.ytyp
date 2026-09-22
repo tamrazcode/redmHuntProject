@@ -1,0 +1,557 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CMapTypes>
+  <archetypes>
+<Item type="CBaseArchetypeDef">
+     <loadFlags value="0x0000000024C20000" />
+   <lodDist value="150" />
+   <flags value="616693760" />
+   <avoidanceflags value="0" />
+   <specialAttribute value="7" />
+   <bbMin x="-2.450001" y="-2.096338" z="-2.450001" />
+   <bbMax x="2.689314" y="2.096248" z="3.792653" />
+   <bsCentre x="0.34464952" y="0" z="1.396328" />
+   <bsRadius value="2.441454" />
+   <hdTextureDist value="25.68" />
+      <name>bla_west_res_church_door</name>
+      <textureDictionary>bla_west_res_church_shell</textureDictionary>
+      <physicsDictionary>bla_west_res_church_door</physicsDictionary>
+      <clipDictionary />
+      <drawableDictionary />
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>bla_west_res_church_door</assetName>
+      <extensions>
+    <Item type="CExtensionDefAudioCollisionSettings">
+     <name>bla_west_res_church_door</name>
+     <offsetPosition x="0" y="0" z="0" />
+<settings>XgfaQdA_0x7730A168</settings>
+    </Item>
+   </extensions>
+   <guid value="0x0000000000000000" />
+<zqNiUDA_0x07D164A8>MAP_ENTITY_TYPE_DUMMY_OBJECT</zqNiUDA_0x07D164A8>
+    </Item>
+  <Item type="CBaseArchetypeDef">
+   <loadFlags value="0x0000000000000000" />
+   <lodDist value="100" />
+   <flags value="0" />
+   <avoidanceflags value="0" />
+   <specialAttribute value="0" />
+   <bbMin x="-38.042396" y="-31.7023382" z="-20.450001" />
+   <bbMax x="39.456306" y="38.629558" z="21.035441" />
+   <bsCentre x="0.7069559" y="-1.5363903" z="-0.20728" />
+   <bsRadius value="31.41479" />
+   <hdTextureDist value="55" />
+   <name>bla_west_res_church_shell</name>
+   <textureDictionary>bla_west_res_church_shell</textureDictionary>
+   <clipDictionary />
+   <drawableDictionary />
+   <physicsDictionary />
+   <assetType>ASSET_TYPE_DRAWABLE</assetType>
+   <assetName>bla_west_res_church_shell</assetName>
+   <extensions />
+   <guid value="0x0000000000000000" />
+   <zqNiUDA_0x07D164A8>MAP_ENTITY_TYPE_BUILDING</zqNiUDA_0x07D164A8>
+  </Item>
+    <Item type="CMloArchetypeDef">
+      <lodDist value="70" />
+      <flags value="0" />
+      <specialAttribute value="0" />
+      <bbMin x="0.0" y="0.0" z="0.0" />
+      <bbMax x="0.0" y="0.0" z="0.0" />
+      <bsCentre x="0.0" y="0.0" z="0.0" />
+      <bsRadius value="0" />
+      <hdTextureDist value="40" />
+      <name>bla_west_res_church_col</name>
+      <physicsDictionary>bla_west_res_church_col</physicsDictionary>
+      <assetType>ASSET_TYPE_ASSETLESS</assetType>
+      <assetName>bla_west_res_church_col</assetName>
+      <mloFlags value="0" />
+      <entities>
+		<Item type="CEntityDef">
+          <archetypeName>bla_west_res_church_shell</archetypeName>
+          <flags value="0" />
+          <guid value="0" />
+          <position x="0.0" y="0.0" z="0.0" />
+          <rotation x="-0.0" y="-0.0" z="-0.0" w="1.0" />
+          <scaleXY value="1" />
+          <scaleZ value="1" />
+          <parentIndex value="-1" />
+          <lodDist value="70" />
+          <childLodDist value="0" />
+          <lodLevel>LODTYPES_DEPTH_ORPHANHD</lodLevel>
+          <numChildren value="0" />
+          <priorityLevel>PRI_REQUIRED</priorityLevel>
+          <ambientOcclusionMultiplier value="255" />
+          <artificialAmbientOcclusion value="255" />
+          <tintValue value="0" />
+        </Item>
+<Item type="CEntityDef">
+			<archetypeName>p_door01x</archetypeName>
+			<flags value="1572865"/>
+			<position x="-1.390000" y="-10.401000" z="-8.720001"/>
+			<rotation w="0.000000" x="0.000000" y="0.000000" z="-1.000000"/>
+			<scaleXY value="1"/>
+			<scaleZ value="1"/>
+			<parentIndex value="-1"/>
+			<lodDist value="150"/>
+			<childLodDist value="0"/>
+			<lodLevel>LODTYPES_DEPTH_HD</lodLevel>
+			<numChildren value="0"/>
+			<ambientOcclusionMultiplier value="255"/>
+			<artificialAmbientOcclusion value="255"/>
+      <extensions>
+        <Item type="CExtensionDefDoor">
+          <name>p_door01x</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <ELUGHoA_0xDAF8214E value="false" />
+          <enableLimitAngle value="true" />
+          <EFwMwAA_0x091A42D0 value="false" />
+          <startsLocked value="false" />
+          <canBreak value="false" />
+          <PkpciBA_0xA37CAB71 value="false" />
+          <dKbmTLA_0xCFE37BDB value="1.470796" />
+          <nuskEbA_0xA0CF3C8D value="1.470796" />
+          <RbUnQLA_0x9C555ECF value="0" />
+          <OPkNlHA_0xBCA0289E value="0" />
+          <doorTargetRatio value="0" />
+          <audioHash>ismdclsa_0x725d11b6</audioHash>
+          <doorTags>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </doorTags>
+        </Item>
+        <Item type="SSxlGTA_0xDB12012B">
+          <name>p_door01x</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <Id>bla-church-1</Id>
+        </Item>
+      </extensions>
+		</Item>
+		<Item type="CEntityDef">
+			<archetypeName>bla_west_res_church_door</archetypeName>
+			<flags value="1572865"/>
+			<position x="-3.967000" y="7.150000" z="-8.875000"/>
+			<rotation w="0.000000" x="0.000000" y="0.000000" z="-1.000000"/>
+			<scaleXY value="1"/>
+			<scaleZ value="1"/>
+			<parentIndex value="-1"/>
+			<lodDist value="150"/>
+			<childLodDist value="0"/>
+			<lodLevel>LODTYPES_DEPTH_HD</lodLevel>
+			<numChildren value="0"/>
+			<ambientOcclusionMultiplier value="255"/>
+			<artificialAmbientOcclusion value="255"/>
+      <extensions>
+        <Item type="CExtensionDefDoor">
+          <name>bla_west_res_church_door</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <ELUGHoA_0xDAF8214E value="false" />
+          <enableLimitAngle value="true" />
+          <EFwMwAA_0x091A42D0 value="false" />
+          <startsLocked value="false" />
+          <canBreak value="false" />
+          <PkpciBA_0xA37CAB71 value="false" />
+          <dKbmTLA_0xCFE37BDB value="1.470796" />
+          <nuskEbA_0xA0CF3C8D value="1.470796" />
+          <RbUnQLA_0x9C555ECF value="0" />
+          <OPkNlHA_0xBCA0289E value="0" />
+          <doorTargetRatio value="0" />
+          <audioHash>ismdclsa_0x725d11b6</audioHash>
+          <doorTags>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </doorTags>
+        </Item>
+        <Item type="SSxlGTA_0xDB12012B">
+          <name>bla_west_res_church_door</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <Id>bla-church-2</Id>
+        </Item>
+      </extensions>
+		</Item>
+		<Item type="CEntityDef">
+			<archetypeName>bla_west_res_church_door</archetypeName>
+			<flags value="1572865"/>
+			<position x="-6.230000" y="7.150000" z="-8.875000"/>
+			<rotation w="1.000000" x="0.000000" y="0.000000" z="0.000000"/>
+			<scaleXY value="1"/>
+			<scaleZ value="1"/>
+			<parentIndex value="-1"/>
+			<lodDist value="150"/>
+			<childLodDist value="0"/>
+			<lodLevel>LODTYPES_DEPTH_HD</lodLevel>
+			<numChildren value="0"/>
+			<ambientOcclusionMultiplier value="255"/>
+			<artificialAmbientOcclusion value="255"/>
+      <extensions>
+        <Item type="CExtensionDefDoor">
+          <name>bla_west_res_church_door</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <ELUGHoA_0xDAF8214E value="false" />
+          <enableLimitAngle value="true" />
+          <EFwMwAA_0x091A42D0 value="false" />
+          <startsLocked value="false" />
+          <canBreak value="false" />
+          <PkpciBA_0xA37CAB71 value="false" />
+          <dKbmTLA_0xCFE37BDB value="1.470796" />
+          <nuskEbA_0xA0CF3C8D value="1.470796" />
+          <RbUnQLA_0x9C555ECF value="0" />
+          <OPkNlHA_0xBCA0289E value="0" />
+          <doorTargetRatio value="0" />
+          <audioHash>ismdclsa_0x725d11b6</audioHash>
+          <doorTags>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </doorTags>
+        </Item>
+        <Item type="SSxlGTA_0xDB12012B">
+          <name>bla_west_res_church_door</name>
+          <offsetPosition x="0" y="0" z="0" />
+          <Id>bla-church-3</Id>
+        </Item>
+      </extensions>
+		</Item>
+      </entities>
+      <rooms itemType="CMloRoomDef">
+        <Item>
+          <name>limbo</name>
+          <bbMin x="-9.884965" y="-10.786893" z="-9.146373" />
+          <bbMax x="0.6489068" y="7.4260364" z="0.8926595" />
+          <blend value="1" />
+          <timecycleName>bla_west_res_church_int</timecycleName>
+          <flags value="0" />
+          <portalCount value="17" />
+          <floorId value="0" />
+          <exteriorVisibiltyDepth value="-1" />
+          <attachedObjects content="int_array">0</attachedObjects>
+        </Item>
+        <Item>
+          <name>Room.1</name>
+         <bbMin x="-9.794965" y="-10.666893" z="-9.146373" />
+          <bbMax x="0.5289068" y="7.336036" z="0.8926595" />
+          <blend value="1" />
+          <timecycleName>bla_west_res_church_int</timecycleName>
+          <flags value="0" />
+          <portalCount value="17" />
+          <floorId value="1" />
+          <exteriorVisibiltyDepth value="-1" />
+          <attachedObjects content="int_array"></attachedObjects>
+        </Item>
+      </rooms>
+      <portals itemType="CMloPortalDef">
+        <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -6.236816   7.1489277   -8.924316   
+            -6.236816   7.1489277   -6.60273   
+            -3.945313   7.1489277   -6.60273   
+            -3.945313   7.1489277   -8.924316
+          </corners>
+          <attachedObjects content="int_array">2 3</attachedObjects>
+        </Item>
+		 <Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -8.090204   5.689424   -8.369864   
+            -8.0322895   5.689424   -6.3921275   
+            -8.0322895   6.6765313   -6.392128   
+            -8.090204   6.6765313   -8.369864
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -9.541412   2.5280604   -7.7278223   
+            -9.541412   2.5280604   -4.1749344   
+            -9.541412   3.5906086   -4.1749344   
+            -9.541412   3.5906086   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -9.541412   -1.3894105   -7.7278223   
+            -9.541412   -1.3894105   -4.1749344   
+            -9.541412   -0.31456232   -4.1749344   
+            -9.541412   -0.31456232   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -9.541412   -5.30107   -7.7278223   
+            -9.541412   -5.30107   -4.1749344   
+            -9.541412   -4.2450495   -4.1749344   
+            -9.541412   -4.2450495   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -9.541412   -9.214837   -7.7278223   
+            -9.541412   -9.214837   -4.1749344   
+            -9.541412   -8.15812   -4.1749344   
+            -9.541412   -8.15812   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -5.8635488   -10.458311   -5.8717766   
+            -5.8635488   -10.458311   -2.718901   
+            -6.7912827   -10.457874   -2.718901   
+            -6.7912827   -10.457874   -5.8717766
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -4.6197867   -10.457874   -5.219068   
+            -4.6197867   -10.457874   -2.0730395   
+            -5.547521   -10.458311   -2.0730395   
+            -5.547521   -10.458311   -5.219068
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -3.3690367   -10.457874   -5.8717766   
+            -3.3690367   -10.457874   -2.7407174   
+            -4.296771   -10.458311   -2.7407174   
+            -4.296771   -10.458311   -5.8717766
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -4.148951   -10.457874   -1.9024731   
+            -4.148951   -10.457874   -0.3845544   
+            -6.018357   -10.458311   -0.3845544   
+            -6.018357   -10.458311   -1.9024731
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -1.3876908   -10.393431   -8.761834   
+            -1.3892632   -10.393431   -6.4948945   
+            -2.4710433   -10.393431   -6.4955053   
+            -2.469471   -10.393431   -8.7624445
+          </corners>
+          <attachedObjects content="int_array">1</attachedObjects>
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -0.61084366   -8.15812   -7.7278223   
+            -0.61084366   -8.15812   -4.1749344   
+            -0.61084366   -9.214837   -4.1749344   
+            -0.61084366   -9.214837   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -0.61084366   -4.2450495   -7.7278223   
+            -0.61084366   -4.2450495   -4.1749344   
+            -0.61084366   -5.30107   -4.1749344   
+            -0.61084366   -5.30107   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -0.61084366   -0.31456232   -7.7278223   
+            -0.61084366   -0.31456232   -4.1749344   
+            -0.61084366   -1.3894105   -4.1749344   
+            -0.61084366   -1.3894105   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -0.61084366   3.5906086   -7.7278223   
+            -0.61084366   3.5906086   -4.1749344   
+            -0.61084366   2.5280604   -4.1749344   
+            -0.61084366   2.5280604   -7.7278223
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -1.6885626   7.1569133   -2.6879279   
+            -1.6691847   5.197546   -2.6879279   
+            0.40703678   5.197546   -2.6879279   
+            0.4297228   7.1569133   -2.6879279
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+		<Item>
+          <roomFrom value="1" />
+          <roomTo value="0" />
+          <flags value="0" />
+          <mirrorPriority value="0" />
+         <opacity value="0" />
+        	<redm_loves_you_b5c65d165ac2a96a value="0.3" />
+			<redm_loves_you_77f55279e5bd37e2 value="1" />
+			<redm_loves_you_b35ecf068bc6b8e4 value="1" />
+			<redm_loves_you_e8f083f1ebc039d7 value="1" />
+          <corners content="vector3_array">
+            -6.19824   7.26481   -6.2887645   
+            -6.19824   7.26481   -4.7385516   
+            -3.983887   7.26481   -4.7385516   
+            -3.983887   7.26481   -6.2887645
+          </corners>
+          <attachedObjects content="int_array" />
+        </Item>
+      </portals>
+    </Item>
+  </archetypes>
+  <name>fightclub_int_t</name>
+</CMapTypes>

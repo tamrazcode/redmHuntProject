@@ -1,0 +1,7 @@
+<1.2>
+- moved cooldown to server side and is location based
+- removed cool down from client side and refactored the code
+<1.1>
+- secured events + optimisation
+<1.0>
+Mine launch

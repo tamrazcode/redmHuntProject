@@ -1,0 +1,15 @@
+<0.4>
+- fixed selector
+- added more variables to CACHE
+- added gizmo module
+- fixed density
+- added copy to cliboard export
+<0.3>
+- added raycast module
+- added logger module 
+- added isDead to CACHE + skipp checks (check docs)
+- fix server register commands
+<0.2>
+- added polyzones module (see docs)
+- added cache system (see docs)
+<0.1>

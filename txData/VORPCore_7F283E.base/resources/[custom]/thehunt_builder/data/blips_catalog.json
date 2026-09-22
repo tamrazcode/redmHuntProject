@@ -1,0 +1,2346 @@
+[
+  {
+    "name": "blip_adversary_large",
+    "sprite": -180188163
+  },
+  {
+    "name": "blip_adversary_medium",
+    "sprite": -2048736478
+  },
+  {
+    "name": "blip_adversary_small",
+    "sprite": 1001245999
+  },
+  {
+    "name": "blip_ambient_bounty_hunter",
+    "sprite": -861219276
+  },
+  {
+    "name": "blip_ambient_bounty_hunter_higher",
+    "sprite": -535302224
+  },
+  {
+    "name": "blip_ambient_bounty_hunter_lower",
+    "sprite": 28148096
+  },
+  {
+    "name": "blip_ambient_bounty_hunter_wagon",
+    "sprite": -507621590
+  },
+  {
+    "name": "blip_ambient_bounty_target",
+    "sprite": 1481032477
+  },
+  {
+    "name": "blip_ambient_chore",
+    "sprite": 1321928545
+  },
+  {
+    "name": "blip_ambient_coach",
+    "sprite": 1012165077
+  },
+  {
+    "name": "blip_ambient_companion",
+    "sprite": -185399168
+  },
+  {
+    "name": "blip_ambient_companion_higher",
+    "sprite": 54149631
+  },
+  {
+    "name": "blip_ambient_companion_lower",
+    "sprite": -1971029474
+  },
+  {
+    "name": "blip_ambient_corpse",
+    "sprite": -1116208957
+  },
+  {
+    "name": "blip_ambient_crate",
+    "sprite": -426139257
+  },
+  {
+    "name": "blip_ambient_death",
+    "sprite": 350569997
+  },
+  {
+    "name": "blip_ambient_delivery",
+    "sprite": -592068833
+  },
+  {
+    "name": "blip_ambient_eyewitness",
+    "sprite": -2018361632
+  },
+  {
+    "name": "blip_ambient_gang_leader",
+    "sprite": -1489164512
+  },
+  {
+    "name": "blip_ambient_herd",
+    "sprite": 423351566
+  },
+  {
+    "name": "blip_ambient_herd_straggler",
+    "sprite": -1979146842
+  },
+  {
+    "name": "blip_ambient_higher",
+    "sprite": -920572370
+  },
+  {
+    "name": "blip_ambient_hitching_post",
+    "sprite": 1220803671
+  },
+  {
+    "name": "blip_ambient_horse",
+    "sprite": -643888085
+  },
+  {
+    "name": "blip_ambient_hot_target",
+    "sprite": -1357626643
+  },
+  {
+    "name": "blip_ambient_hunter",
+    "sprite": -2034972265
+  },
+  {
+    "name": "blip_ambient_king",
+    "sprite": 233295963
+  },
+  {
+    "name": "blip_ambient_law",
+    "sprite": -1596758107
+  },
+  {
+    "name": "blip_ambient_loan_shark",
+    "sprite": 1838354131
+  },
+  {
+    "name": "blip_ambient_lower",
+    "sprite": -1843639063
+  },
+  {
+    "name": "blip_ambient_marked_for_death",
+    "sprite": 1366733613
+  },
+  {
+    "name": "blip_ambient_new",
+    "sprite": 419258445
+  },
+  {
+    "name": "blip_ambient_newspaper",
+    "sprite": 587827268
+  },
+  {
+    "name": "blip_ambient_npc",
+    "sprite": 305281166
+  },
+  {
+    "name": "blip_ambient_npc_higher",
+    "sprite": 978474677
+  },
+  {
+    "name": "blip_ambient_npc_lower",
+    "sprite": -67528377
+  },
+  {
+    "name": "blip_ambient_ped_downed",
+    "sprite": 1453767378
+  },
+  {
+    "name": "blip_ambient_ped_medium",
+    "sprite": -1350763423
+  },
+  {
+    "name": "blip_ambient_ped_medium_higher",
+    "sprite": 1386031480
+  },
+  {
+    "name": "blip_ambient_ped_medium_lower",
+    "sprite": 1995891146
+  },
+  {
+    "name": "blip_ambient_ped_small",
+    "sprite": 692310
+  },
+  {
+    "name": "blip_ambient_ped_small_higher",
+    "sprite": 195811413
+  },
+  {
+    "name": "blip_ambient_ped_small_lower",
+    "sprite": 511626456
+  },
+  {
+    "name": "blip_ambient_posse_deputy",
+    "sprite": 1116438174
+  },
+  {
+    "name": "blip_ambient_posse_deputy_higher",
+    "sprite": -747104616
+  },
+  {
+    "name": "blip_ambient_posse_deputy_lower",
+    "sprite": -1816664083
+  },
+  {
+    "name": "blip_ambient_posse_leader",
+    "sprite": 1974270787
+  },
+  {
+    "name": "blip_ambient_posse_leader_higher",
+    "sprite": 1493420112
+  },
+  {
+    "name": "blip_ambient_posse_leader_lower",
+    "sprite": -867923254
+  },
+  {
+    "name": "blip_ambient_quartermaster",
+    "sprite": 249721687
+  },
+  {
+    "name": "blip_ambient_riverboat",
+    "sprite": 2033397166
+  },
+  {
+    "name": "blip_ambient_secret",
+    "sprite": 675509286
+  },
+  {
+    "name": "blip_ambient_sheriff",
+    "sprite": -693644997
+  },
+  {
+    "name": "blip_ambient_telegraph",
+    "sprite": 503049244
+  },
+  {
+    "name": "blip_ambient_theatre",
+    "sprite": -417940443
+  },
+  {
+    "name": "blip_ambient_tithing",
+    "sprite": -1954662204
+  },
+  {
+    "name": "blip_ambient_tracking",
+    "sprite": -1580514024
+  },
+  {
+    "name": "blip_ambient_train",
+    "sprite": -250506368
+  },
+  {
+    "name": "blip_ambient_tugboat",
+    "sprite": -1018164873
+  },
+  {
+    "name": "blip_ambient_vip",
+    "sprite": -1103135225
+  },
+  {
+    "name": "blip_ambient_wagon",
+    "sprite": 874255393
+  },
+  {
+    "name": "blip_ambient_warp",
+    "sprite": 784218150
+  },
+  {
+    "name": "blip_ammo_arrow",
+    "sprite": 573732443
+  },
+  {
+    "name": "blip_ammo_bullets",
+    "sprite": 1445158214
+  },
+  {
+    "name": "blip_animal",
+    "sprite": -1646261997
+  },
+  {
+    "name": "blip_animal_dead",
+    "sprite": 1340161527
+  },
+  {
+    "name": "blip_animal_quality_01",
+    "sprite": 1996684768
+  },
+  {
+    "name": "blip_animal_quality_02",
+    "sprite": -171082889
+  },
+  {
+    "name": "blip_animal_quality_03",
+    "sprite": -480291173
+  },
+  {
+    "name": "blip_animal_skin",
+    "sprite": 218395012
+  },
+  {
+    "name": "blip_app_connected",
+    "sprite": 1173759417
+  },
+  {
+    "name": "blip_attention",
+    "sprite": -774688241
+  },
+  {
+    "name": "blip_bag_capture",
+    "sprite": 1151744703
+  },
+  {
+    "name": "blip_bag_defend",
+    "sprite": 1264416627
+  },
+  {
+    "name": "blip_ball",
+    "sprite": 1433472988
+  },
+  {
+    "name": "blip_bank_debt",
+    "sprite": 1869246576
+  },
+  {
+    "name": "blip_bath_house",
+    "sprite": -304640465
+  },
+  {
+    "name": "blip_bolt",
+    "sprite": -1018697504
+  },
+  {
+    "name": "blip_business_moonshine",
+    "sprite": 1961764827
+  },
+  {
+    "name": "blip_camp",
+    "sprite": 327180499
+  },
+  {
+    "name": "blip_camp_request",
+    "sprite": -1043855483
+  },
+  {
+    "name": "blip_camp_tent",
+    "sprite": -910004446
+  },
+  {
+    "name": "blip_campfire",
+    "sprite": 1754365229
+  },
+  {
+    "name": "blip_campfire_full",
+    "sprite": 773587962
+  },
+  {
+    "name": "blip_canoe",
+    "sprite": 62421675
+  },
+  {
+    "name": "blip_cash_arthur",
+    "sprite": 1420154945
+  },
+  {
+    "name": "blip_cash_bag",
+    "sprite": 688589278
+  },
+  {
+    "name": "blip_chest",
+    "sprite": -1138864184
+  },
+  {
+    "name": "blip_code_center",
+    "sprite": -758439257
+  },
+  {
+    "name": "blip_code_center_glow",
+    "sprite": -976472438
+  },
+  {
+    "name": "blip_code_center_glow_alpha",
+    "sprite": -1100356119
+  },
+  {
+    "name": "blip_code_center_on_horse",
+    "sprite": 648067515
+  },
+  {
+    "name": "blip_code_waypoint",
+    "sprite": 960467426
+  },
+  {
+    "name": "blip_deadeye_cross",
+    "sprite": 1754506823
+  },
+  {
+    "name": "blip_decision",
+    "sprite": -242384756
+  },
+  {
+    "name": "blip_destroy",
+    "sprite": 456887900
+  },
+  {
+    "name": "blip_direction_pointer",
+    "sprite": 51988200
+  },
+  {
+    "name": "blip_donate_food",
+    "sprite": -1236018085
+  },
+  {
+    "name": "blip_event_appleseed",
+    "sprite": 1904459580
+  },
+  {
+    "name": "blip_event_castor",
+    "sprite": -1989725258
+  },
+  {
+    "name": "blip_event_railroad_camp",
+    "sprite": -487631996
+  },
+  {
+    "name": "blip_event_riggs_camp",
+    "sprite": -1944395098
+  },
+  {
+    "name": "blip_fence_building",
+    "sprite": -1179229323
+  },
+  {
+    "name": "blip_for_sale",
+    "sprite": -1383036426
+  },
+  {
+    "name": "blip_gang_savings",
+    "sprite": 571063529
+  },
+  {
+    "name": "blip_gang_savings_special",
+    "sprite": 1350383321
+  },
+  {
+    "name": "blip_gold",
+    "sprite": -1289383059
+  },
+  {
+    "name": "blip_grub",
+    "sprite": 935247438
+  },
+  {
+    "name": "blip_gunslinger",
+    "sprite": -963916715
+  },
+  {
+    "name": "blip_hat",
+    "sprite": 990667866
+  },
+  {
+    "name": "blip_health",
+    "sprite": 1451797164
+  },
+  {
+    "name": "blip_hire_camp_follower",
+    "sprite": 1202244626
+  },
+  {
+    "name": "blip_honor_bad",
+    "sprite": 1322310532
+  },
+  {
+    "name": "blip_honor_good",
+    "sprite": -2108463156
+  },
+  {
+    "name": "blip_horse_higher",
+    "sprite": 600220762
+  },
+  {
+    "name": "blip_horse_lower",
+    "sprite": 2131881492
+  },
+  {
+    "name": "blip_horse_owned",
+    "sprite": -1715189579
+  },
+  {
+    "name": "blip_horse_owned_active",
+    "sprite": 1210165179
+  },
+  {
+    "name": "blip_horse_owned_bonding_0",
+    "sprite": -217389439
+  },
+  {
+    "name": "blip_horse_owned_bonding_1",
+    "sprite": 13992470
+  },
+  {
+    "name": "blip_horse_owned_bonding_2",
+    "sprite": 396341162
+  },
+  {
+    "name": "blip_horse_owned_bonding_3",
+    "sprite": 623069873
+  },
+  {
+    "name": "blip_horse_owned_bonding_4",
+    "sprite": -637422489
+  },
+  {
+    "name": "blip_horse_owned_hitched",
+    "sprite": -44909892
+  },
+  {
+    "name": "blip_horse_temp",
+    "sprite": -641397381
+  },
+  {
+    "name": "blip_horse_temp_bonding_0",
+    "sprite": 937553910
+  },
+  {
+    "name": "blip_horse_temp_bonding_1",
+    "sprite": 489732756
+  },
+  {
+    "name": "blip_horse_temp_bonding_2",
+    "sprite": 195204984
+  },
+  {
+    "name": "blip_horse_temp_bonding_3",
+    "sprite": -103418913
+  },
+  {
+    "name": "blip_horse_temp_bonding_4",
+    "sprite": -815685893
+  },
+  {
+    "name": "blip_horse_temp_hitched",
+    "sprite": 444737100
+  },
+  {
+    "name": "blip_horseshoe_0",
+    "sprite": 1887082874
+  },
+  {
+    "name": "blip_horseshoe_1",
+    "sprite": 2100933368
+  },
+  {
+    "name": "blip_horseshoe_2",
+    "sprite": 1166328735
+  },
+  {
+    "name": "blip_horseshoe_3",
+    "sprite": 1463641872
+  },
+  {
+    "name": "blip_horseshoe_4",
+    "sprite": 687278724
+  },
+  {
+    "name": "blip_hotel_bed",
+    "sprite": -211556852
+  },
+  {
+    "name": "blip_job",
+    "sprite": -986795390
+  },
+  {
+    "name": "blip_job_board",
+    "sprite": -272216216
+  },
+  {
+    "name": "blip_location_higher",
+    "sprite": -902701436
+  },
+  {
+    "name": "blip_location_lower",
+    "sprite": -432067112
+  },
+  {
+    "name": "blip_locked",
+    "sprite": 1255312268
+  },
+  {
+    "name": "blip_mg_blackjack",
+    "sprite": 595820042
+  },
+  {
+    "name": "blip_mg_dominoes",
+    "sprite": -1650465405
+  },
+  {
+    "name": "blip_mg_dominoes_all3s",
+    "sprite": -1581061148
+  },
+  {
+    "name": "blip_mg_dominoes_all5s",
+    "sprite": -48718882
+  },
+  {
+    "name": "blip_mg_dominoes_draw",
+    "sprite": -379108622
+  },
+  {
+    "name": "blip_mg_drinking",
+    "sprite": 1242464081
+  },
+  {
+    "name": "blip_mg_fishing",
+    "sprite": -1575595762
+  },
+  {
+    "name": "blip_mg_five_finger_fillet",
+    "sprite": 1974815632
+  },
+  {
+    "name": "blip_mg_five_finger_fillet_burnout",
+    "sprite": 1015604260
+  },
+  {
+    "name": "blip_mg_five_finger_fillet_guts",
+    "sprite": 126262516
+  },
+  {
+    "name": "blip_mg_poker",
+    "sprite": 1243830185
+  },
+  {
+    "name": "blip_mission_area_beau",
+    "sprite": -1477394468
+  },
+  {
+    "name": "blip_mission_area_bill",
+    "sprite": 455154152
+  },
+  {
+    "name": "blip_mission_area_bounty",
+    "sprite": 2125146709
+  },
+  {
+    "name": "blip_mission_area_bronte",
+    "sprite": -702538745
+  },
+  {
+    "name": "blip_mission_area_david_geddes",
+    "sprite": 1403865185
+  },
+  {
+    "name": "blip_mission_area_dutch",
+    "sprite": 1729623738
+  },
+  {
+    "name": "blip_mission_area_eagle_flies",
+    "sprite": 508736310
+  },
+  {
+    "name": "blip_mission_area_edith",
+    "sprite": -486409706
+  },
+  {
+    "name": "blip_mission_area_grays",
+    "sprite": 1876890949
+  },
+  {
+    "name": "blip_mission_area_gunslinger_1",
+    "sprite": -1849394918
+  },
+  {
+    "name": "blip_mission_area_gunslinger_2",
+    "sprite": 1665113105
+  },
+  {
+    "name": "blip_mission_area_henri",
+    "sprite": 1048219592
+  },
+  {
+    "name": "blip_mission_area_hosea",
+    "sprite": 783937097
+  },
+  {
+    "name": "blip_mission_area_javier",
+    "sprite": 495717394
+  },
+  {
+    "name": "blip_mission_area_john",
+    "sprite": 231806605
+  },
+  {
+    "name": "blip_mission_area_kitty",
+    "sprite": 1003036114
+  },
+  {
+    "name": "blip_mission_area_leon",
+    "sprite": -686621143
+  },
+  {
+    "name": "blip_mission_area_lightning",
+    "sprite": 1084717321
+  },
+  {
+    "name": "blip_mission_area_loanshark",
+    "sprite": -1034306897
+  },
+  {
+    "name": "blip_mission_area_mary",
+    "sprite": -925245417
+  },
+  {
+    "name": "blip_mission_area_micah",
+    "sprite": -977737823
+  },
+  {
+    "name": "blip_mission_area_rains",
+    "sprite": 1255014523
+  },
+  {
+    "name": "blip_mission_area_rc",
+    "sprite": -1998899839
+  },
+  {
+    "name": "blip_mission_area_reverend",
+    "sprite": -164151171
+  },
+  {
+    "name": "blip_mission_area_sadie",
+    "sprite": 1631595563
+  },
+  {
+    "name": "blip_mission_area_strauss",
+    "sprite": -721238161
+  },
+  {
+    "name": "blip_mission_area_trelawney",
+    "sprite": -1245830589
+  },
+  {
+    "name": "blip_mission_bg",
+    "sprite": -125278436
+  },
+  {
+    "name": "blip_mission_bill",
+    "sprite": 944812202
+  },
+  {
+    "name": "blip_mission_bounty",
+    "sprite": -907204276
+  },
+  {
+    "name": "blip_mission_camp",
+    "sprite": -1125110489
+  },
+  {
+    "name": "blip_mission_dutch",
+    "sprite": -106554210
+  },
+  {
+    "name": "blip_mission_higher",
+    "sprite": 1605798866
+  },
+  {
+    "name": "blip_mission_hosea",
+    "sprite": -1724301546
+  },
+  {
+    "name": "blip_mission_john",
+    "sprite": -887880659
+  },
+  {
+    "name": "blip_mission_lower",
+    "sprite": -839061276
+  },
+  {
+    "name": "blip_mission_micah",
+    "sprite": 1267381595
+  },
+  {
+    "name": "blip_moonshine",
+    "sprite": -392465725
+  },
+  {
+    "name": "blip_moonshine_still",
+    "sprite": 553094466
+  },
+  {
+    "name": "blip_moonshine_vat",
+    "sprite": 1391579593
+  },
+  {
+    "name": "blip_mp_attack_target",
+    "sprite": 639638961
+  },
+  {
+    "name": "blip_mp_base",
+    "sprite": -2024635066
+  },
+  {
+    "name": "blip_mp_base_1",
+    "sprite": 1497579885
+  },
+  {
+    "name": "blip_mp_base_10",
+    "sprite": -1022038968
+  },
+  {
+    "name": "blip_mp_base_11",
+    "sprite": -455561289
+  },
+  {
+    "name": "blip_mp_base_12",
+    "sprite": -704015847
+  },
+  {
+    "name": "blip_mp_base_13",
+    "sprite": 1198322910
+  },
+  {
+    "name": "blip_mp_base_14",
+    "sprite": 982965042
+  },
+  {
+    "name": "blip_mp_base_15",
+    "sprite": 230719878
+  },
+  {
+    "name": "blip_mp_base_16",
+    "sprite": 2130961427
+  },
+  {
+    "name": "blip_mp_base_2",
+    "sprite": 1788208146
+  },
+  {
+    "name": "blip_mp_base_3",
+    "sprite": 2145259174
+  },
+  {
+    "name": "blip_mp_base_4",
+    "sprite": -1902269403
+  },
+  {
+    "name": "blip_mp_base_5",
+    "sprite": -1266223113
+  },
+  {
+    "name": "blip_mp_base_6",
+    "sprite": -969139359
+  },
+  {
+    "name": "blip_mp_base_7",
+    "sprite": -671498532
+  },
+  {
+    "name": "blip_mp_base_8",
+    "sprite": -631651428
+  },
+  {
+    "name": "blip_mp_base_9",
+    "sprite": -506375545
+  },
+  {
+    "name": "blip_mp_base_a",
+    "sprite": -1741111493
+  },
+  {
+    "name": "blip_mp_base_b",
+    "sprite": -2030232380
+  },
+  {
+    "name": "blip_mp_base_c",
+    "sprite": -1396905917
+  },
+  {
+    "name": "blip_mp_base_d",
+    "sprite": -1693203215
+  },
+  {
+    "name": "blip_mp_base_e",
+    "sprite": -818533067
+  },
+  {
+    "name": "blip_mp_base_f",
+    "sprite": -1117222502
+  },
+  {
+    "name": "blip_mp_base_g",
+    "sprite": 60954128
+  },
+  {
+    "name": "blip_mp_base_h",
+    "sprite": -235048253
+  },
+  {
+    "name": "blip_mp_base_i",
+    "sprite": 2123729925
+  },
+  {
+    "name": "blip_mp_base_j",
+    "sprite": 1834871186
+  },
+  {
+    "name": "blip_mp_beast",
+    "sprite": -1085232344
+  },
+  {
+    "name": "blip_mp_bounty_dead",
+    "sprite": -1998058959
+  },
+  {
+    "name": "blip_mp_bounty_hunter_introduction",
+    "sprite": 1047294027
+  },
+  {
+    "name": "blip_mp_butcher_table",
+    "sprite": 1369919445
+  },
+  {
+    "name": "blip_mp_cash_checkpoint",
+    "sprite": -1567930587
+  },
+  {
+    "name": "blip_mp_coach_escort",
+    "sprite": 1045919449
+  },
+  {
+    "name": "blip_mp_coach_intercept",
+    "sprite": -1371003729
+  },
+  {
+    "name": "blip_mp_coach_recover",
+    "sprite": -992598136
+  },
+  {
+    "name": "blip_mp_coach_smuggle",
+    "sprite": -1747775003
+  },
+  {
+    "name": "blip_mp_collector_map",
+    "sprite": 2119977580
+  },
+  {
+    "name": "blip_mp_deadeye",
+    "sprite": -2121688190
+  },
+  {
+    "name": "blip_mp_defend_target",
+    "sprite": 1293773224
+  },
+  {
+    "name": "blip_mp_deliver_target",
+    "sprite": 1865251988
+  },
+  {
+    "name": "blip_mp_elimination_large",
+    "sprite": 354734005
+  },
+  {
+    "name": "blip_mp_elimination_medium",
+    "sprite": -1918326968
+  },
+  {
+    "name": "blip_mp_elimination_small",
+    "sprite": 2061284948
+  },
+  {
+    "name": "blip_mp_featured",
+    "sprite": 1331927252
+  },
+  {
+    "name": "blip_mp_flag",
+    "sprite": -1595467349
+  },
+  {
+    "name": "blip_mp_game_animal_protection",
+    "sprite": 263099185
+  },
+  {
+    "name": "blip_mp_game_hill",
+    "sprite": 2113496404
+  },
+  {
+    "name": "blip_mp_game_magnificent_four",
+    "sprite": -879802008
+  },
+  {
+    "name": "blip_mp_game_multi_target",
+    "sprite": 615597833
+  },
+  {
+    "name": "blip_mp_game_race_canoe",
+    "sprite": 2005921736
+  },
+  {
+    "name": "blip_mp_game_race_horse",
+    "sprite": 564457427
+  },
+  {
+    "name": "blip_mp_game_runaway_train",
+    "sprite": 1258184551
+  },
+  {
+    "name": "blip_mp_game_treasure_hunt",
+    "sprite": 1735233562
+  },
+  {
+    "name": "blip_mp_game_vip",
+    "sprite": -755765764
+  },
+  {
+    "name": "blip_mp_gun_for_hire",
+    "sprite": -1906191545
+  },
+  {
+    "name": "blip_mp_gun_rush",
+    "sprite": -888054767
+  },
+  {
+    "name": "blip_mp_gun_rush_team",
+    "sprite": 383510239
+  },
+  {
+    "name": "blip_mp_job_exclusive",
+    "sprite": 1155982873
+  },
+  {
+    "name": "blip_mp_job_exclusive_large",
+    "sprite": 201164399
+  },
+  {
+    "name": "blip_mp_job_exclusive_small",
+    "sprite": -813538438
+  },
+  {
+    "name": "blip_mp_location_a",
+    "sprite": -511566837
+  },
+  {
+    "name": "blip_mp_location_b",
+    "sprite": 133359852
+  },
+  {
+    "name": "blip_mp_location_c",
+    "sprite": -164117130
+  },
+  {
+    "name": "blip_mp_location_d",
+    "sprite": -1134374451
+  },
+  {
+    "name": "blip_mp_location_e",
+    "sprite": -1395051846
+  },
+  {
+    "name": "blip_mp_location_f",
+    "sprite": 1664261990
+  },
+  {
+    "name": "blip_mp_location_g",
+    "sprite": -780469251
+  },
+  {
+    "name": "blip_mp_location_h",
+    "sprite": -701364869
+  },
+  {
+    "name": "blip_mp_location_i",
+    "sprite": 1147888108
+  },
+  {
+    "name": "blip_mp_location_j",
+    "sprite": -104543072
+  },
+  {
+    "name": "blip_mp_location_k",
+    "sprite": -352964861
+  },
+  {
+    "name": "blip_mp_location_l",
+    "sprite": -1321714808
+  },
+  {
+    "name": "blip_mp_location_m",
+    "sprite": -1633216922
+  },
+  {
+    "name": "blip_mp_location_n",
+    "sprite": -992156975
+  },
+  {
+    "name": "blip_mp_location_o",
+    "sprite": -985996415
+  },
+  {
+    "name": "blip_mp_location_p",
+    "sprite": -1031152097
+  },
+  {
+    "name": "blip_mp_location_q",
+    "sprite": 1763355466
+  },
+  {
+    "name": "blip_mp_location_r",
+    "sprite": 1406173366
+  },
+  {
+    "name": "blip_mp_location_s",
+    "sprite": -1988105196
+  },
+  {
+    "name": "blip_mp_location_t",
+    "sprite": 2017085833
+  },
+  {
+    "name": "blip_mp_location_u",
+    "sprite": 1055774449
+  },
+  {
+    "name": "blip_mp_location_v",
+    "sprite": 748106308
+  },
+  {
+    "name": "blip_mp_location_w",
+    "sprite": 1118985838
+  },
+  {
+    "name": "blip_mp_location_x",
+    "sprite": 820034251
+  },
+  {
+    "name": "blip_mp_location_y",
+    "sprite": -735182489
+  },
+  {
+    "name": "blip_mp_location_z",
+    "sprite": 1368652849
+  },
+  {
+    "name": "blip_mp_mission_area_braithwaite",
+    "sprite": 2049287916
+  },
+  {
+    "name": "blip_mp_mission_area_bronte",
+    "sprite": -121612068
+  },
+  {
+    "name": "blip_mp_mission_area_clay",
+    "sprite": 1825710119
+  },
+  {
+    "name": "blip_mp_mission_area_decision",
+    "sprite": 305683062
+  },
+  {
+    "name": "blip_mp_mission_area_gunslinger",
+    "sprite": 1819223122
+  },
+  {
+    "name": "blip_mp_mission_area_horley",
+    "sprite": 1122538779
+  },
+  {
+    "name": "blip_mp_mission_area_jesse",
+    "sprite": 1206833715
+  },
+  {
+    "name": "blip_mp_mission_area_marshall_tom_davies",
+    "sprite": 415905033
+  },
+  {
+    "name": "blip_mp_mission_area_old_man_jones",
+    "sprite": -672283790
+  },
+  {
+    "name": "blip_mp_mission_area_outlaw",
+    "sprite": 1702671897
+  },
+  {
+    "name": "blip_mp_mission_area_revenge",
+    "sprite": -486518067
+  },
+  {
+    "name": "blip_mp_mission_area_robbery",
+    "sprite": -737657968
+  },
+  {
+    "name": "blip_mp_mission_area_samson_finch",
+    "sprite": 1052244457
+  },
+  {
+    "name": "blip_mp_mission_area_seven",
+    "sprite": 999921768
+  },
+  {
+    "name": "blip_mp_mission_braithwaite",
+    "sprite": 2121165562
+  },
+  {
+    "name": "blip_mp_mission_bronte",
+    "sprite": -1566323707
+  },
+  {
+    "name": "blip_mp_mission_clay",
+    "sprite": 221316808
+  },
+  {
+    "name": "blip_mp_mission_horley",
+    "sprite": -1478891674
+  },
+  {
+    "name": "blip_mp_mission_jesse",
+    "sprite": 1153710309
+  },
+  {
+    "name": "blip_mp_mission_marshall_tom_davies",
+    "sprite": -740629317
+  },
+  {
+    "name": "blip_mp_mission_old_man_jones",
+    "sprite": -1662942683
+  },
+  {
+    "name": "blip_mp_mission_revenge",
+    "sprite": -1392193699
+  },
+  {
+    "name": "blip_mp_mission_robbery",
+    "sprite": -60720396
+  },
+  {
+    "name": "blip_mp_mission_samson_finch",
+    "sprite": -2106580172
+  },
+  {
+    "name": "blip_mp_mission_seven",
+    "sprite": -222767785
+  },
+  {
+    "name": "blip_mp_mission_tbd",
+    "sprite": -1237816179
+  },
+  {
+    "name": "blip_mp_ordered_item",
+    "sprite": -1656531561
+  },
+  {
+    "name": "blip_mp_pickup",
+    "sprite": 1109348405
+  },
+  {
+    "name": "blip_mp_player_wagon",
+    "sprite": 1612913921
+  },
+  {
+    "name": "blip_mp_player_wagon_hitched",
+    "sprite": -1236452613
+  },
+  {
+    "name": "blip_mp_playlist_adversary",
+    "sprite": 214435071
+  },
+  {
+    "name": "blip_mp_playlist_adversary_special",
+    "sprite": -1081805875
+  },
+  {
+    "name": "blip_mp_playlist_capture",
+    "sprite": 331074463
+  },
+  {
+    "name": "blip_mp_playlist_exclusive",
+    "sprite": 1181380553
+  },
+  {
+    "name": "blip_mp_playlist_freeforall",
+    "sprite": -1025216818
+  },
+  {
+    "name": "blip_mp_playlist_objective",
+    "sprite": -118871741
+  },
+  {
+    "name": "blip_mp_playlist_pve",
+    "sprite": 1271582977
+  },
+  {
+    "name": "blip_mp_playlist_races",
+    "sprite": 1896900580
+  },
+  {
+    "name": "blip_mp_playlist_series_12",
+    "sprite": 1454572348
+  },
+  {
+    "name": "blip_mp_playlist_series_4",
+    "sprite": -152950882
+  },
+  {
+    "name": "blip_mp_playlist_series_8",
+    "sprite": -822028324
+  },
+  {
+    "name": "blip_mp_playlist_teamgame",
+    "sprite": 1183081869
+  },
+  {
+    "name": "blip_mp_playstyle_defensive",
+    "sprite": -266617465
+  },
+  {
+    "name": "blip_mp_playstyle_offensive",
+    "sprite": 202506373
+  },
+  {
+    "name": "blip_mp_predator_hunt_mask",
+    "sprite": -569968788
+  },
+  {
+    "name": "blip_mp_role_bounty_hunter_ilo",
+    "sprite": -1154452417
+  },
+  {
+    "name": "blip_mp_role_collector_ilo",
+    "sprite": 187984275
+  },
+  {
+    "name": "blip_mp_role_moonshiner",
+    "sprite": -2029148647
+  },
+  {
+    "name": "blip_mp_role_trader_ilo",
+    "sprite": -1681663363
+  },
+  {
+    "name": "blip_mp_roles_bounty_hunter_lock",
+    "sprite": 1377250401
+  },
+  {
+    "name": "blip_mp_roles_collector_lock",
+    "sprite": -536376284
+  },
+  {
+    "name": "blip_mp_roles_moonshiner_lock",
+    "sprite": -1977918572
+  },
+  {
+    "name": "blip_mp_roles_trader_lock",
+    "sprite": 327336537
+  },
+  {
+    "name": "blip_mp_roundup",
+    "sprite": -1462274666
+  },
+  {
+    "name": "blip_mp_rustling",
+    "sprite": 90287351
+  },
+  {
+    "name": "blip_mp_shootout",
+    "sprite": 1788902664
+  },
+  {
+    "name": "blip_mp_spawnpoint",
+    "sprite": -1513632695
+  },
+  {
+    "name": "blip_mp_spawnpoint_arrow",
+    "sprite": 2061546582
+  },
+  {
+    "name": "blip_mp_supplies",
+    "sprite": -984192463
+  },
+  {
+    "name": "blip_mp_supplies_base_1",
+    "sprite": 758724208
+  },
+  {
+    "name": "blip_mp_supplies_base_10",
+    "sprite": -1331290727
+  },
+  {
+    "name": "blip_mp_supplies_base_11",
+    "sprite": 1662157427
+  },
+  {
+    "name": "blip_mp_supplies_base_12",
+    "sprite": -1803197096
+  },
+  {
+    "name": "blip_mp_supplies_base_13",
+    "sprite": 1513484578
+  },
+  {
+    "name": "blip_mp_supplies_base_14",
+    "sprite": 747574741
+  },
+  {
+    "name": "blip_mp_supplies_base_15",
+    "sprite": 111659527
+  },
+  {
+    "name": "blip_mp_supplies_base_16",
+    "sprite": 420638428
+  },
+  {
+    "name": "blip_mp_supplies_base_2",
+    "sprite": 460296925
+  },
+  {
+    "name": "blip_mp_supplies_base_3",
+    "sprite": 1180166317
+  },
+  {
+    "name": "blip_mp_supplies_base_4",
+    "sprite": 880919809
+  },
+  {
+    "name": "blip_mp_supplies_base_5",
+    "sprite": -466377626
+  },
+  {
+    "name": "blip_mp_supplies_base_6",
+    "sprite": -767164277
+  },
+  {
+    "name": "blip_mp_supplies_base_7",
+    "sprite": 22830775
+  },
+  {
+    "name": "blip_mp_supplies_base_8",
+    "sprite": -1348912334
+  },
+  {
+    "name": "blip_mp_supplies_base_9",
+    "sprite": -194394938
+  },
+  {
+    "name": "blip_mp_supplies_outline",
+    "sprite": -298381019
+  },
+  {
+    "name": "blip_mp_torch",
+    "sprite": 1000514759
+  },
+  {
+    "name": "blip_mp_trader_introduction",
+    "sprite": -924533810
+  },
+  {
+    "name": "blip_mp_travelling_saleswoman",
+    "sprite": -1546805641
+  },
+  {
+    "name": "blip_mp_ugc",
+    "sprite": 2107754879
+  },
+  {
+    "name": "blip_mp_wreckage",
+    "sprite": 1106719664
+  },
+  {
+    "name": "blip_mvp",
+    "sprite": 1334667386
+  },
+  {
+    "name": "blip_ned_kelly_outfit",
+    "sprite": 1862205446
+  },
+  {
+    "name": "blip_nominated",
+    "sprite": 334932010
+  },
+  {
+    "name": "blip_npc_search",
+    "sprite": 2031478856
+  },
+  {
+    "name": "blip_objective",
+    "sprite": -570710357
+  },
+  {
+    "name": "blip_objective_minor",
+    "sprite": 1192138201
+  },
+  {
+    "name": "blip_on_call",
+    "sprite": 418664122
+  },
+  {
+    "name": "blip_outlaw",
+    "sprite": 1095891419
+  },
+  {
+    "name": "blip_overlay_1",
+    "sprite": 480724882
+  },
+  {
+    "name": "blip_overlay_2",
+    "sprite": -300946848
+  },
+  {
+    "name": "blip_overlay_3",
+    "sprite": 7900981
+  },
+  {
+    "name": "blip_overlay_4",
+    "sprite": 1675187701
+  },
+  {
+    "name": "blip_overlay_5",
+    "sprite": 1846307419
+  },
+  {
+    "name": "blip_overlay_6",
+    "sprite": 1194564778
+  },
+  {
+    "name": "blip_overlay_bill",
+    "sprite": 68100707
+  },
+  {
+    "name": "blip_overlay_charles",
+    "sprite": -674292488
+  },
+  {
+    "name": "blip_overlay_flag",
+    "sprite": -44057202
+  },
+  {
+    "name": "blip_overlay_hosea",
+    "sprite": -985772686
+  },
+  {
+    "name": "blip_overlay_javier",
+    "sprite": 495452413
+  },
+  {
+    "name": "blip_overlay_john",
+    "sprite": -1764128257
+  },
+  {
+    "name": "blip_overlay_karen",
+    "sprite": -1283959649
+  },
+  {
+    "name": "blip_overlay_kieran",
+    "sprite": 577712810
+  },
+  {
+    "name": "blip_overlay_lenny",
+    "sprite": -1491306790
+  },
+  {
+    "name": "blip_overlay_loanshark",
+    "sprite": -1713383509
+  },
+  {
+    "name": "blip_overlay_micah",
+    "sprite": 809358939
+  },
+  {
+    "name": "blip_overlay_party",
+    "sprite": 1097265030
+  },
+  {
+    "name": "blip_overlay_pearson",
+    "sprite": 1083384676
+  },
+  {
+    "name": "blip_overlay_ring",
+    "sprite": -184692826
+  },
+  {
+    "name": "blip_overlay_saddle",
+    "sprite": -271586249
+  },
+  {
+    "name": "blip_overlay_sean",
+    "sprite": -656301087
+  },
+  {
+    "name": "blip_overlay_strauss",
+    "sprite": 1737923688
+  },
+  {
+    "name": "blip_overlay_tilly",
+    "sprite": 2009192597
+  },
+  {
+    "name": "blip_overlay_uncle",
+    "sprite": -1706952903
+  },
+  {
+    "name": "blip_overlay_white_1",
+    "sprite": -810005617
+  },
+  {
+    "name": "blip_overlay_white_10",
+    "sprite": 938123158
+  },
+  {
+    "name": "blip_overlay_white_11",
+    "sprite": 634911601
+  },
+  {
+    "name": "blip_overlay_white_12",
+    "sprite": 1517642923
+  },
+  {
+    "name": "blip_overlay_white_13",
+    "sprite": 1213710448
+  },
+  {
+    "name": "blip_overlay_white_14",
+    "sprite": 928784077
+  },
+  {
+    "name": "blip_overlay_white_15",
+    "sprite": 623540842
+  },
+  {
+    "name": "blip_overlay_white_16",
+    "sprite": 1510859824
+  },
+  {
+    "name": "blip_overlay_white_2",
+    "sprite": -512626942
+  },
+  {
+    "name": "blip_overlay_white_3",
+    "sprite": -1268149006
+  },
+  {
+    "name": "blip_overlay_white_4",
+    "sprite": -969951106
+  },
+  {
+    "name": "blip_overlay_white_5",
+    "sprite": 1222000069
+  },
+  {
+    "name": "blip_overlay_white_6",
+    "sprite": 446619991
+  },
+  {
+    "name": "blip_overlay_white_7",
+    "sprite": -311884052
+  },
+  {
+    "name": "blip_overlay_white_8",
+    "sprite": -6608048
+  },
+  {
+    "name": "blip_overlay_white_9",
+    "sprite": -2114047976
+  },
+  {
+    "name": "blip_ped_1",
+    "sprite": 1257411558
+  },
+  {
+    "name": "blip_ped_10",
+    "sprite": -1559242154
+  },
+  {
+    "name": "blip_ped_11",
+    "sprite": -1263043163
+  },
+  {
+    "name": "blip_ped_12",
+    "sprite": 1069847489
+  },
+  {
+    "name": "blip_ped_13",
+    "sprite": 1368078158
+  },
+  {
+    "name": "blip_ped_14",
+    "sprite": 1508919320
+  },
+  {
+    "name": "blip_ped_15",
+    "sprite": 1875669968
+  },
+  {
+    "name": "blip_ped_16",
+    "sprite": -158269097
+  },
+  {
+    "name": "blip_ped_17",
+    "sprite": 139568344
+  },
+  {
+    "name": "blip_ped_18",
+    "sprite": 405554317
+  },
+  {
+    "name": "blip_ped_19",
+    "sprite": 710240479
+  },
+  {
+    "name": "blip_ped_2",
+    "sprite": 994636947
+  },
+  {
+    "name": "blip_ped_20",
+    "sprite": -821972715
+  },
+  {
+    "name": "blip_ped_21",
+    "sprite": -1060957032
+  },
+  {
+    "name": "blip_ped_22",
+    "sprite": 2026276004
+  },
+  {
+    "name": "blip_ped_23",
+    "sprite": -1425217232
+  },
+  {
+    "name": "blip_ped_24",
+    "sprite": 1671092813
+  },
+  {
+    "name": "blip_ped_25",
+    "sprite": -1779908888
+  },
+  {
+    "name": "blip_ped_26",
+    "sprite": 1105008338
+  },
+  {
+    "name": "blip_ped_27",
+    "sprite": 1947695942
+  },
+  {
+    "name": "blip_ped_28",
+    "sprite": 778399711
+  },
+  {
+    "name": "blip_ped_29",
+    "sprite": 1317187613
+  },
+  {
+    "name": "blip_ped_3",
+    "sprite": 228563269
+  },
+  {
+    "name": "blip_ped_30",
+    "sprite": -1890902307
+  },
+  {
+    "name": "blip_ped_31",
+    "sprite": 2021257531
+  },
+  {
+    "name": "blip_ped_32",
+    "sprite": 1808226262
+  },
+  {
+    "name": "blip_ped_4",
+    "sprite": -1770032
+  },
+  {
+    "name": "blip_ped_5",
+    "sprite": -737237468
+  },
+  {
+    "name": "blip_ped_6",
+    "sprite": -968848760
+  },
+  {
+    "name": "blip_ped_7",
+    "sprite": -1199313137
+  },
+  {
+    "name": "blip_ped_8",
+    "sprite": -1456680863
+  },
+  {
+    "name": "blip_ped_9",
+    "sprite": -1688128310
+  },
+  {
+    "name": "blip_photo_studio",
+    "sprite": 1364029453
+  },
+  {
+    "name": "blip_plant",
+    "sprite": -675651933
+  },
+  {
+    "name": "blip_player",
+    "sprite": -523921054
+  },
+  {
+    "name": "blip_player_coach",
+    "sprite": -361388975
+  },
+  {
+    "name": "blip_poi",
+    "sprite": -2039778370
+  },
+  {
+    "name": "blip_post_office",
+    "sprite": 1861010125
+  },
+  {
+    "name": "blip_post_office_rec",
+    "sprite": 1475382911
+  },
+  {
+    "name": "blip_predator",
+    "sprite": -1210145388
+  },
+  {
+    "name": "blip_proc_bank",
+    "sprite": -2128054417
+  },
+  {
+    "name": "blip_proc_bounty_poster",
+    "sprite": -1636832113
+  },
+  {
+    "name": "blip_proc_home",
+    "sprite": 1586273744
+  },
+  {
+    "name": "blip_proc_home_locked",
+    "sprite": -1498696713
+  },
+  {
+    "name": "blip_proc_loanshark",
+    "sprite": -997121570
+  },
+  {
+    "name": "blip_proc_track",
+    "sprite": 421058601
+  },
+  {
+    "name": "blip_product_moonshine",
+    "sprite": 1654787099
+  },
+  {
+    "name": "blip_quick_weapon_select",
+    "sprite": -576151168
+  },
+  {
+    "name": "blip_radar_edge_arrow",
+    "sprite": -676099509
+  },
+  {
+    "name": "blip_radar_edge_pointer",
+    "sprite": -1192977721
+  },
+  {
+    "name": "blip_radius_search",
+    "sprite": 150441873
+  },
+  {
+    "name": "blip_rc",
+    "sprite": -1822497728
+  },
+  {
+    "name": "blip_rc_albert",
+    "sprite": -1259688762
+  },
+  {
+    "name": "blip_rc_algernon_wasp",
+    "sprite": 2107943776
+  },
+  {
+    "name": "blip_rc_art",
+    "sprite": -434412386
+  },
+  {
+    "name": "blip_rc_calloway",
+    "sprite": -1744398657
+  },
+  {
+    "name": "blip_rc_chain_gang",
+    "sprite": -622951465
+  },
+  {
+    "name": "blip_rc_charlotte_balfour",
+    "sprite": -1676833170
+  },
+  {
+    "name": "blip_rc_crackpot",
+    "sprite": 877823184
+  },
+  {
+    "name": "blip_rc_deborah",
+    "sprite": 1162303770
+  },
+  {
+    "name": "blip_rc_gunslinger_1",
+    "sprite": 858349040
+  },
+  {
+    "name": "blip_rc_gunslinger_2",
+    "sprite": 479604938
+  },
+  {
+    "name": "blip_rc_gunslinger_3",
+    "sprite": 240424007
+  },
+  {
+    "name": "blip_rc_gunslinger_5",
+    "sprite": 1813565390
+  },
+  {
+    "name": "blip_rc_henri",
+    "sprite": -340501579
+  },
+  {
+    "name": "blip_rc_hobbs",
+    "sprite": 1986498931
+  },
+  {
+    "name": "blip_rc_jeremy_gill",
+    "sprite": -273196610
+  },
+  {
+    "name": "blip_rc_kitty",
+    "sprite": 1970061205
+  },
+  {
+    "name": "blip_rc_lightning",
+    "sprite": -1962480616
+  },
+  {
+    "name": "blip_rc_obediah_hinton",
+    "sprite": 415367144
+  },
+  {
+    "name": "blip_rc_odd_fellows",
+    "sprite": 825960713
+  },
+  {
+    "name": "blip_rc_oh_brother",
+    "sprite": -1280269885
+  },
+  {
+    "name": "blip_rc_old_flame",
+    "sprite": 1429600911
+  },
+  {
+    "name": "blip_rc_slave_catcher",
+    "sprite": 194953189
+  },
+  {
+    "name": "blip_rc_war_veteran",
+    "sprite": 1770336866
+  },
+  {
+    "name": "blip_region_caravan",
+    "sprite": -1606321000
+  },
+  {
+    "name": "blip_region_hideout",
+    "sprite": -428972082
+  },
+  {
+    "name": "blip_region_hunting",
+    "sprite": 500148876
+  },
+  {
+    "name": "blip_robbery_bank",
+    "sprite": 623155783
+  },
+  {
+    "name": "blip_robbery_coach",
+    "sprite": -729441538
+  },
+  {
+    "name": "blip_robbery_home",
+    "sprite": 444204045
+  },
+  {
+    "name": "blip_rpg_overweight",
+    "sprite": -1107942598
+  },
+  {
+    "name": "blip_rpg_underweight",
+    "sprite": 1111652008
+  },
+  {
+    "name": "blip_saddle",
+    "sprite": -1327110633
+  },
+  {
+    "name": "blip_saloon",
+    "sprite": 1879260108
+  },
+  {
+    "name": "blip_scm_abe_stablehand",
+    "sprite": 469700298
+  },
+  {
+    "name": "blip_scm_abigail",
+    "sprite": 2134645637
+  },
+  {
+    "name": "blip_scm_albert_cakes",
+    "sprite": 2125693359
+  },
+  {
+    "name": "blip_scm_andreas",
+    "sprite": -68985291
+  },
+  {
+    "name": "blip_scm_ansel_atherton",
+    "sprite": -194220735
+  },
+  {
+    "name": "blip_scm_beau",
+    "sprite": 1301148265
+  },
+  {
+    "name": "blip_scm_bronte",
+    "sprite": -1137631263
+  },
+  {
+    "name": "blip_scm_calderon",
+    "sprite": -809133732
+  },
+  {
+    "name": "blip_scm_charles",
+    "sprite": -1419869332
+  },
+  {
+    "name": "blip_scm_david_geddes",
+    "sprite": -1715293734
+  },
+  {
+    "name": "blip_scm_dorkins",
+    "sprite": 332378857
+  },
+  {
+    "name": "blip_scm_eagle_flies",
+    "sprite": 1079956634
+  },
+  {
+    "name": "blip_scm_edith",
+    "sprite": -661151214
+  },
+  {
+    "name": "blip_scm_evelyn",
+    "sprite": -1610853131
+  },
+  {
+    "name": "blip_scm_frances",
+    "sprite": -781551276
+  },
+  {
+    "name": "blip_scm_grays",
+    "sprite": -982604554
+  },
+  {
+    "name": "blip_scm_jack",
+    "sprite": 388668855
+  },
+  {
+    "name": "blip_scm_javier",
+    "sprite": -2071559757
+  },
+  {
+    "name": "blip_scm_kieran",
+    "sprite": -420584813
+  },
+  {
+    "name": "blip_scm_lenny",
+    "sprite": 818727011
+  },
+  {
+    "name": "blip_scm_leon",
+    "sprite": -491324266
+  },
+  {
+    "name": "blip_scm_letter",
+    "sprite": -2100584570
+  },
+  {
+    "name": "blip_scm_marybeth",
+    "sprite": 611792857
+  },
+  {
+    "name": "blip_scm_molly_oshea",
+    "sprite": 1306049414
+  },
+  {
+    "name": "blip_scm_monroe",
+    "sprite": -301979999
+  },
+  {
+    "name": "blip_scm_pearson",
+    "sprite": -699499938
+  },
+  {
+    "name": "blip_scm_penelope",
+    "sprite": -510064667
+  },
+  {
+    "name": "blip_scm_rains",
+    "sprite": -264232183
+  },
+  {
+    "name": "blip_scm_reverend",
+    "sprite": -675600022
+  },
+  {
+    "name": "blip_scm_sadie",
+    "sprite": 1232829146
+  },
+  {
+    "name": "blip_scm_sean",
+    "sprite": 1598675467
+  },
+  {
+    "name": "blip_scm_strauss",
+    "sprite": 2145479193
+  },
+  {
+    "name": "blip_scm_susan",
+    "sprite": 1010322007
+  },
+  {
+    "name": "blip_scm_tom_dickens",
+    "sprite": -1295983414
+  },
+  {
+    "name": "blip_scm_trelawney",
+    "sprite": -1151477989
+  },
+  {
+    "name": "blip_scm_uncle",
+    "sprite": -338536163
+  },
+  {
+    "name": "blip_shop_animal_trapper",
+    "sprite": -1406874050
+  },
+  {
+    "name": "blip_shop_barber",
+    "sprite": -2090472724
+  },
+  {
+    "name": "blip_shop_blacksmith",
+    "sprite": -758970771
+  },
+  {
+    "name": "blip_shop_butcher",
+    "sprite": -1665418949
+  },
+  {
+    "name": "blip_shop_coach_fencing",
+    "sprite": -1989306548
+  },
+  {
+    "name": "blip_shop_doctor",
+    "sprite": -1739686743
+  },
+  {
+    "name": "blip_shop_gunsmith",
+    "sprite": -145868367
+  },
+  {
+    "name": "blip_shop_honor",
+    "sprite": 1779658797
+  },
+  {
+    "name": "blip_shop_honor_overlay",
+    "sprite": -1646141521
+  },
+  {
+    "name": "blip_shop_horse",
+    "sprite": 1938782895
+  },
+  {
+    "name": "blip_shop_horse_fencing",
+    "sprite": -1456209806
+  },
+  {
+    "name": "blip_shop_horse_saddle",
+    "sprite": 469827317
+  },
+  {
+    "name": "blip_shop_market_stall",
+    "sprite": 819673798
+  },
+  {
+    "name": "blip_shop_shady_store",
+    "sprite": 531267562
+  },
+  {
+    "name": "blip_shop_store",
+    "sprite": 1475879922
+  },
+  {
+    "name": "blip_shop_tackle",
+    "sprite": -852241114
+  },
+  {
+    "name": "blip_shop_tailor",
+    "sprite": 1195729388
+  },
+  {
+    "name": "blip_shop_train",
+    "sprite": 103490298
+  },
+  {
+    "name": "blip_shop_trainer",
+    "sprite": 1542275196
+  },
+  {
+    "name": "blip_shop_wardrobe",
+    "sprite": 1496995379
+  },
+  {
+    "name": "blip_special_series_1",
+    "sprite": 778811758
+  },
+  {
+    "name": "blip_special_series_2",
+    "sprite": 338003170
+  },
+  {
+    "name": "blip_stable",
+    "sprite": -73168905
+  },
+  {
+    "name": "blip_summer_cow",
+    "sprite": 1078668923
+  },
+  {
+    "name": "blip_summer_feed",
+    "sprite": 669307703
+  },
+  {
+    "name": "blip_summer_guard",
+    "sprite": -1735903728
+  },
+  {
+    "name": "blip_summer_horse",
+    "sprite": 552659337
+  },
+  {
+    "name": "blip_supplies_ammo",
+    "sprite": 1576459965
+  },
+  {
+    "name": "blip_supplies_food",
+    "sprite": -1852063472
+  },
+  {
+    "name": "blip_supplies_health",
+    "sprite": -695368421
+  },
+  {
+    "name": "blip_supply_icon_ammo",
+    "sprite": 1378990590
+  },
+  {
+    "name": "blip_supply_icon_food",
+    "sprite": 412928073
+  },
+  {
+    "name": "blip_supply_icon_health",
+    "sprite": -924021303
+  },
+  {
+    "name": "blip_swap",
+    "sprite": -1505442625
+  },
+  {
+    "name": "blip_taxidermist",
+    "sprite": -1733535731
+  },
+  {
+    "name": "blip_teamsters",
+    "sprite": -243818172
+  },
+  {
+    "name": "blip_time_of_day",
+    "sprite": -369711600
+  },
+  {
+    "name": "blip_town",
+    "sprite": -1258576797
+  },
+  {
+    "name": "blip_trophy",
+    "sprite": -1389658546
+  },
+  {
+    "name": "blip_wanted_poster",
+    "sprite": -1747825963
+  },
+  {
+    "name": "blip_weapon",
+    "sprite": 549686661
+  },
+  {
+    "name": "blip_weapon_bow",
+    "sprite": -132369645
+  },
+  {
+    "name": "blip_weapon_cannon",
+    "sprite": -363516712
+  },
+  {
+    "name": "blip_weapon_dynamite",
+    "sprite": 1125369187
+  },
+  {
+    "name": "blip_weapon_gatling",
+    "sprite": 2120954438
+  },
+  {
+    "name": "blip_weapon_handgun",
+    "sprite": -1052367340
+  },
+  {
+    "name": "blip_weapon_longarm",
+    "sprite": -995686252
+  },
+  {
+    "name": "blip_weapon_melee",
+    "sprite": 501323084
+  },
+  {
+    "name": "blip_weapon_molotov",
+    "sprite": 526225529
+  },
+  {
+    "name": "blip_weapon_shotgun",
+    "sprite": -1796682476
+  },
+  {
+    "name": "blip_weapon_sniper",
+    "sprite": -1634577211
+  },
+  {
+    "name": "blip_weapon_throwable",
+    "sprite": 1482572802
+  },
+  {
+    "name": "blip_weapon_throwing_knife",
+    "sprite": 908365526
+  },
+  {
+    "name": "blip_weapon_tomahawk",
+    "sprite": 1480984695
+  },
+  {
+    "name": "blip_weapon_torch",
+    "sprite": 2119944996
+  }
+]

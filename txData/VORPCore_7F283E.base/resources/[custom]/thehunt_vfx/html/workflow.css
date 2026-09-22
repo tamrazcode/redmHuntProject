@@ -1,0 +1,10 @@
+.workflow{padding:8px 20px;border-bottom:1px solid rgba(255,255,255,.09);background:#101014;flex-shrink:0;font-size:12px}
+.workflow summary{cursor:pointer;color:#fff}.workflow ol{padding-left:22px;line-height:1.7}.workflow p,.workflow small{color:#8f94a0;line-height:1.6}.workflow button{margin:6px 0 0 12px}
+#layers .editing-layer{border-color:#38bdf8;box-shadow:inset 3px 0 #38bdf8}
+#layers .editing-layer:before{content:'РЕДАКТИРУЕТСЯ В ИНСПЕКТОРЕ';display:block;font-size:10px;letter-spacing:1px;color:#38bdf8;margin-bottom:8px}
+#compositionDiagnostics:empty{display:none}#compositionDiagnostics{margin-top:12px;color:#ef4444;font-size:12px;line-height:1.6}
+.effect-help{padding:10px;border-left:2px solid #38bdf8;background:rgba(56,189,248,.06);font-size:12px;line-height:1.6;color:#8f94a0}
+.effect-help:empty{display:none}aside>label:has(#bonePicker){display:flex;flex-direction:column;align-items:stretch}#bonePicker{width:100%}#boneSummary{overflow-wrap:anywhere}
+button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,summary:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+#status{overflow-wrap:anywhere}#studio .body{min-height:0}.browser,aside{overscroll-behavior:contain}
+@media(max-height:800px){.workflow{padding:5px 14px}.project-strip{padding:5px 14px}#studio header{padding:8px 14px}#studio nav{padding:6px 14px}}

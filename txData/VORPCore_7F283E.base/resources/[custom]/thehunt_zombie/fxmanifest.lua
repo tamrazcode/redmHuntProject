@@ -1,0 +1,32 @@
+fx_version 'cerulean'
+game 'rdr3'
+rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
+lua54 'yes'
+description 'HUNT — Мёртвые: network population, perception and zone editor'
+version '1.0.0'
+shared_scripts { 'shared/models.lua', 'config.lua', 'shared/definitions.lua' }
+server_scripts { '@oxmysql/lib/MySQL.lua', 'server/spawn.lua', 'server/migration.lua', 'server/corpse_loot.lua', 'server/main.lua' }
+client_scripts { 'client/runtime.lua', 'client/detection.lua', 'client/ai.lua', 'client/corpse_loot.lua', 'client/editor.lua' }
+ui_page 'html/index.html'
+files { 'html/index.html', 'html/style.css', 'html/app.js', 'sounds/*.mp3', 'html/sounds/*.mp3' }
+dependencies { 'oxmysql', 'thehunt_core', 'thehunt_gizmo', '/onesync' }
+
+export 'GetNearbyZombieCorpses'
+export 'GetZombieCorpseById'
+export 'IsZombie'
+export 'GetNearbyZombies'
+
+server_export 'GetCorpseLoot'
+server_export 'GetAllCorpseLoot'
+
+exports {
+    'GetNearbyZombieCorpses',
+    'GetZombieCorpseById',
+    'IsZombie',
+    'GetNearbyZombies'
+}
+
+server_exports {
+    'GetCorpseLoot',
+    'GetAllCorpseLoot'
+}

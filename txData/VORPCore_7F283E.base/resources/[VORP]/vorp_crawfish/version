@@ -1,0 +1,12 @@
+<2.0>
+- Fixed support for random min/max amount of Crawfish found in Crawfish Holes
+- Fixed support for min Crawfish found being 0
+- Config now supports displaying no progress bar, legacy progressBars & vorp_progressbar
+- Added config options for styling the progress bar if using vorp_progressbar
+- Server owners may now, if desired, configure options allowing players to find additional items in Crawfish Holes
+- Now utilizes lua 5.4
+- Now utilizes VORP Callbacks instead of chained network events
+- Improved security and error/condition/cancellation handling
+- Inventory use is now blocked while harvesting Crawfish for their meat
+- Included items.sql file for server owners to easily add items to their database if their current deployment has not yet done so
+<1.0>
