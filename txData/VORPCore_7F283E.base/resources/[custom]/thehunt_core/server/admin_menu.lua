@@ -243,6 +243,15 @@ RegisterNetEvent("thehunt_admin:checkPermissionAndOpen", function()
     end
 end)
 
+RegisterNetEvent("thehunt_admin:checkPermissionAndToggleNoClip", function()
+    local src = source
+    if IsPlayerAdmin(src) then
+        TriggerClientEvent("thehunt_admin:confirmToggleNoClip", src)
+    else
+        TriggerClientEvent("thehunt_rp:show3DText", src, src, "(( У вас нет прав администратора ))", { 255, 60, 60 })
+    end
+end)
+
 -- Клиент знает актуальные значения локального status HUD лучше сервера.
 -- Принимаем только собственный снимок source и используем его только для отображения в админ-панели.
 RegisterNetEvent("thehunt_admin:reportPlayerStats", function(stats)

@@ -366,7 +366,7 @@ const AnimUI = (function () {
     }).catch(() => { });
   }
 
-  // Остановка анимации (F1 / кнопка)
+  // Остановка анимации (Z / кнопка)
   function stopAnimation() {
     if (document.activeElement && typeof document.activeElement.blur === 'function') {
       document.activeElement.blur();
@@ -824,7 +824,9 @@ const AnimUI = (function () {
 
       if (appEl.classList.contains('hidden')) return;
 
-      if (e.key === 'F1') {
+      const isInputActive = document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA');
+
+      if ((e.key === 'z' || e.key === 'Z' || e.key === 'я' || e.key === 'Я') && !isInputActive) {
         e.preventDefault();
         stopAnimation();
         return;

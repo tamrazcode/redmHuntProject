@@ -111,6 +111,25 @@
 
       </div>
 
+      <!-- Быстрые слоты: отдельный режим отображения -->
+      <div class="section-group">
+        <div class="section-title">Быстрые слоты</div>
+        <div class="hud-mode-selector">
+          <div class="hud-mode-card quickslots-hud-mode-card active" id="quickModeAlwaysOn" onclick="setQuickSlotsMode('always_on')">
+            <div class="mode-radio-circle"></div>
+            <div class="mode-title">Постоянно</div>
+          </div>
+          <div class="hud-mode-card quickslots-hud-mode-card" id="quickModeDynamic" onclick="setQuickSlotsMode('dynamic')">
+            <div class="mode-radio-circle"></div>
+            <div class="mode-title">Динамически</div>
+          </div>
+          <div class="hud-mode-card quickslots-hud-mode-card" id="quickModeAlwaysOff" onclick="setQuickSlotsMode('always_off')">
+            <div class="mode-radio-circle"></div>
+            <div class="mode-title">Отключено</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 

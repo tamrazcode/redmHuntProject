@@ -99,9 +99,9 @@ end
 
 local function drawZoneVolume(zone, alpha)
     if not zone then return end
-    local radius = math.min(500, math.max(1, tonumber(zone.radius) or 40))
+    local radius = math.max(0, tonumber(zone.radius) or 40)
     local height = math.min(100, math.max(1, tonumber(zone.height) or 8))
-    local spawnRad = math.min(radius, math.max(0, tonumber(zone.spawnRadius) or math.floor(radius * 0.75)))
+    local spawnRad = math.max(0, tonumber(zone.spawnRadius) or math.floor(radius * 0.75))
     local cz = tonumber(zone.z) or 0
     local bottom = cz - (height * 0.5)
     local top = cz + (height * 0.5)
@@ -200,8 +200,8 @@ end)
 RegisterNUICallback('position',function(_,cb) cb(Zombie.coords(GetEntityCoords(PlayerPedId()))) end)
 RegisterNUICallback('preview',function(data,cb)
     if type(data)=='table' and tonumber(data.x) and tonumber(data.y) and tonumber(data.z) then
-        preview={x=tonumber(data.x),y=tonumber(data.y),z=tonumber(data.z),radius=math.min(500,math.max(1,tonumber(data.radius) or 40)),height=math.min(100,math.max(1,tonumber(data.height) or 8)),
-            spawnRadius=math.min(200,math.max(0,tonumber(data.spawnRadius) or 30))}
+        preview={x=tonumber(data.x),y=tonumber(data.y),z=tonumber(data.z),radius=math.max(0,tonumber(data.radius) or 40),height=math.min(100,math.max(1,tonumber(data.height) or 8)),
+            spawnRadius=math.max(0,tonumber(data.spawnRadius) or 30)}
     end
     cb({ok=true})
 end)
@@ -210,7 +210,7 @@ RegisterNUICallback('gizmo',function(data,cb)
     if not opened or type(zone)~='table' then cb({ok=false,error='Редактор закрыт'}); return end
     if GetResourceState('thehunt_gizmo')~='started' then cb({ok=false,error='thehunt_gizmo не запущен'}); return end
     local origin={x=tonumber(zone.x) or 0,y=tonumber(zone.y) or 0,z=tonumber(zone.z) or 0}
-    local originalRadius=math.min(500,math.max(1,tonumber(zone.radius) or 40))
+    local originalRadius=math.max(0,tonumber(zone.radius) or 40)
     local originalHeight=math.min(100,math.max(1,tonumber(zone.height) or 8))
     local originalHeading=math.min(180,math.max(-180,tonumber(zone.heading) or 0))
     local working=Zombie.copy(zone)
@@ -218,7 +218,7 @@ RegisterNUICallback('gizmo',function(data,cb)
         working.x=origin.x+value.x; working.y=origin.y+value.y; working.z=origin.z+value.z
         working.heading=value.rz
         -- A zombie zone is round, so X/Y scale together as its radius.
-        working.radius=math.min(500,math.max(1,(value.sx+value.sy)*0.5))
+        working.radius=math.max(0,(value.sx+value.sy)*0.5)
         working.height=math.min(100,math.max(1,value.sz))
     end
     focus(false)
@@ -232,7 +232,7 @@ RegisterNUICallback('gizmo',function(data,cb)
         title='Зона мёртвых: положение, размер и поворот',
         value={x=0,y=0,z=0,rx=0,ry=0,rz=originalHeading,sx=originalRadius,sy=originalRadius,sz=originalHeight},
         defaults={x=0,y=0,z=0,rx=0,ry=0,rz=originalHeading,sx=originalRadius,sy=originalRadius,sz=originalHeight},
-        limits={x={-500,500},y={-500,500},z={-100,100},rx={-180,180},ry={-180,180},rz={-180,180},sx={1,500},sy={1,500},sz={1,100}},
+        limits={x={-500,500},y={-500,500},z={-100,100},rx={-180,180},ry={-180,180},rz={-180,180},sx={0,100000},sy={0,100000},sz={1,100}},
         allowScale=true,
         point=function(value) return vector3(origin.x+value.x,origin.y+value.y,origin.z+value.z) end,
         cameraPoint=function() return zoneCam.pos end,

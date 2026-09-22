@@ -26,6 +26,8 @@ const circleSpeed = document.getElementById('circleSpeed');
 
 const voiceIconContainer = document.getElementById('voiceIconContainer');
 const mainStatusHud = document.getElementById('mainStatusHud');
+const quickSlotsHud = document.getElementById('quickSlotsHud');
+const quickSlotElements = [1, 2, 3, 4].map((slot) => document.getElementById(`quickSlot${slot}`));
 const hintsHud = document.getElementById('hintsHud');
 
 // Элементы всплывающих автономных индикаторов (когда основной худ скрыт)
@@ -45,6 +47,7 @@ const activeEffects = new Map();
 
 // Состояние HUD
 let currentHudMode = 'always_on'; // 'always_on' | 'dynamic' | 'always_off'
+let currentQuickSlotsMode = 'always_on'; // 'always_on' | 'dynamic' | 'always_off'
 let currentHintsMode = 'always_on'; // 'always_on' | 'dynamic' | 'always_off'
 let isSystemHudVisible = false;
 let isMainHudCurrentlyVisible = false;
@@ -67,6 +70,7 @@ let cachedData = {
 let speedPopupTimer = null;
 let lastTalkingState = null;
 let activeAdminNotificationHide = null;
+let cachedQuickSlots = [null, null, null, null];
 
 // SVG иконки микрофона (перечёркнутый и активный)
 const SVG_MIC_MUTED = `
@@ -132,12 +136,101 @@ function updateSpeedPercent(pct) {
 /**
  * Вычисление и применение видимости главного HUD по выбранному режиму
  */
+const QUICK_SLOT_ASSET_BASE = 'https://cfx-nui-thehunt_inventory/html/';
+
+function quickSlotAssetUrl(path) {
+  const normalizedPath = String(path || '').replace(/^\/+/, '');
+  if (!normalizedPath) return '';
+  if (normalizedPath.startsWith('html/')) {
+    return `https://cfx-nui-thehunt_inventory/${normalizedPath}`;
+  }
+  return `${QUICK_SLOT_ASSET_BASE}${normalizedPath}`;
+}
+
+function quickSlotIconUrl(item) {
+  if (!item) return '';
+  const raw = String(item.image || '').trim();
+  if (raw.startsWith('nui://thehunt_inventory/')) {
+    return quickSlotAssetUrl(raw.slice('nui://thehunt_inventory/'.length));
+  }
+  if (raw.startsWith('nui://') || raw.startsWith('http://') || raw.startsWith('https://') || raw.startsWith('data:')) {
+    return raw;
+  }
+  if (raw.startsWith('images/') || raw.startsWith('html/images/')) return quickSlotAssetUrl(raw);
+  const name = String(item.icon || item.name || '').trim().toLowerCase();
+  return name ? quickSlotAssetUrl(`images/${name}.png`) : '';
+}
+
+function renderQuickSlots(slots) {
+  const normalized = [null, null, null, null];
+  if (Array.isArray(slots)) {
+    slots.forEach((item, index) => {
+      const slot = Number(item && item.slot) || (index + 1);
+      if (slot >= 1 && slot <= 4 && item && item.dbId) normalized[slot - 1] = item;
+    });
+  } else if (slots && typeof slots === 'object') {
+    Object.values(slots).forEach((item) => {
+      const slot = Number(item && item.slot);
+      if (slot >= 1 && slot <= 4 && item.dbId) normalized[slot - 1] = item;
+    });
+  }
+  cachedQuickSlots = normalized;
+
+  quickSlotElements.forEach((slotElement, index) => {
+    if (!slotElement) return;
+    const item = normalized[index];
+    const hasItem = Boolean(item && item.dbId);
+    const content = slotElement.querySelector('.quick-slot-content');
+    slotElement.classList.toggle('quick-slot-empty', !hasItem);
+    slotElement.style.display = currentQuickSlotsMode === 'dynamic' && !hasItem ? 'none' : 'flex';
+    if (!content) return;
+    content.innerHTML = '';
+    if (!hasItem) return;
+
+    const imageUrl = quickSlotIconUrl(item);
+    if (imageUrl) {
+      const image = document.createElement('img');
+      image.src = imageUrl;
+      image.alt = String(item.label || item.name || 'Предмет');
+      image.draggable = false;
+      image.onerror = () => {
+        const fallback = imageUrl.replace(QUICK_SLOT_ASSET_BASE, 'nui://thehunt_inventory/html/');
+        if (fallback !== image.src && !image.dataset.fallback) {
+          image.dataset.fallback = '1';
+          image.src = fallback;
+        } else {
+          image.remove();
+        }
+      };
+      content.appendChild(image);
+    }
+    const count = Number(item.count) || 0;
+    if (count > 1) {
+      const countBadge = document.createElement('span');
+      countBadge.className = 'quick-slot-count';
+      countBadge.textContent = String(count);
+      content.appendChild(countBadge);
+    }
+  });
+  evaluateQuickSlotsVisibility();
+}
+
+function evaluateQuickSlotsVisibility() {
+  if (!quickSlotsHud) return;
+  const hasAnyItem = cachedQuickSlots.some((item) => Boolean(item && item.dbId));
+  const shouldShow = isSystemHudVisible && currentQuickSlotsMode !== 'always_off'
+    && (currentQuickSlotsMode === 'always_on' || hasAnyItem);
+  quickSlotsHud.classList.toggle('quick-slots-hidden', !shouldShow);
+  quickSlotsHud.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+}
+
 function evaluateHudVisibility() {
   if (!isSystemHudVisible) {
     isMainHudCurrentlyVisible = false;
     mainStatusHud.classList.add('hud-hidden');
     if (standaloneVoicePopup) standaloneVoicePopup.classList.add('popup-hidden');
     if (standaloneSpeedPopup) standaloneSpeedPopup.classList.add('popup-hidden');
+    evaluateQuickSlotsVisibility();
     return;
   }
 
@@ -167,6 +260,7 @@ function evaluateHudVisibility() {
       standaloneVoicePopup.classList.remove('popup-hidden');
     }
   }
+  evaluateQuickSlotsVisibility();
 }
 
 /**
@@ -407,6 +501,13 @@ window.addEventListener('message', function (event) {
       currentHudMode = item.mode;
       evaluateHudVisibility();
     }
+  } else if (item.type === 'SET_QUICK_SLOTS_MODE') {
+    if (item.mode === 'always_on' || item.mode === 'dynamic' || item.mode === 'always_off') {
+      currentQuickSlotsMode = item.mode;
+      renderQuickSlots(cachedQuickSlots);
+    }
+  } else if (item.type === 'SET_QUICK_SLOTS') {
+    renderQuickSlots(item.slots);
   } else if (item.type === 'SET_HINTS_MODE') {
     if (item.mode === 'always_on' || item.mode === 'dynamic' || item.mode === 'always_off') {
       currentHintsMode = item.mode;

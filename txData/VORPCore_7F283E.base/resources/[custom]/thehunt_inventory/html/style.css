@@ -80,6 +80,129 @@ html {
   background: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.75) 100%);
 }
 
+/* Быстрые слоты остаются поверх затемнения инвентаря и доступны для
+   перетаскивания. В режиме прямой передачи они намеренно не вмешиваются в
+   существующий сценарий выбора предметов. */
+.inventory-quick-slots {
+  position: fixed;
+  inset: 0 0 24px 0;
+  transform: scale(1.15);
+  transform-origin: center bottom;
+  display: block;
+  z-index: 8500;
+  pointer-events: none;
+}
+
+.inventory-screen.transfer-view .inventory-quick-slots {
+  display: none;
+}
+
+.inventory-quick-side {
+  display: contents;
+  pointer-events: none;
+}
+
+.inventory-quick-slot {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(12, 12, 15, 0.96);
+  border: 2px solid rgba(255, 255, 255, 0.36);
+  box-shadow: 0 0 0 3px rgba(12, 12, 15, 0.82), 0 8px 22px rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: grab;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.inventory-quick-slot:active {
+  cursor: grabbing;
+}
+
+.inventory-quick-slot-large {
+  width: 52px;
+  height: 52px;
+}
+
+.inventory-quick-slot-small {
+  width: 40px;
+  height: 40px;
+}
+
+.inventory-quick-slot-left-near { left: calc(50% - 274px); }
+.inventory-quick-slot-right-near { left: calc(50% + 222px); }
+.inventory-quick-slot-left-far { left: calc(50% - 334px); }
+.inventory-quick-slot-right-far { left: calc(50% + 294px); }
+
+.inventory-quick-slot.empty {
+  border-color: rgba(255, 255, 255, 0.16);
+  cursor: default;
+}
+
+.inventory-quick-slot.quick-slot-valid {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.24);
+  transform: scale(1.06);
+}
+
+.inventory-quick-slot.quick-slot-invalid {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.22);
+}
+
+.inventory-quick-key {
+  position: absolute;
+  top: -7px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: #1f1f26;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  z-index: 2;
+}
+
+.inventory-quick-content,
+.inventory-quick-content img,
+.inventory-quick-content svg {
+  width: 74%;
+  height: 74%;
+}
+
+.inventory-quick-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  pointer-events: none;
+}
+
+.inventory-quick-content img,
+.inventory-quick-content svg {
+  object-fit: contain;
+}
+
+.inventory-quick-count {
+  position: absolute;
+  right: -6px;
+  bottom: -5px;
+  min-width: 18px;
+  padding: 1px 4px;
+  border-radius: 8px;
+  background: rgba(12, 12, 15, 0.98);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+
 .inventory-layout {
   display: flex;
   justify-content: center;

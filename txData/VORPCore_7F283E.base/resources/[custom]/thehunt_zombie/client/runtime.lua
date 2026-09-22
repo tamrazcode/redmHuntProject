@@ -358,6 +358,22 @@ RegisterNetEvent('thehunt_zombie:remove',function(id)
     if r and r.net then ZC.localPedsByNet[r.net]=nil end
     ZC.peds[id]=nil; ZC.localPeds[id]=nil; ZC.cancelled[id]=GetGameTimer()+60000; deletePending(id)
 end)
+
+RegisterNetEvent('thehunt_zombie:claimed', function(id)
+    if source ~= 65535 then return end
+    local r = ZC.peds[id]
+    local ped = r and (r.corpsePed or r.ped or (ZC.entity and ZC.entity(r)) or (ZC.localPeds and ZC.localPeds[id]))
+    if ped and ZC.markNecroServant then
+        ZC.markNecroServant(ped)
+    elseif ZC.untrackCorpse and ped then
+        ZC.untrackCorpse(ped)
+    end
+    if r and r.net and ZC.byNet and ZC.byNet[r.net] == id then ZC.byNet[r.net] = nil end
+    if r and r.net and ZC.localPedsByNet then ZC.localPedsByNet[r.net] = nil end
+    ZC.peds[id] = nil
+    if ZC.localPeds then ZC.localPeds[id] = nil end
+    if ZC.corpseLoot then ZC.corpseLoot[id] = nil end
+end)
 RegisterNetEvent('thehunt_zombie:snapshot',function(rows,immune,epoch)
     if source~=65535 then return end
     local alive={}; ZC.byNet={}

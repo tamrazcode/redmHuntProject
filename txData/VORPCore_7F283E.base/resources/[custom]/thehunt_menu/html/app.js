@@ -9,6 +9,7 @@ const closeBtn = document.getElementById('closeBtn');
 const toastContainer = document.getElementById('toastContainer');
 
 let activeHudMode = 'always_on';
+let activeQuickSlotsMode = 'always_on';
 let activeHintsMode = 'always_on';
 
 // Стили походки полностью из vorp_walkanim (локализация на русский)
@@ -208,6 +209,20 @@ function updateHintsModeUi(mode) {
   }
 }
 
+function updateQuickSlotsModeUi(mode) {
+  activeQuickSlotsMode = mode;
+  document.querySelectorAll('.quickslots-hud-mode-card').forEach((card) => {
+    card.classList.remove('active');
+  });
+  const ids = {
+    always_on: 'quickModeAlwaysOn',
+    dynamic: 'quickModeDynamic',
+    always_off: 'quickModeAlwaysOff'
+  };
+  const activeCard = document.getElementById(ids[mode]);
+  if (activeCard) activeCard.classList.add('active');
+}
+
 function setHudMode(mode) {
   if (activeHudMode === mode) return;
   playUiSound(650, 'sine', 0.06, 0.035);
@@ -246,6 +261,24 @@ function setHintsMode(mode) {
   };
 
   showToast('Отображение подсказок', modeLabels[mode] || mode);
+}
+
+function setQuickSlotsMode(mode) {
+  if (mode !== 'always_on' && mode !== 'dynamic' && mode !== 'always_off') return;
+  if (activeQuickSlotsMode === mode) return;
+  playUiSound(650, 'sine', 0.06, 0.035);
+  updateQuickSlotsModeUi(mode);
+  fetch(`https://${GetParentResourceName()}/setQuickSlotsMode`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ mode: mode })
+  });
+  const modeLabels = {
+    always_on: 'Постоянно',
+    dynamic: 'Динамически',
+    always_off: 'Отключено'
+  };
+  showToast('Быстрые слоты', modeLabels[mode] || mode);
 }
 
 let isWalkDropdownOpen = false;
@@ -392,6 +425,9 @@ window.addEventListener('message', function (event) {
   if (data.type === 'OPEN_PLAYER_MENU') {
     if (data.hudMode) {
       updateHudModeUi(data.hudMode);
+    }
+    if (data.quickSlotsMode) {
+      updateQuickSlotsModeUi(data.quickSlotsMode);
     }
     if (data.hintsMode) {
       updateHintsModeUi(data.hintsMode);

@@ -237,6 +237,11 @@ local function RestoreSavedDisplayModes()
         TriggerEvent("thehunt_status:setHudMode", savedHudMode)
     end
 
+    local savedQuickSlotsMode = GetResourceKvpString("thehunt_status_quickslots_mode")
+    if savedQuickSlotsMode == "always_on" or savedQuickSlotsMode == "dynamic" or savedQuickSlotsMode == "always_off" then
+        TriggerEvent("thehunt_status:setQuickSlotsMode", savedQuickSlotsMode)
+    end
+
     local savedHintsMode = GetResourceKvpString("thehunt_status_hints_mode")
     if savedHintsMode == "always_on" or savedHintsMode == "dynamic" or savedHintsMode == "always_off" then
         TriggerEvent("thehunt_status:setHintsMode", savedHintsMode)
@@ -346,6 +351,26 @@ end)
 
 exports('SetHudMode', function(mode)
     TriggerEvent("thehunt_status:setHudMode", mode)
+end)
+
+RegisterNetEvent("thehunt_status:setQuickSlotsMode", function(mode)
+    if mode == "always_on" or mode == "dynamic" or mode == "always_off" then
+        SendNUIMessage({
+            type = "SET_QUICK_SLOTS_MODE",
+            mode = mode
+        })
+    end
+end)
+
+RegisterNetEvent("thehunt_status:setQuickSlots", function(slots)
+    SendNUIMessage({
+        type = "SET_QUICK_SLOTS",
+        slots = slots or {}
+    })
+end)
+
+exports('SetQuickSlotsMode', function(mode)
+    TriggerEvent("thehunt_status:setQuickSlotsMode", mode)
 end)
 
 -- Переключение режима HUD подсказок (always_on, dynamic, always_off)

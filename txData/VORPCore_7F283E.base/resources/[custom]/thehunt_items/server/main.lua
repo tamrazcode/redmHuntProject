@@ -5266,6 +5266,11 @@ RegisterNetEvent("thehunt_items:useItem", function(itemName, dbId, clientStatus,
 
         local curCount = tonumber(itemRow.count) or 1
 
+        if itemDef.externalUse and GetResourceState("hh_magic") == "started" then
+            exports.hh_magic:BeginFromItem(src, itemName, tonumber(itemRow.id))
+            return
+        end
+
         -- Обработка бутылки с водой (bottle_water)
         if itemName == "bottle_water" then
             local thirstAmount = itemDef.thirst or 300
@@ -5775,4 +5780,33 @@ end)
 CreateThread(function()
     MySQL.query("DELETE FROM thehunt_inventories WHERE item_name IN ('clothing_watch', 'watch')")
     MySQL.query("DELETE FROM thehunt_drops WHERE item_name IN ('clothing_watch', 'watch')")
+end)
+
+exports("RemoveStackCount", function(src, dbId, amount)
+    amount = tonumber(amount) or 1
+    dbId = tonumber(dbId)
+    src = tonumber(src)
+    if not src or not dbId or amount < 1 then
+        return false
+    end
+    local steamId, charId = GetPlayerIdentifiersVORP(src)
+    if not steamId or not charId then
+        return false
+    end
+    local rows = MySQL.query.await(
+        "SELECT count FROM thehunt_inventories WHERE id = ? AND identifier = ? AND charidentifier = ?",
+        { dbId, steamId, charId }
+    ) or {}
+    local row = rows[1]
+    if not row then
+        return false
+    end
+    local count = tonumber(row.count) or 0
+    if count <= amount then
+        MySQL.query.await("DELETE FROM thehunt_inventories WHERE id = ?", { dbId })
+    else
+        MySQL.update.await("UPDATE thehunt_inventories SET count = count - ? WHERE id = ?", { amount, dbId })
+    end
+    TriggerClientEvent("thehunt_items:refreshInventory", src)
+    return true
 end)

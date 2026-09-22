@@ -6,7 +6,7 @@ const groups = [
   ['Зона и население', [
     ['name','Название','text'], ['profile','Профиль','profile'], ['enabled','Зона включена','check'],
     ['x','X','number',-20000,20000],['y','Y','number',-20000,20000],['z','Z','number',-1000,3000],
-    ['radius','Радиус зоны, м','number',1,500],['activation','Активация, м','number',30,400],['spawnRadius','Радиус появления, м','number',0,200],
+    ['radius','Радиус зоны, м','number',0,null],['activation','Активация, м','number',0,null],['spawnRadius','Радиус появления, м','number',0,null],
     ['count','Количество','number',0,40],['minCount','Минимум','number',0,40],['maxCount','Максимум','number',1,40],
     ['randomCount','Случайное количество','check'],['randomModel','Случайная модель','check'],['bucket','Измерение','number',0,65535],
     ['respawn','Респавн после смерти, с','number',5,86400],['replenish','Восстановление после миграции, с','number',1,3600]
@@ -110,7 +110,7 @@ function renderFields() {
         for(const [val,t] of options){const opt=document.createElement('option');opt.value=val;opt.textContent=t;control.append(opt);}
         control.value=draft[key]||'MP_Style_drunk';
       } else if(type==='check') {control.type='checkbox';control.checked=!!draft[key];}
-      else {control.type=type;control.value=draft[key];control.required=true;if(type==='number'){control.min=min;control.max=max;control.step=integers.has(key)?'1':'any';}}
+      else {control.type=type;control.value=draft[key];control.required=true;if(type==='number'){if(min!==undefined&&min!==null)control.min=min;if(max!==undefined&&max!==null)control.max=max;control.step=integers.has(key)?'1':'any';}}
       control.onchange=()=>{
         draft[key]=type==='check'?control.checked:type==='number'?Number(control.value):control.value;dirty=true;
         if(type==='profile') {

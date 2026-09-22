@@ -1,6 +1,6 @@
 -- =================================================================
 -- HUNT: Hard RP — Animations Client Controller
--- Obsidian Dark Theme | Hotkeys F3 (Open) & F1 (Cancel)
+-- Obsidian Dark Theme | Hotkeys F3 (Open) & Z (Cancel)
 -- MMB Camera Rotation, Full Whitelist & RMB Ghost Ped Animation Preview
 -- =================================================================
 
@@ -55,7 +55,7 @@ end
 
 -- Item/world actions can temporarily make the animation non-cancellable.
 -- Keep this separate from currentAnimation: those actions are owned by their
--- resource, while F1 is owned by this resource.
+-- resource, while Z is owned by this resource.
 RegisterNetEvent('thehunt_animations:client:setProtectedAction', function(enabled, actionName, durationMs)
     if enabled then
         StopThermalReaction()
@@ -1669,10 +1669,10 @@ local function BuildRadialSlots()
 end
 
 -- =================================================================
--- БЫСТРОЕ РАДИАЛЬНОЕ МЕНЮ (УДЕРЖАНИЕ B)
+-- БЫСТРОЕ РАДИАЛЬНОЕ МЕНЮ (УДЕРЖАНИЕ Y)
 -- =================================================================
 
-RegisterCommand('+hunt_anim_radial', function()
+local function OnOpenRadial()
     if isUIOpen or isRadialOpen or LocalPlayer.state.isAnimMenuOpen or IsEntityDead(PlayerPedId()) then return end
     isRadialOpen = true
     LocalPlayer.state:set('isAnimMenuOpen', true, false)
@@ -1684,9 +1684,9 @@ RegisterCommand('+hunt_anim_radial', function()
     })
     SetNuiFocus(true, true)
     SetNuiFocusKeepInput(true)
-end, false)
+end
 
-RegisterCommand('-hunt_anim_radial', function()
+local function OnCloseRadial()
     if isRadialOpen then
         isRadialOpen = false
         LocalPlayer.state:set('isAnimMenuOpen', false, false)
@@ -1697,9 +1697,11 @@ RegisterCommand('-hunt_anim_radial', function()
             type = 'CloseRadial'
         })
     end
-end, false)
+end
 
-RegisterKeyMapping('+hunt_anim_radial', 'Радиальное меню анимаций (Удержание)', 'keyboard', 'B')
+RegisterCommand('+hunt_anim_wheel_y', OnOpenRadial, false)
+RegisterCommand('-hunt_anim_wheel_y', OnCloseRadial, false)
+RegisterKeyMapping('+hunt_anim_wheel_y', 'Радиальное меню анимаций (Удержание)', 'keyboard', 'Y')
 
 -- =================================================================
 -- ДОЛГОЕ НАЖАТИЕ X (0.5 СЕКУНДЫ) — РУКИ ВВЕРХ
@@ -1736,10 +1738,10 @@ end, false)
 RegisterKeyMapping('+hunt_handsup_hold', 'Руки вверх (Удержание 0.5 сек)', 'keyboard', 'X')
 
 -- =================================================================
--- Показать пальцем (удержание N)
+-- Показать пальцем (удержание B)
 -- =================================================================
 
-RegisterCommand('+hunt_point_hold', function()
+local function OnStartPointing()
     if isHoldingPoint then return end
     pointingRequest = pointingRequest + 1
     local request = pointingRequest
@@ -1747,18 +1749,29 @@ RegisterCommand('+hunt_point_hold', function()
     if not StartPointingAnimation() and pointingRequest == request then
         isHoldingPoint = false
     end
-end, false)
+end
 
-RegisterCommand('-hunt_point_hold', function()
+local function OnStopPointing()
     isHoldingPoint = false
     StopPointingAnimation()
-end, false)
+end
 
-RegisterKeyMapping('+hunt_point_hold', 'Показать пальцем (удержание)', 'keyboard', 'N')
+RegisterCommand('+hunt_point_b', OnStartPointing, false)
+RegisterCommand('-hunt_point_b', OnStopPointing, false)
+RegisterKeyMapping('+hunt_point_b', 'Показать пальцем (удержание)', 'keyboard', 'B')
 
+-- Обратная совместимость для сохранённых биндов в локальном кэше RedM (cfx_keys.xml):
+-- Если у старого клиента клавиша B вызывает +hunt_anim_radial, она направляется на указание пальцем.
+-- Старые сохранённые бинды колеса на N намеренно отключены.
+RegisterCommand('+hunt_anim_radial', OnStartPointing, false)
+RegisterCommand('-hunt_anim_radial', OnStopPointing, false)
+RegisterCommand('+hunt_anim_wheel', function() end, false)
+RegisterCommand('-hunt_anim_wheel', function() end, false)
+RegisterCommand('+hunt_point_hold', function() end, false)
+RegisterCommand('-hunt_point_hold', function() end, false)
 
 -- =================================================================
--- КОМАНДЫ И ГОРЯЧИЕ КЛАВИШИ (F3: Открыть, F1: Отменить)
+-- КОМАНДЫ И ГОРЯЧИЕ КЛАВИШИ (F3: Открыть, Z: Отменить)
 -- =================================================================
 
 -- Команда открытия меню анимаций
@@ -1773,12 +1786,22 @@ end, false)
 -- Привязка клавиши F3 для открытия/закрытия меню анимаций
 RegisterKeyMapping('hunt_anim_open', 'Открыть меню анимаций (HUNT)', 'keyboard', Config.KeyOpen or 'F3')
 
--- Команда и клавиша F1 для отмены/остановки текущей анимации
-RegisterCommand('hunt_anim_cancel', function()
+-- Команда и клавиша Z для отмены/остановки текущей анимации
+RegisterCommand('hunt_anim_stop', function()
     RequestCancel()
 end, false)
 
-RegisterKeyMapping('hunt_anim_cancel', 'Остановить анимацию (HUNT)', 'keyboard', Config.KeyCancel or 'F1')
+RegisterKeyMapping('hunt_anim_stop', 'Остановить анимацию (HUNT)', 'keyboard', Config.KeyCancel or 'Z')
+
+-- Команда hunt_anim_cancel для совместимости со сторонними ресурсами/меню
+RegisterCommand('hunt_anim_cancel', function()
+    -- Игнорируем устаревший бинд F1 (0xA8E3F467) из старого кэша клиента,
+    -- так как F1 теперь выделена под NoClip админ-панели
+    if IsControlJustPressed(0, 0xA8E3F467) or IsDisabledControlJustPressed(0, 0xA8E3F467) or IsControlPressed(0, 0xA8E3F467) then
+        return
+    end
+    RequestCancel()
+end, false)
 
 -- Дополнительные удобные чат-команды
 RegisterCommand(Config.CommandOpen or 'anim', function()
@@ -1890,7 +1913,7 @@ end)
 
 Citizen.CreateThread(function()
     local allowedControls = {
-        -- Отмена анимации (F1) должна оставаться доступной даже при открытом UI.
+        -- Отмена анимации (Z) должна оставаться доступной даже при открытом UI.
         Config.CancelKey,
 
         -- Войс-чат

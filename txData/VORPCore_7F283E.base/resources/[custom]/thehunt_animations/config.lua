@@ -7,10 +7,11 @@ Config = {}
 
 Config.Command = 'anim'
 Config.OpenKey = 0x1F6D95E5 -- F3
-Config.CancelKey = 0xA65EBAB4 -- F1
+Config.CancelKey = 0x26E9DC00 -- Z
+Config.KeyCancel = 'Z'
 Config.CancelCommand = 'stopanim'
 
--- Hold N to point forward. This is a looping upper-body clip so locomotion
+-- Hold B to point forward. This is a looping upper-body clip so locomotion
 -- and horse riding keep their normal lower-body tasks.
 Config.PointingAnimation = {
     enabled = true,
@@ -26,7 +27,7 @@ Config.PointingAnimation = {
         switchCooldown = 260
     },
     -- Experimental RDR2 arm IK.  The animation remains as a safe fallback;
-    -- if this native is unavailable or rejects the call, N still works with
+    -- if this native is unavailable or rejects the call, B still works with
     -- the verified clips above.
     ik = {
         enabled = true,

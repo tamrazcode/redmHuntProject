@@ -138,6 +138,21 @@
   </div>
 
   <!-- ВСПЛЫВАЮЩИЙ ЕДИНЫЙ РЯД ИНДИКАТОРОВ (когда основной худ скрыт) -->
+  <div id="quickSlotsHud" class="quick-slots-hud quick-slots-hidden" aria-hidden="true">
+    <div id="quickSlot1" class="quick-slot quick-slot-large quick-slot-left-near" data-slot="1">
+      <span class="quick-slot-key">1</span><div class="quick-slot-content"></div>
+    </div>
+    <div id="quickSlot2" class="quick-slot quick-slot-large quick-slot-right-near" data-slot="2">
+      <span class="quick-slot-key">2</span><div class="quick-slot-content"></div>
+    </div>
+    <div id="quickSlot3" class="quick-slot quick-slot-small quick-slot-left-far" data-slot="3">
+      <span class="quick-slot-key">3</span><div class="quick-slot-content"></div>
+    </div>
+    <div id="quickSlot4" class="quick-slot quick-slot-small quick-slot-right-far" data-slot="4">
+      <span class="quick-slot-key">4</span><div class="quick-slot-content"></div>
+    </div>
+  </div>
+
   <div id="popupHudRow" class="popup-hud-row">
     
     <!-- Всплывающий микрофон -->
@@ -194,16 +209,20 @@
         <div class="hint-label">Меню анимаций</div>
       </div>
       <div class="hint-row">
-        <div class="hint-key"><span>B</span></div>
+        <div class="hint-key"><span>Y</span></div>
         <div class="hint-label">Колесо анимаций</div>
       </div>
       <div class="hint-row">
-        <div class="hint-key"><span>F1</span></div>
+        <div class="hint-key"><span>Z</span></div>
         <div class="hint-label">Отмена анимации</div>
       </div>
       <div class="hint-row">
-        <div class="hint-key hint-key-with-sub"><span>X</span><span class="hint-sub">УДЕРЖ.</span></div>
-        <div class="hint-label">Поднять руки</div>
+        <div class="hint-key"><span>B</span></div>
+        <div class="hint-label">Указать пальцем</div>
+      </div>
+      <div class="hint-row">
+        <div class="hint-key"><span>X</span></div>
+        <div class="hint-label">Поднять руки (Удерж.)</div>
       </div>
       <div class="hint-row">
         <div class="hint-key"><span>L</span></div>
@@ -221,7 +240,7 @@
         <div class="hint-combo">
           <div class="hint-key hint-key-alt"><span>ALT</span></div>
           <span class="hint-plus">+</span>
-          <div class="hint-key hint-key-mouse" aria-label="Колесо мыши">
+          <div class="hint-key-mouse" aria-label="Колесо мыши">
             <svg class="hint-mouse-icon" viewBox="0 0 24 32" aria-hidden="true">
               <rect x="3" y="1.5" width="18" height="29" rx="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
               <path d="M3.8 11.5h16.4" stroke="currentColor" stroke-width="1.2" opacity=".65"/>

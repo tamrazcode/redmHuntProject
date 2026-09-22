@@ -6,7 +6,7 @@ const groups = [
   ['Зона и население', [
     ['name','Название','text'], ['profile','Профиль','profile'], ['enabled','Зона включена','check'],
     ['x','X','number',-20000,20000],['y','Y','number',-20000,20000],['z','Z','number',-1000,3000],
-    ['radius','Радиус зоны, м','number',1,500],['height','Высота зоны, м','number',1,100],['activation','Активация, м','number',30,400],['spawnRadius','Радиус появления, м','number',0,200],
+    ['radius','Радиус зоны, м','number',0,null],['height','Высота зоны, м','number',1,100],['activation','Активация, м','number',0,null],['spawnRadius','Радиус появления, м','number',0,null],
     ['count','Количество','number',0,500],['minCount','Минимум','number',0,500],['maxCount','Максимум','number',1,500],
     ['randomCount','Случайное количество','check'],['randomModel','Случайная модель','check'],['bucket','Измерение','number',0,65535],
     ['respawn','Респавн после смерти, с','number',5,86400],['replenish','Восстановление после миграции, с','number',1,3600]
@@ -45,7 +45,7 @@ const help = {
   radius:'Горизонтальный радиус синей зоны. За этой границей зомби возвращается домой.',
   height:'Высота цилиндра зоны. В gizmo её меняет вертикальная ось масштаба; голубые кольца показывают верх и низ.',
   activation:'Расстояние от центра, на котором зона начинает создавать зомби для игрока.',
-  spawnRadius:'Радиус выбора точек появления вокруг центра. Не должен быть больше радиуса зоны.',
+  spawnRadius:'Радиус выбора точек появления вокруг центра.',
   count:'Постоянное число зомби, которое поддерживает зона, если отключено случайное количество.',
   minCount:'Нижняя граница случайного числа зомби при активации зоны.',
   maxCount:'Верхняя граница случайного числа. Отдельного жёсткого лимита зоны нет: итог ограничен общим максимумом сервера — 500.',
@@ -173,7 +173,7 @@ function renderFields() {
         for(const [val,t] of options){const opt=document.createElement('option');opt.value=val;opt.textContent=t;control.append(opt);}
         control.value=draft[key]||'fixed';
       } else if(type==='check') {control.type='checkbox';control.checked=!!draft[key];}
-      else {control.type=type;control.value=draft[key];control.required=true;if(type==='number'){control.min=min;control.max=max;control.step=integers.has(key)?'1':'any';}}
+      else {control.type=type;control.value=draft[key];control.required=true;if(type==='number'){if(min!==undefined&&min!==null)control.min=min;if(max!==undefined&&max!==null)control.max=max;control.step=integers.has(key)?'1':'any';}}
       control.onchange=()=>{
         draft[key]=type==='check'?control.checked:type==='number'?Number(control.value):control.value;dirty=true;
         if(type==='profile') {

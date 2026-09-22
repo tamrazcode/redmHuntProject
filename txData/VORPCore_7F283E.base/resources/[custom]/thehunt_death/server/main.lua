@@ -263,6 +263,22 @@ AddEventHandler('vorp_core:Server:OnPlayerRevive', function(targetSource)
     end
 end)
 
+exports('WakeWithHealth', function(targetSource, amount)
+    local target = tonumber(targetSource)
+    amount = math.floor(tonumber(amount) or 0)
+    if not target or amount < 1 or not unconsciousPlayers[target] then
+        return false
+    end
+    clearUnconscious(target, true)
+    TriggerClientEvent('thehunt_death:client:wakeOath', target, amount)
+    return true
+end)
+
+exports('IsKnocked', function(targetSource)
+    local target = tonumber(targetSource)
+    return target ~= nil and unconsciousPlayers[target] ~= nil
+end)
+
 exports('AidKnockedPlayer', function(_, targetSource, exportedTargetSource)
     -- The runtime normally forwards export arguments without a Lua self
     -- value; accepting the third slot as well keeps colon-style callers safe.

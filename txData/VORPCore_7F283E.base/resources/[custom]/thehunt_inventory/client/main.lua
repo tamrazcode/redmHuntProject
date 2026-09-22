@@ -12,6 +12,7 @@ local isMMBPressed = false
 local isInputFocused = false
 local isCharacterSelected_inv = false
 local cachedPlayerItems = {}
+local quickSlotAssignments = {}
 local cachedGroundDrops = {}
 local cachedZombieCorpses = {}
 local nuiInventoryInitialized = false
@@ -102,6 +103,68 @@ local function RequestInventorySnapshot()
     TriggerServerEvent("thehunt_items:requestInventory", inventoryRequestSequence, lastClientMutationSequence)
 end
 
+local function IsQuickSlotItem(item)
+    if type(item) ~= "table" then return false end
+    if item.canUse == true then return true end
+    for _, action in ipairs(item.actions or {}) do
+        if action == "read" or action == "write" then return true end
+    end
+    return false
+end
+
+local function FindCachedQuickSlotItem(dbId)
+    dbId = tonumber(dbId)
+    if not dbId then return nil end
+    for _, item in ipairs(cachedPlayerItems or {}) do
+        if tonumber(item.dbId) == dbId
+            and (tonumber(item.count) or 0) > 0
+            and item.isGround ~= true
+            and not tostring(item.container or "main"):match("^prop:")
+            and IsQuickSlotItem(item) then
+            return item
+        end
+    end
+    return nil
+end
+
+local function BuildQuickSlotPayload(item, slot, countOverride)
+    if not item then return { slot = slot } end
+    return {
+        slot = slot,
+        dbId = item.dbId,
+        name = item.name,
+        label = item.label,
+        count = countOverride ~= nil and countOverride or item.count,
+        image = item.image,
+        icon = item.icon,
+        canUse = item.canUse,
+        actions = item.actions,
+        metadata = item.metadata
+    }
+end
+
+local function PublishQuickSlots()
+    local slots = {}
+    for slot = 1, 4 do
+        local assignment = quickSlotAssignments[slot]
+        slots[slot] = BuildQuickSlotPayload(
+            assignment and FindCachedQuickSlotItem(assignment.dbId),
+            slot,
+            assignment and assignment.count
+        )
+    end
+
+    TriggerEvent("thehunt_status:setQuickSlots", slots)
+    if isInventoryOpen then
+        SendNUIMessage({ type = "SET_QUICK_SLOTS", slots = slots })
+    end
+end
+
+local function RequestQuickSlotSnapshot()
+    if not isCharacterSelected_inv then return end
+    TriggerServerEvent("thehunt_inventory:requestQuickSlots")
+end
+
 local function ScheduleInventoryRefresh()
     if refreshRequestScheduled then return end
     refreshRequestScheduled = true
@@ -114,8 +177,11 @@ end
 -- Ожидание выбора персонажа VORP
 RegisterNetEvent("thehunt:character:selected", function()
     isCharacterSelected_inv = true
+    quickSlotAssignments = {}
+    PublishQuickSlots()
     SetTimeout(1500, function()
         RequestInventorySnapshot()
+        RequestQuickSlotSnapshot()
     end)
 end)
 
@@ -124,6 +190,14 @@ AddEventHandler("onClientResourceStart", function(res)
     Wait(1000)
     isCharacterSelected_inv = true
     RequestInventorySnapshot()
+    RequestQuickSlotSnapshot()
+end)
+
+AddEventHandler("onClientResourceStart", function(res)
+    if res ~= "thehunt_status" then return end
+    SetTimeout(250, function()
+        if isCharacterSelected_inv then PublishQuickSlots() end
+    end)
 end)
 
 -- =================================================================
@@ -387,6 +461,17 @@ end)
 
 -- Открытие / Закрытие инвентаря
 local function ToggleInventory()
+    if LocalPlayer.state.hhThornLocked then
+        if isInventoryOpen then
+            isInventoryOpen = false
+            StopInventoryAnimation()
+            pcall(function() AnimpostfxStop("OJDominoBlur") end)
+            SetNuiFocus(false, false)
+            SetNuiFocusKeepInput(false)
+            SendNUIMessage({ type = 'CLOSE_INVENTORY' })
+        end
+        return
+    end
     -- Если сейчас открыт любой NUI интерфейс и идет ввод текста — игнорируем нажатие I
     if IsNuiFocused() and not isInventoryOpen then
         return
@@ -439,6 +524,7 @@ local function ToggleInventory()
 
         -- Запрашиваем предметы с сервера
         RequestInventorySnapshot()
+        RequestQuickSlotSnapshot()
     else
         isInventoryOpen = false
         activePlacedContainerCoords = nil
@@ -794,6 +880,7 @@ end
 RegisterNetEvent("thehunt_inventory:onItemsReceived", function(items, drops, serverGender, requestId, requestMutationSequence)
     cachedPlayerItems = items or {}
     UpdateMapAccess(cachedPlayerItems)
+    PublishQuickSlots()
     currentCarriedWeight = CalculatePlayerCarriedWeight(cachedPlayerItems)
     local isOverweight = currentCarriedWeight > (Config.MaxWeight or 30.0)
     TriggerEvent("thehunt_walking:setOverweight", isOverweight)
@@ -832,6 +919,22 @@ RegisterNetEvent("thehunt_inventory:onItemsReceived", function(items, drops, ser
             mutationSequence = requestMutationSequence
         })
     end
+end)
+
+RegisterNetEvent("thehunt_inventory:receiveQuickSlots", function(assignments)
+    quickSlotAssignments = {}
+    for _, assignment in ipairs(assignments or {}) do
+        local slot = tonumber(assignment.slot)
+        local dbId = tonumber(assignment.dbId)
+        if slot and slot >= 1 and slot <= 4 and dbId then
+            quickSlotAssignments[slot] = {
+                dbId = dbId,
+                name = assignment.name,
+                count = tonumber(assignment.count)
+            }
+        end
+    end
+    PublishQuickSlots()
 end)
 
 
@@ -877,6 +980,7 @@ end)
 
 -- Уведомление об обновлении инвентаря
 RegisterNetEvent("thehunt_items:refreshInventory", function()
+    RequestQuickSlotSnapshot()
     if isInventoryOpen then
         ScheduleInventoryRefresh()
     end
@@ -1113,6 +1217,11 @@ RegisterNUICallback('closeInventory', function(data, cb)
     cb('ok')
 end)
 
+RegisterNetEvent("thehunt_inventory:forceClose", function()
+    CloseInventoryForEditor()
+    SendNUIMessage({ type = 'CLOSE_INVENTORY' })
+end)
+
 RegisterNUICallback('positionBackpack', function(data, cb)
     local item
     for _, candidate in pairs(cachedPlayerItems or {}) do
@@ -1137,6 +1246,15 @@ end)
 
 RegisterNUICallback('setInputFocusState', function(data, cb)
     isInputFocused = data and data.hasFocus == true
+    cb('ok')
+end)
+
+RegisterNUICallback('setQuickSlot', function(data, cb)
+    local slot = tonumber(data and data.slot)
+    local dbId = tonumber(data and data.dbId)
+    if slot and slot >= 1 and slot <= 4 then
+        TriggerServerEvent("thehunt_inventory:setQuickSlot", slot, dbId)
+    end
     cb('ok')
 end)
 
@@ -1619,41 +1737,96 @@ Citizen.CreateThread(function()
 end)
 
 -- Использование предмета (Использовать)
-RegisterNUICallback('useItem', function(data, cb)
-    if data and data.name then
-        local thirstVal = nil
-        local hungerVal = nil
-        local curHpVal = nil
-        local predHpVal = nil
+local function UseInventoryItem(itemName, dbId, dropId)
+    if not itemName then return end
 
-        exports.thehunt_core:GetMetabolismValue("Thirst", function(val)
-            thirstVal = val
-        end)
-        exports.thehunt_core:GetMetabolismValue("Hunger", function(val)
-            hungerVal = val
-        end)
+    local thirstVal = nil
+    local hungerVal = nil
+    local curHpVal = nil
+    local predHpVal = nil
 
-        pcall(function()
-            local ped = PlayerPedId()
-            local curHp = GetEntityHealth(ped)
-            local maxHp = GetEntityMaxHealth(ped)
-            if maxHp <= 0 then maxHp = 100 end
-            curHpVal = math.floor((curHp / maxHp) * 100)
+    exports.thehunt_core:GetMetabolismValue("Thirst", function(val)
+        thirstVal = val
+    end)
+    exports.thehunt_core:GetMetabolismValue("Hunger", function(val)
+        hungerVal = val
+    end)
 
-            if exports['thehunt_items'] and exports['thehunt_items'].GetPredictedHealthPct then
-                predHpVal = exports['thehunt_items']:GetPredictedHealthPct()
-            else
-                predHpVal = curHpVal
-            end
-        end)
+    pcall(function()
+        local ped = PlayerPedId()
+        local curHp = GetEntityHealth(ped)
+        local maxHp = GetEntityMaxHealth(ped)
+        if maxHp <= 0 then maxHp = 100 end
+        curHpVal = math.floor((curHp / maxHp) * 100)
 
-        TriggerServerEvent("thehunt_items:useItem", data.name, data.dbId, {
-            thirst = thirstVal,
-            hunger = hungerVal,
-            health = curHpVal,
-            predictedHealth = predHpVal
-        }, data.dropId)
+        if exports['thehunt_items'] and exports['thehunt_items'].GetPredictedHealthPct then
+            predHpVal = exports['thehunt_items']:GetPredictedHealthPct()
+        else
+            predHpVal = curHpVal
+        end
+    end)
+
+    TriggerServerEvent("thehunt_items:useItem", itemName, dbId, {
+        thirst = thirstVal,
+        hunger = hungerVal,
+        health = curHpVal,
+        predictedHealth = predHpVal
+    }, dropId)
+
+    -- Не ждём только общий refreshInventory: после расходования предмета
+    -- быстро обновляем привязанный слот отдельным серверным snapshot.
+    SetTimeout(300, RequestQuickSlotSnapshot)
+end
+
+local function OpenQuickNotebook(item)
+    SendNUIMessage({ type = "OPEN_QUICK_NOTEBOOK", item = item })
+    SetNuiFocus(true, true)
+    SetNuiFocusKeepInput(false)
+end
+
+local function UseQuickSlot(slot)
+    if isInventoryOpen or isNotebookOpen or IsNuiFocused() then return end
+    if not isCharacterSelected_inv then return end
+
+    local ped = PlayerPedId()
+    if IsPedDeadOrDying(ped, true) then return end
+
+    local assignment = quickSlotAssignments[slot]
+    local item = assignment and FindCachedQuickSlotItem(assignment.dbId)
+    if not item then
+        RequestQuickSlotSnapshot()
+        return
     end
+
+    if item.name == "notebook" or item.name == "torn_page" then
+        OpenQuickNotebook(item)
+    elseif item.canUse == true then
+        UseInventoryItem(item.name, item.dbId)
+    end
+end
+
+local QUICK_ALT_LEFT <const> = 0x580C4473
+local QUICK_ALT_RIGHT <const> = 0x8AAA0DE4
+local function IsQuickSlotAltPressed()
+    return IsControlPressed(0, QUICK_ALT_LEFT)
+        or IsControlPressed(0, QUICK_ALT_RIGHT)
+        or IsDisabledControlPressed(0, QUICK_ALT_LEFT)
+        or IsDisabledControlPressed(0, QUICK_ALT_RIGHT)
+end
+
+for slotIndex = 1, 4 do
+    local commandName = ("+hunt_quickslot_%d"):format(slotIndex)
+    RegisterCommand(commandName, function()
+        if IsQuickSlotAltPressed() then UseQuickSlot(slotIndex) end
+    end, false)
+    RegisterCommand(("-hunt_quickslot_%d"):format(slotIndex), function() end, false)
+    if RegisterKeyMapping then
+        pcall(RegisterKeyMapping, commandName, ("Быстрый слот %d"):format(slotIndex), "keyboard", tostring(slotIndex))
+    end
+end
+
+RegisterNUICallback('useItem', function(data, cb)
+    if data and data.name then UseInventoryItem(data.name, data.dbId, data.dropId) end
     cb('ok')
 end)
 

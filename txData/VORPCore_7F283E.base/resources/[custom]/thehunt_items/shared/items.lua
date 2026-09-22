@@ -3458,3 +3458,67 @@ end)
 exports('GetRarityData', function(rarity)
     return Items.GetRarity(rarity)
 end)
+
+Items.Register("magic_spark_scroll", {
+    label = "Таро — Терновый пленник",
+    description = "На карте изображён человек, окутанный терновым кустом. Заклинание опутывает цель живой природной силой терновника.",
+    category = "item",
+    width = 1,
+    height = 2,
+    maxStack = 3,
+    rarity = "purple",
+    weight = 0.05,
+    propModel = "s_inv_cigcard01x",
+    dropModel = "s_inv_cigcard01x",
+    icon = "magic_spark_scroll",
+    actions = { "use", "give", "drop" },
+    externalUse = true
+})
+
+Items.Register("magic_necro_scroll", {
+    label = "Таро — Некромант",
+    description = "На карте изображён злой мужик и скелеты. Поднимает труп, который служит пять минут.",
+    category = "item",
+    width = 1,
+    height = 2,
+    maxStack = 3,
+    rarity = "purple",
+    weight = 0.05,
+    propModel = "s_inv_cigcard01x",
+    dropModel = "s_inv_cigcard01x",
+    icon = "magic_necro_scroll",
+    actions = { "use", "give", "drop" },
+    externalUse = true
+})
+
+Items.Register("magic_voron_scroll", {
+    label = "Таро — Вороний глаз",
+    description = "На карте изображены глаз и ворона. Ненадолго смотришь глазами призванного ворона. Тело в это время беззащитно.",
+    category = "item",
+    width = 1,
+    height = 2,
+    maxStack = 3,
+    rarity = "purple",
+    weight = 0.05,
+    propModel = "s_inv_cigcard01x",
+    dropModel = "s_inv_cigcard01x",
+    icon = "voron",
+    actions = { "use", "give", "drop" },
+    externalUse = true
+})
+
+Items.Register("magic_obet_scroll", {
+    label = "Таро — Кровавый обет",
+    description = "Пожертвуй частью здоровья, чтобы вернуть союзника из нока. Оставайся рядом до завершения обета.",
+    category = "item",
+    width = 1,
+    height = 2,
+    maxStack = 3,
+    rarity = "purple",
+    weight = 0.05,
+    propModel = "s_inv_cigcard01x",
+    dropModel = "s_inv_cigcard01x",
+    icon = "obet",
+    actions = { "use", "give", "drop" },
+    externalUse = true
+})

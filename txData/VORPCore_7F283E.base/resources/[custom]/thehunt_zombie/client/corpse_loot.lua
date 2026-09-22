@@ -5,6 +5,7 @@
 
 ZC = ZC or {}
 ZC.corpseLoot = ZC.corpseLoot or {}
+ZC.necroServants = ZC.necroServants or {}
 
 -- Key: pedHandle -> { id = zombieId, diedAt = GetGameTimer(), emptiedAt = nil }
 local trackedCorpses = {}
@@ -46,6 +47,7 @@ end
 -- Проверка зомби на мертвое состояние (включая флаги ZC.peds и ZC.debugData)
 local function IsZombieCorpse(zombieId, ped)
     if not ped or not DoesEntityExist(ped) then return false end
+    if ZC.necroServants[ped] or Entity(ped).state.huntNecroServant then return false end
     -- Живой пед со здоровьем > 0 ни при каких условиях не является трупом
     if not IsPedDead(ped) and type(GetEntityHealth) == 'function' and GetEntityHealth(ped) > 0 then
         return false
@@ -164,6 +166,7 @@ end
 -- Гарантированное удаление педа трупа из игрового мира
 local function ForceDeleteCorpse(ped)
     if not ped or not DoesEntityExist(ped) then return end
+    if ZC.necroServants[ped] or Entity(ped).state.huntNecroServant then return end
     -- Защита: ни в коем случае не удаляем живого педа
     if not IsPedDead(ped) and type(GetEntityHealth) == 'function' and GetEntityHealth(ped) > 0 then
         return
@@ -354,7 +357,7 @@ CreateThread(function()
             if type(GetGamePool) == 'function' then
                 local peds = GetGamePool('CPed')
                 for _, ped in ipairs(peds) do
-                    if ped ~= myPed and DoesEntityExist(ped) and IsPedDead(ped) then
+                    if ped ~= myPed and DoesEntityExist(ped) and IsPedDead(ped) and not ZC.necroServants[ped] and not Entity(ped).state.huntNecroServant then
                         local d = #(myPos - GetEntityCoords(ped))
                         if d <= 16.0 then
                             local isZ, zId = IdentifyZombiePed(ped)
@@ -398,8 +401,8 @@ CreateThread(function()
             for ped, data in pairs(trackedCorpses) do
                 if not DoesEntityExist(ped) then
                     trackedCorpses[ped] = nil
-                elseif not IsPedDead(ped) and type(GetEntityHealth) == 'function' and GetEntityHealth(ped) > 0 then
-                    -- Живой зомби (выжил при хедшоте) — убираем из списка трупов без удаления педа
+                elseif ZC.necroServants[ped] or Entity(ped).state.huntNecroServant or (not IsPedDead(ped) and type(GetEntityHealth) == 'function' and GetEntityHealth(ped) > 0) then
+                    -- Поднят некромантом или ещё жив — не деспавнить
                     trackedCorpses[ped] = nil
                 else
                     local pedPos = GetEntityCoords(ped)
@@ -548,6 +551,16 @@ function GetZombieCorpseById(targetId)
         rows = (loot and loot.rows) or 3,
         items = (loot and loot.items) or {}
     }
+end
+
+function ZC.untrackCorpse(ped)
+    if ped then trackedCorpses[ped] = nil end
+end
+
+function ZC.markNecroServant(ped)
+    if not ped then return end
+    ZC.necroServants[ped] = true
+    trackedCorpses[ped] = nil
 end
 
 exports('GetZombieCorpseById', GetZombieCorpseById)

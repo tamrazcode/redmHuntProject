@@ -39,6 +39,12 @@ const ITEM_IMAGES = {
   twigs: 'images/twigs.png',
   wood_log: 'images/wood_log.png',
   wood_plank: 'images/wood_plank.png',
+  magic_spark_scroll: 'images/magic_spark_scroll.png',
+  magic_necro_scroll: 'images/magic_necro_scroll.png',
+  voron: 'images/voron.png',
+  magic_voron_scroll: 'images/voron.png',
+  obet: 'images/obet.png',
+  magic_obet_scroll: 'images/obet.png',
 
   // Новые предметы (126)
   alcohol: 'images/alcohol.png',
@@ -582,6 +588,7 @@ let config = {
 };
 
 let playerItems = [];
+let quickSlots = [null, null, null, null];
 let groundDrops = [];
 let currentCharacterGender = 'Male';
 let groundSlotOverrides = {};
@@ -671,6 +678,69 @@ function sendNui(event, data = {}) {
     headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     body: JSON.stringify(data)
   }).then(resp => resp.json()).catch(() => ({}));
+}
+
+function isQuickSlotEligibleItem(item) {
+  if (!item || item.isGround || item.isUnsearched) return false;
+  if (item.canUse === true) return true;
+  return Array.isArray(item.actions) && item.actions.some((action) => action === 'read' || action === 'write');
+}
+
+function getQuickSlotItem(slot) {
+  const index = Number(slot) - 1;
+  return index >= 0 && index < 4 ? quickSlots[index] : null;
+}
+
+function setQuickSlotLocal(slot, item) {
+  const index = Number(slot) - 1;
+  if (index < 0 || index >= 4) return;
+  quickSlots[index] = item ? { ...item, slot: Number(slot) } : null;
+}
+
+function applyQuickSlotSnapshot(slots) {
+  quickSlots = [null, null, null, null];
+  const entries = Array.isArray(slots) ? slots : Object.values(slots || {});
+  entries.forEach((item, index) => {
+    const slot = Number(item && item.slot) || (index + 1);
+    if (slot >= 1 && slot <= 4 && item && item.dbId) {
+      quickSlots[slot - 1] = { ...item, slot };
+    }
+  });
+  renderInventoryQuickSlots();
+}
+
+function removeItemFromQuickSlots(dbId, exceptSlot = null) {
+  quickSlots = quickSlots.map((item, index) => {
+    const slot = index + 1;
+    return item && String(item.dbId) === String(dbId) && slot !== Number(exceptSlot) ? null : item;
+  });
+}
+
+function renderInventoryQuickSlots() {
+  document.querySelectorAll('.quick-slot-target').forEach((slotElement) => {
+    const slot = Number(slotElement.dataset.slot);
+    const item = getQuickSlotItem(slot);
+    const content = slotElement.querySelector('.inventory-quick-content');
+    const hasItem = Boolean(item && item.dbId);
+    slotElement._quickSlotItem = item;
+    slotElement.classList.toggle('empty', !hasItem);
+    slotElement.classList.remove('quick-slot-valid', 'quick-slot-invalid');
+    if (content) {
+      content.innerHTML = hasItem ? `${getItemIconHtml(item)}${Number(item.count) > 1 ? `<span class="inventory-quick-count">x${Number(item.count)}</span>` : ''}` : '';
+    }
+
+    if (!slotElement._quickSlotBound) {
+      slotElement._quickSlotBound = true;
+      slotElement.addEventListener('mousedown', (event) => {
+        if (event.button !== 0 || isDirectTransferMode) return;
+        const currentItem = slotElement._quickSlotItem;
+        if (!currentItem || !isQuickSlotEligibleItem(currentItem)) return;
+        event.preventDefault();
+        event.stopPropagation();
+        startDragging(currentItem, event, slotElement, { fromQuickSlot: slot });
+      });
+    }
+  });
 }
 
 const NOTEBOOK_ALLOWED_TAGS = new Set([
@@ -1034,7 +1104,7 @@ function openNotebookEditor(item, isReadOnly = false) {
   if (transferBar) transferBar.style.display = 'none';
 
   if (notebookEditor) notebookEditor.style.display = 'flex';
-  sendNui('notebookOpened', { isReadOnly: isNotebookReadOnly, isPlaced: isStandaloneNotebook });
+  sendNui('notebookOpened', { isReadOnly: isNotebookReadOnly, isPlaced: isStandaloneNotebook && isNotebookReadOnly });
 
   if (!isNotebookReadOnly && notebookContent) {
     notebookContent.focus();
@@ -2802,6 +2872,7 @@ function renderAllItems() {
   renderPlayerItems();
   renderGroundItems();
   renderZombieItems();
+  renderInventoryQuickSlots();
   updateWeightBar();
 }
 
@@ -3056,7 +3127,7 @@ function hideHoverTooltip() {
 // DRAG & DROP, СТАКИ И ВРАЩЕНИЕ НА [R]
 // =================================================================
 
-function startDragging(item, e, sourceEl) {
+function startDragging(item, e, sourceEl, dragOptions = {}) {
   closeContextMenu();
   hideHoverTooltip();
   e.preventDefault();
@@ -3078,6 +3149,7 @@ function startDragging(item, e, sourceEl) {
     fromContainer: item.container || 'main',
     fromX: item.x,
     fromY: item.y,
+    fromQuickSlot: Number(dragOptions.fromQuickSlot) || null,
     mutationSequenceAtStart: localMutationSequence,
     startX: e.clientX,
     startY: e.clientY,
@@ -3235,6 +3307,9 @@ function clearHighlights() {
     }
     currentHighlightedCells = [];
   }
+  document.querySelectorAll('.quick-slot-target').forEach((slot) => {
+    slot.classList.remove('quick-slot-valid', 'quick-slot-invalid');
+  });
 }
 
 function getItemAt(containerId, x, y, ignoreId) {
@@ -3296,6 +3371,16 @@ function updateHover(x, y) {
 
   // Быстрый поиск сетки под курсором
   const elUnderCursor = document.elementFromPoint(x, y);
+  const quickSlotTarget = elUnderCursor ? elUnderCursor.closest('.quick-slot-target') : null;
+  if (quickSlotTarget) {
+    const targetSlot = Number(quickSlotTarget.dataset.slot);
+    const isValidQuickTarget = isQuickSlotEligibleItem(dragged.item);
+    quickSlotTarget.classList.add(isValidQuickTarget ? 'quick-slot-valid' : 'quick-slot-invalid');
+    dragged.targetPlacement = isValidQuickTarget
+      ? { quickSlot: targetSlot, isValid: true }
+      : null;
+    return;
+  }
   let actualContainerEl = elUnderCursor ? (elUnderCursor.matches('.grid-container, .equipment-grid') ? elUnderCursor : elUnderCursor.closest('.grid-container, .equipment-grid')) : null;
 
   if (!actualContainerEl && elUnderCursor) {
@@ -3519,11 +3604,41 @@ function onMouseUp(e) {
       lastContainerClick = { id: null, time: 0 };
     }
     shouldRenderAfterDrag = !!hasDragAction;
+
+    // A quick-slot picture is only a binding. Once the player has moved it,
+    // releasing it anywhere in the open inventory (including outside a grid)
+    // removes that binding. Dropping onto another quick slot is the one
+    // intentional exception: it rebinds the same item to the new slot.
+    if (hasDragAction && dragged.fromQuickSlot) {
+      const sourceSlot = dragged.fromQuickSlot;
+      const target = dragged.targetPlacement;
+      if (target && target.isValid && target.quickSlot && isQuickSlotEligibleItem(dragged.item)) {
+        removeItemFromQuickSlots(dragged.item.dbId, target.quickSlot);
+        setQuickSlotLocal(target.quickSlot, dragged.item);
+        sendNui('setQuickSlot', { slot: target.quickSlot, dbId: dragged.item.dbId });
+      } else {
+        setQuickSlotLocal(sourceSlot, null);
+        sendNui('setQuickSlot', { slot: sourceSlot, dbId: null });
+      }
+      renderInventoryQuickSlots();
+      return;
+    }
+
     if (hasDragAction && dragged.targetPlacement && dragged.targetPlacement.isValid) {
       playItemSound(getItemAudioCategory(dragged.item), 'place');
 
       const target = dragged.targetPlacement;
       const item = dragged.item;
+
+      if (target.quickSlot) {
+        if (isQuickSlotEligibleItem(item)) {
+          removeItemFromQuickSlots(item.dbId, target.quickSlot);
+          setQuickSlotLocal(target.quickSlot, item);
+          sendNui('setQuickSlot', { slot: target.quickSlot, dbId: item.dbId });
+          renderInventoryQuickSlots();
+        }
+        return;
+      }
 
       if (target.isMerge && target.targetItem) {
         // Перетаскивание из инвентаря зомби напрямую в существующий стак
@@ -4535,6 +4650,21 @@ function confirmBatchTransfer() {
 
 window.addEventListener('message', (event) => {
   const data = event.data;
+
+  if (data.type === 'SET_QUICK_SLOTS') {
+    applyQuickSlotSnapshot(data.slots);
+  }
+
+  if (data.type === 'OPEN_QUICK_NOTEBOOK') {
+    isStandaloneNotebook = true;
+    const invLayout = document.querySelector('.inventory-layout');
+    if (invLayout) invLayout.style.display = 'none';
+    const transferActionBar = document.getElementById('transferActionBar');
+    if (transferActionBar) transferActionBar.style.display = 'none';
+    app.style.display = 'flex';
+    app.classList.remove('transfer-view');
+    openNotebookEditor(data.item, false);
+  }
 
   if (data.type === 'OPEN_INVENTORY') {
     const openRequestId = Number(data.requestId) || 0;

@@ -5,6 +5,7 @@
 local isMenuOpen = false
 local isCharacterSelected = false
 local currentHudMode = "always_on" -- "always_on" | "dynamic" | "always_off"
+local currentQuickSlotsMode = "always_on" -- "always_on" | "dynamic" | "always_off"
 local currentHintsMode = "always_on" -- "always_on" | "always_off"
 local currentWalkStyle = "MP_Style_Casual"
 local positionSession = nil
@@ -311,6 +312,9 @@ local function LoadDisplayModes()
     local savedHudMode = GetResourceKvpString("thehunt_status_hud_mode")
     currentHudMode = IsDisplayMode(savedHudMode) and savedHudMode or "always_on"
 
+    local savedQuickSlotsMode = GetResourceKvpString("thehunt_status_quickslots_mode")
+    currentQuickSlotsMode = IsDisplayMode(savedQuickSlotsMode) and savedQuickSlotsMode or "always_on"
+
     local savedHintsMode = GetResourceKvpString("thehunt_status_hints_mode")
     currentHintsMode = IsHintsDisplayMode(savedHintsMode) and savedHintsMode or "always_on"
     if savedHintsMode == "dynamic" then
@@ -318,6 +322,7 @@ local function LoadDisplayModes()
     end
 
     TriggerEvent("thehunt_status:setHudMode", currentHudMode)
+    TriggerEvent("thehunt_status:setQuickSlotsMode", currentQuickSlotsMode)
     TriggerEvent("thehunt_status:setHintsMode", currentHintsMode)
 end
 
@@ -358,6 +363,7 @@ local function TogglePlayerMenu()
         SendNUIMessage({
             type = 'OPEN_PLAYER_MENU',
             hudMode = currentHudMode,
+            quickSlotsMode = currentQuickSlotsMode,
             hintsMode = currentHintsMode,
             walkStyle = currentWalkStyle,
             positionEnabled = IsCharacterPositionAvailable()
@@ -441,6 +447,16 @@ RegisterNUICallback('setHudMode', function(data, cb)
 end)
 
 -- Смена режима HUD подсказок
+RegisterNUICallback('setQuickSlotsMode', function(data, cb)
+    local mode = data.mode
+    if IsDisplayMode(mode) then
+        currentQuickSlotsMode = mode
+        SetResourceKvp("thehunt_status_quickslots_mode", mode)
+        TriggerEvent("thehunt_status:setQuickSlotsMode", mode)
+    end
+    cb('ok')
+end)
+
 RegisterNUICallback('setHintsMode', function(data, cb)
     local mode = data.mode
     if IsHintsDisplayMode(mode) then

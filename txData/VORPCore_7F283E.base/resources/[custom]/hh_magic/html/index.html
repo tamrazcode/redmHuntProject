@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="stage" class="hidden">
+        <div id="card-stage">
+            <canvas id="back"></canvas>
+            <canvas id="gl"></canvas>
+            <canvas id="fx"></canvas>
+        </div>
+    </div>
+
+    <div id="giver" class="hidden">
+        <div class="giver-panel">
+            <header class="giver-head">
+                <h1 id="giver-title">Magic Cards</h1>
+                <button type="button" id="giver-close" aria-label="Close">✕</button>
+            </header>
+            <p class="giver-hint">Click a card to receive it. Esc to close.</p>
+            <div id="giver-grid"></div>
+        </div>
+    </div>
+
+    <div id="raven-hud" class="hidden">
+        <div id="raven-vignette"></div>
+        <div id="raven-readout">
+            <div id="raven-label">Вороний глаз</div>
+            <div id="raven-time"></div>
+            <div id="raven-hint">F — вернуться</div>
+        </div>
+    </div>
+
+    <div id="oath-timer" class="hidden">
+        <div id="oath-label">Кровавый обет</div>
+        <div id="oath-time"></div>
+        <div id="oath-hint">F — прервать</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

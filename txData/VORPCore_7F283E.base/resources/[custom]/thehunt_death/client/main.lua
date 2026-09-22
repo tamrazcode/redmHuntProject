@@ -285,6 +285,36 @@ RegisterNetEvent('thehunt_death:client:aidReady', function()
     updateScreen()
 end)
 
+RegisterNetEvent('thehunt_death:client:wakeOath', function(amount)
+    if not unconscious then
+        return
+    end
+    amount = math.floor(tonumber(amount) or 0)
+    if amount < 1 then
+        return
+    end
+    local ped = PlayerPedId()
+    ResurrectPed(ped)
+    local maxHp = GetEntityMaxHealth(ped)
+    if not maxHp or maxHp <= 0 then
+        maxHp = 600
+    end
+    SetEntityHealth(ped, math.min(maxHp, amount), 0)
+    ClearPedTasksImmediately(ped)
+    ClearPedSecondaryTask(ped)
+    unconscious = false
+    aidedByMedicine = false
+    wakeAt = 0
+    wakeRequestAfter = 0
+    setVoiceDisabled(false)
+    setUnconsciousVisuals(false)
+    stopUnconsciousCamera()
+    setScreenVisible(false)
+    retryAfter = GetGameTimer() + 3000
+    TriggerServerEvent("vorp:ImDead", false)
+    TriggerServerEvent('thehunt_death:server:externalRevive')
+end)
+
 RegisterNetEvent('thehunt_death:client:wake', function(wasAided)
     if not unconscious then
         return

@@ -2,13 +2,14 @@
 -- Клиентское админ-меню
 -- Все UI показываются ТОЛЬКО после выбора персонажа
 -- Камера не крутится при открытых UI (включая на лошади, повозке, лодке)
--- NoClip: DEL-выход, Shift - след. скорость, Alt - пред. скорость
+-- NoClip: F1/DEL-выход, Shift - след. скорость, Alt - пред. скорость
 -- =================================================================
 
 local isMenuOpen = false
 TheHunt_IsAdminMenuOpen = false
 local isMMBPressed = false
 local noclipActive = false
+local noclipStopRequested = false
 local noclipCam = nil
 local noclipCamCoords = vector3(0.0, 0.0, 0.0)
 local noclipCamRotX = 0.0
@@ -227,6 +228,65 @@ local function ToggleAdminMenu()
     TriggerServerEvent("thehunt_admin:checkPermissionAndOpen")
 end
 
+-- Forward declarations для функций NoClip (видимость во всём файле)
+local StartNoClip = nil
+local StopNoClip = nil
+
+-- Функция переключения NoClip с серверной проверкой прав
+local lastNoClipToggleTime = 0
+local noclipTogglePending = false
+local noclipTogglePendingUntil = 0
+local function RequestToggleNoClip()
+    -- Выключение должно срабатывать сразу, как Backspace, даже если F1
+    -- нажали вскоре после включения режима.
+    if noclipActive then
+        noclipTogglePending = false
+        noclipTogglePendingUntil = 0
+        -- Backspace останавливает режим внутри его же цикла. F1 тоже
+        -- передаём туда, чтобы цикл не успел повторно заморозить педа.
+        noclipStopRequested = true
+        return
+    end
+
+    local now = GetGameTimer()
+    -- Не оставляем старый запрос на включение активным после повторного F1.
+    -- Иначе запоздалый ответ сервера мог включить NoClip уже после выхода.
+    if noclipTogglePending then
+        if now <= noclipTogglePendingUntil then
+            noclipTogglePending = false
+            noclipTogglePendingUntil = 0
+            return
+        end
+        noclipTogglePending = false
+        noclipTogglePendingUntil = 0
+    end
+
+    if now - lastNoClipToggleTime < 350 then return end
+    lastNoClipToggleTime = now
+
+    local ped = PlayerPedId()
+    if not DoesEntityExist(ped) or ped == 0 then return end
+
+    noclipTogglePending = true
+    noclipTogglePendingUntil = now + 1500
+    TriggerServerEvent("thehunt_admin:checkPermissionAndToggleNoClip")
+end
+
+RegisterNetEvent("thehunt_admin:confirmToggleNoClip", function()
+    local now = GetGameTimer()
+    if not noclipTogglePending or now > noclipTogglePendingUntil then
+        noclipTogglePending = false
+        noclipTogglePendingUntil = 0
+        return
+    end
+
+    noclipTogglePending = false
+    noclipTogglePendingUntil = 0
+    if not noclipActive then
+        StartNoClip()
+    end
+end)
+
 -- Регистрация команд
 RegisterCommand("adminmenu", ToggleAdminMenu, false)
 RegisterCommand("am", ToggleAdminMenu, false)
@@ -234,11 +294,15 @@ RegisterCommand("admin", ToggleAdminMenu, false)
 RegisterCommand("adm", ToggleAdminMenu, false)
 RegisterCommand("a", ToggleAdminMenu, false)
 RegisterCommand("panel", ToggleAdminMenu, false)
-RegisterCommand("noclip", function() ToggleNoClip() end, false)
-RegisterCommand("nc", function() ToggleNoClip() end, false)
+RegisterCommand("noclip", function() RequestToggleNoClip() end, false)
+RegisterCommand("nc", function() RequestToggleNoClip() end, false)
+RegisterCommand("hunt_toggle_noclip", function() RequestToggleNoClip() end, false)
 
--- Привязка клавиши F4 напрямую через RegisterKeyMapping для работы со всеми моделями педов (включая животных)
+-- Привязка клавиши F4 для админ-панели
 RegisterKeyMapping("adminmenu", "Админ-панель HUNT", "keyboard", "F4")
+
+-- Привязка клавиши F1 для NoClip админ-панели
+RegisterKeyMapping("hunt_toggle_noclip", "Включить/Выключить NoClip (HUNT Admin)", "keyboard", "F1")
 
 RegisterNetEvent("thehunt_core:openAdminMenu", function()
     ToggleAdminMenu()
@@ -502,8 +566,9 @@ end
 -- =================================================================
 -- БЕЗОПАСНЫЙ СВОБОДНЫЙ ПОЛЁТ (NOCLIP) НА СКРИПТОВОЙ КАМЕРЕ
 -- =================================================================
-local function StartNoClip()
+StartNoClip = function()
     if noclipActive then return end
+    noclipStopRequested = false
     local ped = PlayerPedId()
     if not DoesEntityExist(ped) then return end
 
@@ -562,9 +627,10 @@ local function StartNoClip()
     print("^2[HUNT ADMIN] Режим NoClip успешно активирован!^7")
 end
 
-local function StopNoClip()
+StopNoClip = function()
     if not noclipActive then return end
     noclipActive = false
+    noclipStopRequested = false
 
     local finalCoords = noclipCamCoords
     local finalHeading = noclipCamRotZ
@@ -590,7 +656,8 @@ local function StopNoClip()
     FreezeEntityPosition(entity, false)
     SetEntityCollision(entity, true, true)
     SetEntityInvincible(entity, godmodeActive)
-    SetEntityVisible(entity, not invisActive)
+    SetEntityVisible(entity, not invisActive, false)
+    SetEntityAlpha(entity, invisActive and 0 or 255, false)
     SetEntityHasGravity(entity, true)
     SetPedCanRagdoll(ped, true)
     ClearRagdollBlockingFlags(ped, 511)
@@ -600,7 +667,8 @@ local function StopNoClip()
     if entity ~= ped then
         FreezeEntityPosition(ped, false)
         SetEntityCollision(ped, true, true)
-        SetEntityVisible(ped, not invisActive)
+        SetEntityVisible(ped, not invisActive, false)
+        SetEntityAlpha(ped, invisActive and 0 or 255, false)
     end
 
     SetEntityHeading(entity, finalHeading)
@@ -1543,8 +1611,12 @@ end)
 -- =================================================================
 Citizen.CreateThread(function()
     while true do
-        if noclipActive and noclipCam and DoesCamExist(noclipCam) then
+        if noclipStopRequested then
+            noclipStopRequested = false
+            StopNoClip()
+        elseif noclipActive and noclipCam and DoesCamExist(noclipCam) then
             Citizen.Wait(0)
+
             local ped = PlayerPedId()
 
             -- Блокируем игровые действия, мешающие свободному полёту (стрельба, удары, оружие, посадка на коня)
@@ -1565,7 +1637,8 @@ Citizen.CreateThread(function()
             DisableControlAction(0, 0x156F7119, true) -- BACKSPACE / FRONTEND_CANCEL
             DisableControlAction(0, 0x4AF4D473, true) -- DEL
 
-            -- 1. Выход из NoClip на Backspace (0x156F7119 / 0x308588E6 / 0x8AAA0DF4 / 0x046D33D6) или DEL (0x4AF4D473)
+            -- 1. Выход из NoClip через Backspace (0x156F7119 / 0x308588E6 / 0x8AAA0DF4 / 0x046D33D6) или DEL (0x4AF4D473).
+            -- F1 обрабатывается только RegisterKeyMapping("hunt_toggle_noclip"), чтобы одно нажатие не переключало режим дважды.
             if IsControlJustPressed(0, 0x156F7119) or IsDisabledControlJustPressed(0, 0x156F7119)
                 or IsControlJustPressed(0, 0x308588E6) or IsDisabledControlJustPressed(0, 0x308588E6)
                 or IsControlJustPressed(0, 0x8AAA0DF4) or IsDisabledControlJustPressed(0, 0x8AAA0DF4)
@@ -1647,17 +1720,21 @@ Citizen.CreateThread(function()
             end
 
             -- 7. Синхронизация сущности игрока/транспорта с камерой
-            local entity = noclipEntity or ped
-            SetEntityCoords(entity, noclipCamCoords.x, noclipCamCoords.y, noclipCamCoords.z, false, false, false, false)
-            SetEntityHeading(entity, noclipCamRotZ)
-            FreezeEntityPosition(entity, true)
-            SetEntityCollision(entity, false, false)
-            SetEntityVisible(entity, false)
+            -- Если F1 остановил режим во время этого кадра, не возвращаем
+            -- старые freeze/collision/visibility обратно.
+            if noclipActive and noclipCam and DoesCamExist(noclipCam) then
+                local entity = noclipEntity or ped
+                SetEntityCoords(entity, noclipCamCoords.x, noclipCamCoords.y, noclipCamCoords.z, false, false, false, false)
+                SetEntityHeading(entity, noclipCamRotZ)
+                FreezeEntityPosition(entity, true)
+                SetEntityCollision(entity, false, false)
+                SetEntityVisible(entity, false)
 
-            if entity ~= ped then
-                SetEntityCoords(ped, noclipCamCoords.x, noclipCamCoords.y, noclipCamCoords.z, false, false, false, false)
-                SetEntityHeading(ped, noclipCamRotZ)
-                SetEntityVisible(ped, false)
+                if entity ~= ped then
+                    SetEntityCoords(ped, noclipCamCoords.x, noclipCamCoords.y, noclipCamCoords.z, false, false, false, false)
+                    SetEntityHeading(ped, noclipCamRotZ)
+                    SetEntityVisible(ped, false)
+                end
             end
 
             -- Загрузка чанков мира и интерьеров вокруг текущей точки полёта

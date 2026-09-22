@@ -36,8 +36,8 @@ Zombie.defaults = {
     lootEnabled=true, lootChanceMode='fixed', lootChance=40, lootChanceMin=20, lootChanceMax=60, lootMaxItems=2, lootItems={}
 }
 local limits = {
-    x={-20000,20000},y={-20000,20000},z={-1000,3000},heading={-180,180},radius={1,500},height={1,100},activation={30,400},
-    spawnRadius={0,200},count={0,500},minCount={0,500},maxCount={1,500},
+    x={-20000,20000},y={-20000,20000},z={-1000,3000},heading={-180,180},radius={0,100000},height={1,100},activation={0,100000},
+    spawnRadius={0,100000},count={0,500},minCount={0,500},maxCount={1,500},
     respawn={5,86400},replenish={1,3600},bucket={0,65535},
     migrationChance={0,1},migrationSize={1,20},migrationInterval={30,86400},
     aggression={0,5},sight={1,150},hearing={0.1,3},hearingDistance={1,500},health={100,3000},damage={0,100},
@@ -62,7 +62,7 @@ function Zombie.validate(input)
     z.name=input.name:gsub('[%c]',' ')
     assert(ZombieConfig.Profiles[input.profile], 'Неизвестный профиль'); z.profile=input.profile
     assert(z.minCount<=z.maxCount and z.count<=z.maxCount and z.maxCount<=ZombieConfig.MaxAlive,'Неверное количество')
-    assert(z.spawnRadius<=z.radius and z.spawnRadius+20<=z.activation,'Радиус появления должен помещаться в зоне и активации')
+
     local allowedWeapons = { none=true, both=true, knife=true, machete=true }
     local wType = tostring(input.weaponType or 'none'):lower()
     z.weaponType = allowedWeapons[wType] and wType or 'both'

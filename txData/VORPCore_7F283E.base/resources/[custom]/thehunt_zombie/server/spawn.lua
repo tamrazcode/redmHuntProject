@@ -55,7 +55,7 @@ function ZS.remove(id,reason)
     local r=ZS.peds[id]; if not r then return false end
     -- Remove from authority before notifying clients: stale attack/death reports cannot act.
     ZS.peds[id]=nil
-    if ZS.exists(r) then DeleteEntity(r.entity) end
+    if reason ~= 'claimed' and ZS.exists(r) then DeleteEntity(r.entity) end
     ZS.retired[id]={untilTime=GetGameTimer()+60000,owner=r.creator}
     if ZS.removeCorpseLoot then
         ZS.removeCorpseLoot(id)
@@ -63,11 +63,35 @@ function ZS.remove(id,reason)
         ZS.corpseLoot[id] = nil
         TriggerClientEvent('thehunt_zombie:corpseLootRemoved', -1, id)
     end
-    TriggerClientEvent('thehunt_zombie:remove',-1,id,r.net)
+    if reason ~= 'claimed' then
+        TriggerClientEvent('thehunt_zombie:remove',-1,id,r.net)
+    else
+        TriggerClientEvent('thehunt_zombie:claimed',-1,id,r.net)
+    end
     TriggerClientEvent('thehunt_zombie:stopAmbient',-1,id)
     TriggerEvent('thehunt_zombie:removed',id,reason)
     return true
 end
+
+function ZS.claim(id)
+    local r=ZS.peds[id]
+    if not r then return false end
+    if ZS.exists(r) then
+        ZS.servants = ZS.servants or {}
+        ZS.servants[r.entity] = GetGameTimer() + 600000
+        pcall(function()
+            Entity(r.entity).state:set('huntNecroServant', true, true)
+            Entity(r.entity).state:set('huntZombie', false, true)
+            Entity(r.entity).state:set('isProtected', true, true)
+        end)
+    end
+    return ZS.remove(id, 'claimed')
+end
+
+RegisterNetEvent('thehunt_zombie:claim', function(id)
+    if type(id) ~= 'string' and type(id) ~= 'number' then return end
+    ZS.claim(id)
+end)
 function ZS.cancel(id)
     local t=ZS.tickets[id]; if not t then return end
     ZS.tickets[id]=nil; ZS.retired[id]={untilTime=GetGameTimer()+60000,owner=t.owner}
@@ -183,7 +207,7 @@ RegisterNetEvent('thehunt_zombie:spawnResult',function(id,net,errorCode)
             and ownerMatch and modelMatch
             and (not hasCoords or dist2D<60.0) and GetPlayerRoutingBucket(src)==t.bucket
             and z and z.enabled and not ZS.paused and t.expires>=GetGameTimer()
-            and ZS.nearest(t.pos,t.bucket,ZS.players(),z.activation+40)
+            and ZS.nearest(t.pos,t.bucket,ZS.players(),math.max(z.activation, z.spawnRadius or 0)+60)
         if not valid then
             print(('[thehunt_zombie] Validation rejected ticket %s (entity %s, modelMatch=%s, dist2D=%.1f)'):format(id, e, tostring(modelMatch), dist2D))
             ZS.cancel(id); return

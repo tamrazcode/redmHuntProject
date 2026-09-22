@@ -282,10 +282,14 @@ CreateThread(function()
             local playerPeds={}; for _,src in ipairs(GetPlayers()) do playerPeds[GetPlayerPed(tonumber(src))]=true end
             for _,ped in ipairs(GetAllPeds()) do
                 if DoesEntityExist(ped) and not playerPeds[ped] then
+                    if Entity(ped).state.huntNecroServant or (ZS.servants and ZS.servants[ped]) then
+                        -- Поднят некромантом: больше не числится в популяции, педа не трогаем.
+                    else
                     local tag=Entity(ped).state.huntZombie
                     if type(tag)=='table' and type(tag.id)=='string' then
                         local r,t=ZS.peds[tag.id],ZS.tickets[tag.id]
                         if (not r or r.entity~=ped) and not t then DeleteEntity(ped) end
+                    end
                     end
                 end
             end

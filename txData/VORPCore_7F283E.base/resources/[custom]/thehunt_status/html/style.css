@@ -60,6 +60,106 @@ body {
   pointer-events: none;
 }
 
+/* Быстрые слоты живут отдельным слоем: режим статус-показателей не должен
+   скрывать их автоматически. Позиции рассчитаны относительно центрального
+   ряда из скриншота; сами слоты не используют CEF blur/filter. */
+.quick-slots-hud {
+  position: absolute;
+  inset: 0;
+  bottom: 24px;
+  pointer-events: none;
+  z-index: 1002;
+  transform: scale(1.15);
+  transform-origin: center bottom;
+  transition: opacity 0.3s ease;
+}
+
+.quick-slots-hud.quick-slots-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.quick-slot {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(12, 14, 18, 0.94);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 3px rgba(12, 14, 18, 0.76), 0 4px 14px rgba(0, 0, 0, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.quick-slot-large {
+  width: 52px;
+  height: 52px;
+}
+
+.quick-slot-small {
+  width: 40px;
+  height: 40px;
+}
+
+.quick-slot-left-near { left: calc(50% - 274px); }
+.quick-slot-right-near { left: calc(50% + 222px); }
+.quick-slot-left-far { left: calc(50% - 334px); }
+.quick-slot-right-far { left: calc(50% + 294px); }
+
+.quick-slot-empty {
+  opacity: 0.22;
+}
+
+.quick-slot-key {
+  position: absolute;
+  top: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: rgba(31, 31, 38, 0.96);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  z-index: 2;
+}
+
+.quick-slot-content,
+.quick-slot-content img {
+  width: 72%;
+  height: 72%;
+}
+
+.quick-slot-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.quick-slot-content img {
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.quick-slot-count {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  min-width: 15px;
+  padding: 1px 4px;
+  border-radius: 8px;
+  background: rgba(12, 14, 18, 0.96);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 13px;
+  text-align: center;
+}
+
 .status-row {
   display: flex;
   flex-direction: row;
@@ -167,7 +267,7 @@ body {
   background: rgba(31, 31, 38, 0.56);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 2px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: none;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.35px;
@@ -219,9 +319,14 @@ body {
 }
 
 .hint-key-mouse {
-  width: 34px;
-  min-width: 34px !important;
+  width: 24px;
+  min-width: 24px !important;
+  height: 30px;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .hint-mouse-icon {
@@ -231,7 +336,7 @@ body {
 }
 
 .hint-mouse-wheel {
-  fill: #ff9f43;
+  fill: #ffffff;
 }
 
 /* КРУГЛЫЙ ЭЛЕМЕНТ СТАТУСА (44x44px) */
