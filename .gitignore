@@ -3,7 +3,9 @@
 /.tmp/
 /scratch/
 /backups/
-/.agents/references/femga_rdr3_discoveries/
+/.agents/
+/AGENTS.md
+/ai_notes.md
 /txData/VORPCore_7F283E.base/resources/[[]custom[]]/hex-walking/
 
 # FiveM/RedM runtime artifacts and generated cache
@@ -13,6 +15,7 @@
 /txData/VORPCore_7F283E.base/.replxx_history
 /txData/default/
 /txData/admins.json
+/txData/VORPCore_7F283E.base/docs/
 
 # Local server credentials and machine-specific configuration
 /txData/VORPCore_7F283E.base/server.cfg
